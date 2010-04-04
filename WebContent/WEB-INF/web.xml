@@ -3,6 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
+    
+    
+    
   <listener>
     <listener-class>servletcontext.DBCPoolingContext</listener-class>
   </listener>
@@ -78,8 +81,20 @@
    	<servlet-name>MoreOldTopicsServlet</servlet-name>
    	<servlet-class>servlets.MoreOldTopicsServlet</servlet-class>
    </servlet>
+   <servlet>
+   	<description>
+   	</description>
+   	<display-name>tmp</display-name>
+   	<servlet-name>tmp</servlet-name>
+   	<servlet-class>
+   	tmp</servlet-class>
+   </servlet>
    <servlet-mapping>
    	<servlet-name>MoreOldTopicsServlet</servlet-name>
    	<url-pattern>/MoreOldTopicsServlet</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>tmp</servlet-name>
+   	<url-pattern>/tmp</url-pattern>
    </servlet-mapping>
 </web-app>
