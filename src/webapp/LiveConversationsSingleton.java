@@ -5,6 +5,7 @@ import java.util.Map;
 
 import beans.LiveConversationBean;
 
+
 public class LiveConversationsSingleton {
 	private static LiveConversationsSingleton liveConversations = new LiveConversationsSingleton();
 	private Map<Integer, LiveConversationBean> mLiveConversations = new HashMap<Integer, LiveConversationBean>();

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--Instruction-->
+<!--Configure the following parameters in the Resource according to your host-->
+<Context path="/tah-java" docBase="tah-java" crossContext="true" reloadable="true" debug="1">
+
+  <Resource name="jdbc/Talkmidb" auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost/Talkmidb"
+            username="root"
+            password="applepie" 
+            maxActive="10"
+            maxIdle="5"
+            maxWait="-1"
+            removeAbandoned="false"
+            removeAbandonedTimeout="60"
+            logAbandoned="true" />
+</Context>

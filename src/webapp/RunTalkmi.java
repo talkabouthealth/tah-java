@@ -10,9 +10,9 @@ public class RunTalkmi implements Runnable {
 		System.out.println("***Preparing Talkmi!!");
 		System.out.println("Initiating Live Conversation Data Structure!");
 		LiveConversationsSingleton lcs = LiveConversationsSingleton.getReference();
-    	
+		
 		System.out.println("***Talkmi Ready!!");
-
+		
 		boolean run = true;
     	while(run == true)
         {

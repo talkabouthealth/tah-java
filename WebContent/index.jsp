@@ -85,6 +85,7 @@ if (sUserName != null) {
 					String lf = request.getParameter("login");
 					if (lf != null && lf.equals("f")) {
 						out.println("<font id=\"error\">Login failed.</font>");
+						out.println("test");
 					} 
 					%>
 			

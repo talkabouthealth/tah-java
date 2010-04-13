@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import beans.TalkerBean;
+
 import util.ValidateData;
 import webapp.InsertLoginRecordThread;
 
-import beans.TalkerBean;
 
 /**
  * Servlet implementation class for Servlet: Login
@@ -51,26 +53,43 @@ import beans.TalkerBean;
 	}
 	public boolean validateLogin(TalkerBean cb){
 		// create sql statement
-		String sqlValidate = "select * from talkers where uname= ? and password= ?";
-		
-		boolean validated = false;
+		String sqlValidate = "select * from talkers where uname= ?";
+		//String sqlValidate = "select * from talkers";
+		boolean validated = false; 
 		
 		Connection conn = null;
 		ResultSet rs = null; 
 		PreparedStatement ps = null;
 	    try {
 	    	conn = ds.getConnection();
+	    	if (conn == null)
+	    		System.out.println("Didn't get the connection!");
+	    	if(!conn.isClosed())
+	    		System.out.println("Get the connection!");
+//	    	Statement stmt = conn.createStatement();
+//	    	ResultSet rst = stmt.executeQuery("select * from talkers");
+//	    	System.out.println("Another query is ok" + rst.next());
+//	    	rst.close();
+//	    	rst = null;
+//	    	Statement state = conn.createStatement();
+//            ResultSet qry = state.executeQuery("select * from talkers WHERE uname = 'm'");
+//            System.out.println("Another query is : " + qry.getObject("uname").toString());
+	    	
+	    	ps = (PreparedStatement)conn.prepareStatement(sqlValidate);
 		    
-		    ps = conn.prepareStatement(sqlValidate);
+		    System.out.println("Username stored in Javabean:" + cb.getUserName());
+		    System.out.println("Password stored in Javabean:" + cb.getPassword());
 		    ps.setString(1, cb.getUserName());
-		    ps.setString(2, cb.getPassword());
+		   // ps.setString(2, cb.getPassword());
 		    rs = ps.executeQuery();
+		    //System.out.println("Now the status of query for DB is:" + rs.first());
 		    
 		    // if row in result set, then user is validated
 		    if (rs.next()) { 
 		    	cb.parseSet(rs);
-		    	validated = true;
+		    	validated = true;  	
 		    }
+		    
 		        
 		    rs.close();
 		    rs = null;
@@ -111,6 +130,7 @@ import beans.TalkerBean;
 		String pw = request.getParameter("password");
 		
 		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw)){
+			System.out.println("validateData wrong");
 			System.out.println("Login Failed!");
 			response.sendRedirect("index.jsp?login=f");
 			return;
@@ -125,7 +145,7 @@ import beans.TalkerBean;
 			// insert login record into db
 			Thread tInsertLoginRecord = new Thread(new InsertLoginRecordThread(cb.getUID()), "InsertLoginRecordThread");
 			tInsertLoginRecord.start(); 
-		
+			
 			// add TalkerBean to session
 			request.getSession().setAttribute("talker", cb);
 			request.getSession().setAttribute("username", cb.getUserName());
@@ -133,6 +153,7 @@ import beans.TalkerBean;
 			response.sendRedirect("TalkerHome.jsp");
 		} else {
 			System.out.println("Login Failed!");
+			System.out.println("The username got is:" + un + " and pw is: " + pw);
 			response.sendRedirect("index.jsp?login=f");
 		}
 	}   	  	    

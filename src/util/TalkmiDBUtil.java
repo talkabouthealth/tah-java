@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import beans.TopicBean;
 
+
 public class TalkmiDBUtil {
 
 	public static Map<Integer, TopicBean> queryTopics(){
@@ -27,7 +28,7 @@ public class TalkmiDBUtil {
 		try {
 		    Context initContext = new InitialContext();
 		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/TalkmiDB");
+		    DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
 		    conn = ds.getConnection();
 		    
 		    String sqlStatement = "SELECT topic_id, topic, display_time FROM topics ORDER BY display_time DESC LIMIT 40";

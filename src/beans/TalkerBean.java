@@ -56,7 +56,7 @@ public class TalkerBean {
 		return String.valueOf(cal.get(Calendar.MONTH));
 	}
 	public String getDOBDay() throws SQLException{
-		Calendar cal=Calendar.getInstance();
+		Calendar cal=Calendar.getInstance();	
         cal.setTime(dob);
 		return String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
 	}

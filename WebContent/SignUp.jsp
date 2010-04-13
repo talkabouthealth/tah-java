@@ -228,8 +228,11 @@
 		    <h2>Create your account</h2>
 			<form id="form" name="signup" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/SignUp" method="post">
 			<h5>
+			<%@page import = "java.sql.*" %>
+			<%@page import = "java.security.MessageDigest" %>
 			<%
 			String unerror = request.getParameter("username");
+			String password = request.getParameter("password");
 			String email = request.getParameter("email");
 			String month = request.getParameter("month");
 			String day = request.getParameter("day");
@@ -271,6 +274,41 @@
 			}if (state == null){
 				state = "";
 			}
+			
+	/*		byte[] unencryptedPassword = password.getBytes();
+			MessageDigest md = null;
+			try
+			{
+				md = MessageDigest.getInstance("MD5");
+			} catch(Exception e){}
+			
+			md.reset();
+			md.update(unencryptedPassword);
+			
+			byte[] encryptedPassword = md.digest();
+			StringBuffer pwBuf = new StringBuffer();
+			for(int i=0;i<encryptedPassword.length;i++)
+			{
+				if (((int) encryptedPassword[i] & 0xff) < 0x10) 
+				{
+					pwBuf.append("0");
+				}
+				pwBuf.append(Long.toString((int) encryptedPassword[i] & 0xff, 16));
+			}
+			String pw = pwBuf.toString();
+			String URL = "jdbc:mysql://localhost:3306/testDB";
+			Connection con = null;
+			
+			try{
+				Class.forName("com.mysql.jdbc.Driver");
+				con = DriverManager.getConnection(URL, "root", "applepie");
+				PreparedStatement ps = con.prepareStatement("INSERT INTO Register(user, pass, name, phone) VALUES()");
+				ps.setString(1, unerror);
+				ps.setString(2, pw);
+				int i = ps.executeUpdate();
+				ps.close();	
+				con.close();
+			}catch(Exception e){}  */
 			%>
 			</h5>
 			

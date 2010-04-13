@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import beans.TalkerBean;
+
 import util.ValidateData;
 
-import beans.TalkerBean;
 
 /**
  * Servlet implementation class for Servlet: Login

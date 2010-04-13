@@ -16,11 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import webapp.LiveConversationsSingleton;
+import com.tah.matcher.TAHmatcher;
 
 import beans.LiveConversationBean;
 import beans.TalkerBean;
 import beans.TopicBean;
+
+import webapp.LiveConversationsSingleton;
+
 
 /**
  * Servlet implementation class for Servlet: Login
@@ -29,6 +32,9 @@ import beans.TopicBean;
  public class NewTopicServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
    DataSource ds;
+   
+   int Conv_Id = 100;
+   String Conv_Title = "This is a test conversation";
    
     /* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#HttpServlet()
@@ -47,7 +53,7 @@ import beans.TopicBean;
 	    try {
 	    	//Create a datasource for pooled connections.
 	    	ds = (DataSource)getServletContext().getAttribute("DBCPool");
-
+	    	
 	    	// Register the driver for non-pooled connections.
 	    	Class.forName("com.mysql.jdbc.Driver").newInstance();
 	    } catch (Exception e) {
@@ -57,7 +63,7 @@ import beans.TopicBean;
 	public boolean insertTopic(TopicBean tb){
 		// create sql statement
 		SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String sqlDate = SQL_DATE_FORMAT.format(tb.getCreationDate());
+		String sqlDate = SQL_DATE_FORMAT.format(tb.getCreationDate()); 
 		//String sqlInsert = "Insert into topics (uid, topic, creation_date, display_time) values ('" + tb.getuID() + "', '" + tb.getTopic() + "', '" + sqlDate + "', '" + sqlDate + "')";
 		String sqlInsert = "Insert into topics (uid, topic, creation_date, display_time) values ( ? , ? , ? , ? )";
 		
@@ -111,7 +117,7 @@ public int queryTopicID(TopicBean tb){
 		ResultSet rs = null;
 		try {
 			conn = ds.getConnection();
-		    
+			
 		    ps = conn.prepareStatement(sqlQuery);
 		    ps.setString(1, String.valueOf(tb.getuID()));
 		    ps.setString(2, sqlDate);
@@ -184,6 +190,15 @@ public int queryTopicID(TopicBean tb){
 				
 		TalkerBean talker = (TalkerBean)session.getAttribute("talker");
 		int uID = talker.getUID();
+		
+		TAHmatcher tm = new TAHmatcher(uID, Conv_Id, Conv_Title);  // call the interface defined in TAH-matcher
+		try {
+			tm.matcher();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println(tm.getUserList().size());
 		
 		// get new topic text
 		//String newTopicVar = request.getParameter("newtopic");

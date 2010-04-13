@@ -3,10 +3,12 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+
+import beans.TalkerBean;
+import beans.TopicBean;
+
 import java.util.Map;
 import java.util.LinkedHashMap;
-import beans.TopicBean;
-import beans.TalkerBean;
 import util.TalkmiDBUtil;
 import webapp.LiveConversationsSingleton;
 import java.text.SimpleDateFormat;
