@@ -9,7 +9,7 @@
             driverClassName="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost/Talkmidb"
             username="root"
-            password="applepie" 
+            password="2288" 
             maxActive="10"
             maxIdle="5"
             maxWait="-1"

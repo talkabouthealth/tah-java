@@ -11,7 +11,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 public class InsertLoginRecordThread implements Runnable {
 	
 	private int uID;
@@ -27,7 +26,7 @@ public class InsertLoginRecordThread implements Runnable {
 		String sqlDate = SQL_DATE_FORMAT.format(now);
 		
 		String sUID = String.valueOf(uID);
-		
+
 		// create sql statement
 		String loginRecordInsert = "Insert into login_history (uid, login_time) values ('" + sUID + "', '" + sqlDate + "')";
 		//System.out.println("***InsertLoginRecordThread - Insert: " + loginRecordInsert);
@@ -36,8 +35,9 @@ public class InsertLoginRecordThread implements Runnable {
 		
 		try {
 			Context initContext = new InitialContext();
-		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/TalkmiDB");
+		    Context envContext  = (Context)initContext.lookup("java:comp/env");
+		    DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
+			
 		    conn = ds.getConnection();
 		        
 			ps = conn.prepareStatement(loginRecordInsert);

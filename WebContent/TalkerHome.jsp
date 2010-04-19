@@ -63,6 +63,11 @@ if (keycode == 13)
    }
    return true;
 }
+
+function open_chat(){
+	window.open("http://talkabouthealth.com:5080/tah/red5Chat.html");
+	alert("ddd");
+}
 </SCRIPT>
 
 </head>
@@ -77,11 +82,15 @@ if (keycode == 13)
 			<a id="logout" href="/tah-java/Logout">Logout</a>	
 			<div id="welcome">
 		  	Welcome! <%
-					out.println(cb.getUserName());
+					out.print(cb.getUserName());
 				%>
+
 			</div>
 </div>
 </div>	
+			<script type="text/javascript">
+			var username = "<%out.print(cb.getUserName());%>";
+			</script>
 <div class="centerback">
 
 <div class="center" id="home">
@@ -97,7 +106,7 @@ if (keycode == 13)
 		       	<h3><span>Start a conversation:</span></h3>  
 				<form id="postform" name="postnewtopic" action="javascript:postNewTopic(document.getElementById('newtopic'));" method="post" > 
 					 <textarea id="newtopic" type="text" name="newtopic" rows="2" maxlength="40" size="60" onKeyPress="submitenter(this,event)" TABINDEX=1></textarea>
-		    		<input id="submitnewtopic" type="submit" value="Post it!" onClick="return checkForm()" TABINDEX=2>
+		    		<input id="submitnewtopic" type="submit" value="Post it!" onClick="open_chat();" TABINDEX=2>
 				</form>
 			</div>
 		</div>
@@ -116,7 +125,8 @@ if (keycode == 13)
 									} else {
 										out.println("<div id=\"" + tbTalkmiTopic.getTopicID()+ "\" class=\"even\">");
 									}
-									out.println("<a href=\"javascript:joinTalk('" + tbTalkmiTopic.getTopicID() + "')\"><div class=\"box\">" + tbTalkmiTopic.getTopic() + "</div></a>");
+									//out.println("<a href=\"javascript:joinTalk('" + tbTalkmiTopic.getTopicID() + "')\"><div class=\"box\">" + tbTalkmiTopic.getTopic() + "</div></a>");
+									out.println("<a href=\"javascript:open_chat('" + tbTalkmiTopic.getTopicID() + "')\"><div class=\"box\">" + tbTalkmiTopic.getTopic() + "</div></a>");
 						%>
 			</div>
 			

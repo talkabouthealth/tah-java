@@ -77,8 +77,8 @@ import webapp.InsertLoginRecordThread;
 	    	
 	    	ps = (PreparedStatement)conn.prepareStatement(sqlValidate);
 		    
-		    System.out.println("Username stored in Javabean:" + cb.getUserName());
-		    System.out.println("Password stored in Javabean:" + cb.getPassword());
+		    System.out.println("Username stored in Javabean!");
+		    System.out.println("Password stored in Javabean!");
 		    ps.setString(1, cb.getUserName());
 		   // ps.setString(2, cb.getPassword());
 		    rs = ps.executeQuery();
@@ -141,7 +141,7 @@ import webapp.InsertLoginRecordThread;
 		cb.setPassword(pw);
 		
 		if (validateLogin(cb)) {
-			
+	
 			// insert login record into db
 			Thread tInsertLoginRecord = new Thread(new InsertLoginRecordThread(cb.getUID()), "InsertLoginRecordThread");
 			tInsertLoginRecord.start(); 
@@ -156,5 +156,5 @@ import webapp.InsertLoginRecordThread;
 			System.out.println("The username got is:" + un + " and pw is: " + pw);
 			response.sendRedirect("index.jsp?login=f");
 		}
-	}   	  	    
+	}  
 }

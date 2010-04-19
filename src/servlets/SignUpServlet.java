@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import beans.TalkerBean;
 
 import util.ValidateData;
+import java.security.MessageDigest;
 
 
 /**
@@ -132,6 +133,29 @@ import util.ValidateData;
 		Date now = Calendar.getInstance().getTime(); 
 		String sqlDate = SQL_DATE_FORMAT.format(now);
 		
+//		byte[] unencryptedPassword = pw.getBytes();
+//		MessageDigest md = null;
+//		try
+//		{
+//			md = MessageDigest.getInstance("MD5");
+//		} catch(Exception e){}
+//		
+//		md.reset();
+//		md.update(unencryptedPassword);
+//		
+//		byte[] encryptedPassword = md.digest();
+//		StringBuffer pwBuf = new StringBuffer();
+//		for(int i=0;i<encryptedPassword.length;i++)
+//		{
+//			if (((int) encryptedPassword[i] & 0xff) < 0x10) 
+//			{
+//				pwBuf.append("0");
+//			}
+//			pwBuf.append(Long.toString((int) encryptedPassword[i] & 0xff, 16));
+//		}
+//		pw = pwBuf.toString();
+		
+		
 		//char g = gender.charAt(0);
 		// insert info into database
 		//String insertQuery = "Insert into talkers (uname, password, email, dob, gender, zip, city, state, passcode) values ('" + un + "', '" + pw + "', '" + email + "', '" + dob + "', '" + gender + "', '" + zip + "', '" + city + "', '"  + state + "', '" + sPassCode +  "')";
@@ -144,6 +168,8 @@ import util.ValidateData;
 		    ps = conn.prepareStatement(insertQuery);
 		    ps.setString(1, un);
 		    ps.setString(2, pw);
+		    System.out.println("here");
+		    System.out.println(pw);
 		    ps.setString(3, email);
 		    ps.setString(4, dob);
 		    ps.setString(5, gender);

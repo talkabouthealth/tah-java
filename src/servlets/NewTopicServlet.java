@@ -32,7 +32,7 @@ import webapp.LiveConversationsSingleton;
  public class NewTopicServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
    DataSource ds;
-   
+   //TAHmatcher tm ;
    int Conv_Id = 100;
    String Conv_Title = "This is a test conversation";
    
@@ -190,15 +190,16 @@ public int queryTopicID(TopicBean tb){
 				
 		TalkerBean talker = (TalkerBean)session.getAttribute("talker");
 		int uID = talker.getUID();
-		
-		TAHmatcher tm = new TAHmatcher(uID, Conv_Id, Conv_Title);  // call the interface defined in TAH-matcher
-		try {
-			tm.matcher();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		System.out.println(tm.getUserList().size());
+//		
+//		tm = new TAHmatcher(uID, Conv_Id, Conv_Title);  // call the interface defined in TAH-matcher
+//		try {
+//			tm.matcher();
+//			System.out.println(tm.getUserList().size());
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println(tm.getUserList().size());
 		
 		// get new topic text
 		//String newTopicVar = request.getParameter("newtopic");

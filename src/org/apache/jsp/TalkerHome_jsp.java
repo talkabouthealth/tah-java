@@ -98,9 +98,9 @@ if (sUserName == null) {
 	Map<Integer, TopicBean> mapTalkmiTopics = new LinkedHashMap<Integer, TopicBean>(40);
 	
 	LiveConversationsSingleton lcs = LiveConversationsSingleton.getReference();
-	if(lcs.getLiveConversationMap().size() < 20) {
-		mapTalkmiTopics = TalkmiDBUtil.queryTopics();
-	}
+//	if(lcs.getLiveConversationMap().size() < 20) {
+//		mapTalkmiTopics = TalkmiDBUtil.queryTopics();
+//	}
 	
 	session.setAttribute("mapTalkmiTopics", mapTalkmiTopics);
 
