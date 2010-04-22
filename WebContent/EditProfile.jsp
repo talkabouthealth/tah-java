@@ -23,7 +23,6 @@ if (sUserName == null) {
 	response.sendRedirect("index.jsp");
 } else {
 	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
-
 %>
 
 <script>

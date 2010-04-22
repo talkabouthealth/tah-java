@@ -44,6 +44,10 @@ if (sUserName == null) {
 	session.setAttribute("mapTalkmiTopics", mapTalkmiTopics);
 %>
 
+<script type="text/javascript">
+			var username = "<%out.print(cb.getUserName());%>";
+			</script>
+
 <SCRIPT TYPE="text/javascript" charset="utf-8">
 
 function submitenter(myfield,e)
@@ -65,10 +69,12 @@ if (keycode == 13)
 }
 
 function open_chat(){
-	window.open("http://talkabouthealth.com:5080/tah/red5Chat.html");
-	alert("ddd");
+	window.open("http://talkabouthealth.com:5080/tah/chat.jsp?id="+username);
+	alert("username: "+username);
 }
 </SCRIPT>
+
+
 
 </head>
 
@@ -88,9 +94,7 @@ function open_chat(){
 			</div>
 </div>
 </div>	
-			<script type="text/javascript">
-			var username = "<%out.print(cb.getUserName());%>";
-			</script>
+			
 <div class="centerback">
 
 <div class="center" id="home">
