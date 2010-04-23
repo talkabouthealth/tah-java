@@ -15,7 +15,7 @@ public class DBCPoolingContext implements ServletContextListener{
 			Context envCtx = (Context) new InitialContext().lookup("java:comp/env");
 
 			// Look up our data source
-			DataSource  ds = (DataSource) envCtx.lookup("jdbc/Talkmidb");
+			DataSource  ds = (DataSource) envCtx.lookup("jdbc/talkmidb");
 
 			sce.getServletContext().setAttribute("DBCPool", ds);
 		} catch(NamingException e) { 
