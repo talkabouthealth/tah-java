@@ -1,0 +1,32 @@
+<?xml version = "1.0" ?>
+<project name = "tah-java" basedir = "." default = "compile">
+	<target name = "init" description = "perset all pathes of directories" >
+		<property name = "buildDir" value = "${basedir}/build" />
+		<property name = "classesDir" value = "${buildDir}/classes" />
+		<property name = "webDir" value = "${basedir}/WebContent" />
+		<property name = "srcDir" value = "${basedir}/src" />
+		<property name = "libDir" value = "${basedir}/WebContent/WEB-INF/lib" />
+		<path id = "compileClasspath">
+			<fileset dir = "${libDir}" />
+			<fileset dir = "/home/e/servers/apache-tomcat-6.0.26/lib" />
+		</path>
+	</target>
+	<target name ="clean" depends = "init" description = "clean everything">
+		<delete dir = "${buildDir}" />
+		<delete dir = "${webDir}/WEB-INF/classes" />
+		<delete dir = "${pubDir}" />
+		
+	</target>
+	<target name = "compile" depends = "clean" description = "compile all .java">
+		<mkdir dir = "${buildDir}" />
+		<mkdir dir = "${classesDir}" />
+		<javac srcdir = "${srcDir}" destdir = "${classesDir}" debug = "true">
+			<classpath refid = "compileClasspath" />
+		</javac>
+		<copy todir = "${webDir}/WEB-INF">
+			<fileset dir = "${buildDir}" >
+				<include name = "**/*.class" />
+			</fileset>
+		</copy>
+	</target>
+</project>
