@@ -225,8 +225,8 @@
 	<div id="padding">
 
 
-		    <h2>Create your account</h2>
-			<form id="form" name="signup" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/SignUp" method="post">
+		<h2>Create your account</h2>
+		<form id="form" name="signup" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/SignUp" method="post">
 			<h5>
 			<%@page import = "java.sql.*" %>
 			<%@page import = "java.security.MessageDigest" %>
@@ -238,6 +238,7 @@
 			String unerror = request.getParameter("username");
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
+			String IM = request.getParameter("IMService");
 			String month = request.getParameter("month");
 			String day = request.getParameter("day");
 			String year = request.getParameter("year");
@@ -308,8 +309,18 @@
 		    	<input id="password" name="password" maxlength="25" size="25" type="password" class="box" /><br />
 		    </label>
 		    <label for="email" id="mail"><span>Email</span>
-		    	<input id="email" name="email" maxlength="45" size="25" type="text" class="box" value='<%= email %>' /><br />
+		    	<input id="email" name="email" maxlength="55" size="25" type="text" class="box" value='<%= email %>' /><br />
 			</label>
+			<label for="IMServie" id="IM"><span>IMService</span>
+				<select id="IMService" name="IMService" class="DOBbox"  >
+					<option selected value='0'>Select an IM service</option>
+					<option value="YahooIM">YahooIM</option>
+					<option value="WindowLive">WindowLive</option>
+					<option value="AOL">AOL</option>
+					<option value="GoogleTalk">GoogleTalk</option>
+					<option value="SkypeIM">SkypeIM</option> 
+				</select> 
+			</label> <br />
 
 			<label for="mm,dd,yyyy" id="dob"><span>Date of Birth</span>
 				<select id="mm" name="month" class="DOBbox">

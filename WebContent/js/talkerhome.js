@@ -17,6 +17,7 @@ function moreOldTopics() {
 	httpRequest.onreadystatechange = moreOldTopicsResponse;
 	httpRequest.send(null);
 }
+
 function moreOldTopicsResponse() {
 	if(httpRequest.readyState == 4) {
 		if(httpRequest.status == 200) { 

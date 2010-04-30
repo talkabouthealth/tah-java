@@ -74,7 +74,7 @@ import beans.TalkerBean;
 		try {
 			Context initContext = new InitialContext();
 		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/TalkmiDB");
+		    DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
 		    conn = ds.getConnection();
 		    
 		    ps = conn.prepareStatement(updateQuery);

@@ -8,6 +8,7 @@ import java.util.Date;
 public class TalkerBean {
 	private String userName;
 	private String password;
+	private String IM;
 	private String email;
 	private char gender;
 	private Date dob;
@@ -21,6 +22,10 @@ public class TalkerBean {
 	public String getPassword() {
 		return password;
 	}
+	
+	public String getIM(){
+		return IM;
+	}
 	public int getUID() {
 		return UID;
 	}
@@ -33,6 +38,10 @@ public class TalkerBean {
 	public void setPassword(String value) {
 		password = value;
 	}
+	
+	public void setIM(String value){
+		IM = value;
+	}
 	public void parseLoginRequest(String un, String pw){
 		setUserName(un);
 		setPassword(pw);
@@ -41,6 +50,7 @@ public class TalkerBean {
 		setUID(set.getInt("uid"));
 		setUserName(set.getString("uname"));
 		setPassword(set.getString("password"));
+		setIM(set.getString("PrimaryIM"));
 		setEmail(set.getString("email"));
 		setGender(set.getString("gender").charAt(0));
 		setDob(set.getDate("dob"));

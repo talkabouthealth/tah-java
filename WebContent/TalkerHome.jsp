@@ -85,7 +85,10 @@ function open_chat(){
 		<a href="mailto:feedback@Talkmi.com"> Feedback</a>
 	</h5>
 
-			<a id="logout" href="/tah-java/Logout">Logout</a>	
+			<a id="logout" href="/tah-java/Logout">Logout</a>
+			<a id="Edit" href="EditProfile.jsp">EditProfile</a>
+			<a id="Settings" href="Settings.jsp">Settings</a>
+			<a id="Account" href="Account.jsp"> Account </a>
 			<div id="welcome">
 		  	Welcome! <%
 					out.print(cb.getUserName());
@@ -98,7 +101,6 @@ function open_chat(){
 <div class="centerback">
 
 <div class="center" id="home">
-
 
 	<div id="logo" class="logo">
 		<a href="/tah-java/index.jsp"><h1><span class="talk">Talk</span><span class="mi">mi</span></h1></a>

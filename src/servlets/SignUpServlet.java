@@ -31,6 +31,7 @@ import java.security.MessageDigest;
    private String un;
    private String pw;
    private String email;
+   private String IM;
    private String month;
    private String day;
    private String year;
@@ -159,7 +160,7 @@ import java.security.MessageDigest;
 		//char g = gender.charAt(0);
 		// insert info into database
 		//String insertQuery = "Insert into talkers (uname, password, email, dob, gender, zip, city, state, passcode) values ('" + un + "', '" + pw + "', '" + email + "', '" + dob + "', '" + gender + "', '" + zip + "', '" + city + "', '"  + state + "', '" + sPassCode +  "')";
-		String insertQuery = "Insert into talkers (uname, password, email, dob, gender, time_stamp) values (?, ?, ?, ?, ?, ?)";
+		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM) values (?, ?, ?, ?, ?, ?,?)";
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		try {
@@ -174,6 +175,7 @@ import java.security.MessageDigest;
 		    ps.setString(4, dob);
 		    ps.setString(5, gender);
 		    ps.setString(6, sqlDate);
+		    ps.setString(7, IM);
 		    
 		    ps.executeUpdate();
 		    
@@ -274,6 +276,7 @@ import java.security.MessageDigest;
 	    un = request.getParameter("username");
 		pw = request.getParameter("password");
 		email = request.getParameter("email");
+		IM = request.getParameter("IMService");
 		month = request.getParameter("month");
 		day = request.getParameter("day");
 		year = request.getParameter("year");
@@ -319,6 +322,7 @@ import java.security.MessageDigest;
 		    TalkerBean cb= new TalkerBean();
 		    cb.setUserName(un);
 		    cb.setPassword(pw);
+		    cb.setIM(IM);
 		    cb.setEmail(email);
 		    cb.setGender(gender.charAt(0));
 		    

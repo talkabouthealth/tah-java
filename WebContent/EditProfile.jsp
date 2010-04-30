@@ -144,7 +144,6 @@ function validateEmail(fld) {
 
 <body>
 
-
 	<div id="header">
 	<h1><span>Talkmi</span></h1>
 	
@@ -156,8 +155,7 @@ function validateEmail(fld) {
 				<label><span>Username</span></label>
 					<input id="username" name="username" maxlength="15" size="25" class="input-box" type="text" value="<%=cb.getUserName()%>"><br>
 			  
-		
-			    <label><span>Gender</span></label>
+				    <label><span>Gender</span></label>
 			    	<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>"><br>
 			 
 			  	<label><span>Date of Birth <h5>(mm / dd / yyyy)</h5></span></label>
@@ -180,7 +178,6 @@ function validateEmail(fld) {
 		</div>	
 	</div>
 
-
 <div class="bottom">
 	<div id="footer">
 		<ul>
@@ -199,7 +196,7 @@ var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "htt
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
-try {
+try { 
 var pageTracker = _gat._getTracker("UA-13005583-1");
 pageTracker._trackPageview();
 } catch(err) {}</script>
