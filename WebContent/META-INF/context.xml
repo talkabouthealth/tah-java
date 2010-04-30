@@ -4,7 +4,7 @@
 <!--Configure the following parameters in the Resource according to your host-->
 <Context path="/tah-java" docBase="tah-java" crossContext="true" reloadable="true" debug="1">
 
-  <Resource name="jdbc/Talkmidb" auth="Container"
+  <Resource name="jdbc/talkmidb" auth="Container"
             type="javax.sql.DataSource"
             driverClassName="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost/talkmidb"

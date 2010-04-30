@@ -123,6 +123,7 @@ function open_chat(){
 						int count = 0;
 						for (TopicBean tbTalkmiTopic : mapTalkmiTopics.values()) {
 					   				count++;
+
 			%>
 			<p>		
 			<%
