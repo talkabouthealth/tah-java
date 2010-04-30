@@ -56,6 +56,8 @@ CREATE TABLE `noti_histoty` (
   `noti_hist_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `noti_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `uid` int(10) unsigned NOT NULL,
+  `topic_id` bigint(20) unsigned NOT NULL,
+  `noti_sc` int(10) unsigned NOT NULL,
   PRIMARY KEY (`noti_hist_id`),
   KEY `FK_uid` (`uid`),
   CONSTRAINT `FK_noti_uid` FOREIGN KEY (`uid`) REFERENCES `talkers` (`uid`)
