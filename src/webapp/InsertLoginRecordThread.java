@@ -36,7 +36,7 @@ public class InsertLoginRecordThread implements Runnable {
 		try {
 			Context initContext = new InitialContext();
 		    Context envContext  = (Context)initContext.lookup("java:comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
+		    DataSource ds = (DataSource)envContext.lookup("jdbc/talkmidb");
 			
 		    conn = ds.getConnection();
 		        

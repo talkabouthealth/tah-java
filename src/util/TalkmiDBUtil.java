@@ -28,7 +28,7 @@ public class TalkmiDBUtil {
 		try {
 		    Context initContext = new InitialContext();
 		    Context envContext  = (Context)initContext.lookup("java:comp/env");
-		    DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
+		    DataSource ds = (DataSource)envContext.lookup("jdbc/talkmidb");
 		    conn = ds.getConnection();
 		    
 		    String sqlStatement = "SELECT topic_id, topic, display_time FROM topics ORDER BY display_time DESC LIMIT 40";
