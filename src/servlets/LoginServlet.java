@@ -90,7 +90,6 @@ import webapp.InsertLoginRecordThread;
 		    	validated = true;  	
 		    }
 		    
-		        
 		    rs.close();
 		    rs = null;
 		    ps.close();

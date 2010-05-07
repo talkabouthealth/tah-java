@@ -102,6 +102,22 @@
    	<servlet-class>
    	servlets.test1</servlet-class>
    </servlet>
+   <servlet>
+   	<description>
+   	</description>
+   	<display-name>SetAccount</display-name>
+   	<servlet-name>SetAccount</servlet-name>
+   	<servlet-class>
+   	servlets.SetAccount</servlet-class>
+   </servlet>
+   <servlet>
+   	<description>
+   	</description>
+   	<display-name>SetNotification</display-name>
+   	<servlet-name>SetNotification</servlet-name>
+   	<servlet-class>
+   	servlets.SetNotification</servlet-class>
+   </servlet>
    <servlet-mapping>
    	<servlet-name>MoreOldTopicsServlet</servlet-name>
    	<url-pattern>/MoreOldTopicsServlet</url-pattern>
@@ -117,5 +133,13 @@
    <servlet-mapping>
    	<servlet-name>test1</servlet-name>
    	<url-pattern>/test1</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>SetAccount</servlet-name>
+   	<url-pattern>/SetAccount</url-pattern>
+   </servlet-mapping>
+   <servlet-mapping>
+   	<servlet-name>SetNotification</servlet-name>
+   	<url-pattern>/SetNotification</url-pattern>
    </servlet-mapping>
 </web-app>
