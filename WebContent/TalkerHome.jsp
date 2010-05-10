@@ -74,9 +74,8 @@ function open_chat(){
 }
 </SCRIPT>
 
-
-
 </head>
+
 
 <body>
 <div class="top">
@@ -91,8 +90,8 @@ function open_chat(){
 			<a id="Account" href="Account.jsp"> Account </a>
 			<div id="welcome">
 		  	Welcome! <%
-					out.print(cb.getUserName());
-				%>
+						out.print(cb.getUserName());
+					 %>
 
 			</div>
 </div>
@@ -134,7 +133,7 @@ function open_chat(){
 									}
 									//out.println("<a href=\"javascript:joinTalk('" + tbTalkmiTopic.getTopicID() + "')\"><div class=\"box\">" + tbTalkmiTopic.getTopic() + "</div></a>");
 									out.println("<a href=\"javascript:open_chat('" + tbTalkmiTopic.getTopicID() + "')\"><div class=\"box\">" + tbTalkmiTopic.getTopic() + "</div></a>");
-						%>
+			%>
 			</div>
 			
 			<%
@@ -147,8 +146,8 @@ function open_chat(){
 								session.setAttribute("earliesttimestamp", SQL_DATE_FORMAT.format(tbTalkmiTopic.getDisplayTime()));
 								//System.out.println("Earliest date: " + SQL_DATE_FORMAT.format(tbTalkmiTopic.getDisplayTime()));
 							}
-							}
-						%>
+					}
+			%>
 			</p>
 		</div>
 		<a href="javascript:moreOldTopics()">

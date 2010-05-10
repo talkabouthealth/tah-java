@@ -42,6 +42,7 @@ public class SetAccount extends HttpServlet {
     {
     	String primaryIM = request.getParameter("IMService");
     	String email = request.getParameter("email");
+    	System.out.println("Setting Account!");
     	
     	HttpSession session = request.getSession();
 		TalkerBean cb = (TalkerBean)session.getAttribute("talker");
@@ -50,7 +51,6 @@ public class SetAccount extends HttpServlet {
 		String updateQuery = "UPDATE talkers SET email= ?, PrimaryIM= ? WHERE uname= ?";
 		Connection conn = null; 
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
-		
 		
 		try{
 		conn = ds.getConnection();

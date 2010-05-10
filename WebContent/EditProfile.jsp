@@ -165,15 +165,47 @@ function validateEmail(fld) {
 			 
 			    <label><span>Email</span></label>
 			    	<input id="email" name="email" maxlength="45" size="25" type="text" class="input-box" value="<%=cb.getEmail()%>"><br>
-			 
-			  	
+			 	
+			 	<label>ZipCode</label>
+			 		<input id="zipcode" name="zipcode" type="text"> <br />
+			 	
+			 	<label>Patient/Caregiver/etc.</label>
+			 		<select id="selection" name="selection">
+			 		<option selected value='0'>Patient/Caregiver/other/etc. </option>
+			 		<option value="Patient">Patient</option>
+				 	<option value="Former Patient">Former Patient</option>
+				 	<option value="Caregiver">Caregiver</option>
+				 	<option value="Family member">Family member</option> 
+					<option value="Friend">Friend</option>
+					<option value="Physician">Physician</option>
+					<option value="Nurse">Nurse</option> 
+					</select>
+					<br/>
+				
+				<label>Marital status</label>
+			 		<select id="maritalstatus" name="maritalstatus" >
+				 		<option selected value='Single'>Single</option>
+						<option value="Married">Married/partnered relationship</option>
+						<option value="Divorced">Divorced</option>
+						<option value="Separated">Separated</option>
+						<option value="Widowed">Widowed</option> 
+					</select> <br />
+				
+				<label>Number of Children
+					<select id="children" name="children" >
+					<option selected value="1"> 1 </option>
+					<option value="2"> 2 </option>
+					<option value="3"> 3 </option>
+					<option value="more"> More than 3 </option> 
+					</select> 
+				</label> <br />				
+					
 			  	<label><span>Password</span></label>
-					<input id="password" name="password" maxlength="15" size="25" class="input-box"  type="password" value="<%=cb.getPassword()%>"><br>
-	
-				<br>
-					<input id="submit" name="submit" type=submit value="Update Profile">					
+					<input id="password" name="password" maxlength="15" size="25" class="input-box"  type="password" value="<%=cb.getPassword()%>"><br />
+					
+					<input id="submit" name="submit" type=submit value="Update Profile"> <br />
 			</form>
-		
+			
 			<p><a href="TalkerHome.jsp">Cancel</a></p>
 		</div>	
 	</div>
