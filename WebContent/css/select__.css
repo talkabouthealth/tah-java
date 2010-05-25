@@ -1,0 +1,24 @@
+
+/*==== Flyout <Select> UL/LI Drop-down Menu by Jquery Starts ===========================================*/
+#menu{ color:#333; font-size:13px; font-family:"Trebuchet MS",sans-serif; width:260px; height:16px; margin:5px 0 0 8px; padding:0; border:1px solid #666; background:url(../images/drop_down.gif) right top no-repeat #fff;	}
+#IEroot6 #menu{ height:auto; }
+#menu ul{ list-style:none; width:260px; margin:0; padding:0; }
+#menu ul li { width:660px; float:left; position:relative; margin:0; padding:0; background:none; }
+#menu ul li a{ display:block; margin:0; padding:0 3px; color:#333; font-size:13px; text-decoration:none; }
+#ie #menu ul li a { font-size:13px; }
+#menu ul li a:hover{ color:#333; text-decoration:none; }
+#menu ul li ul{ width:260px; height:auto; position:absolute; display:none; padding:0; margin:-2px 0 0 -1px; border:1px solid #666; overflow-y:auto; overflow-x:hidden; }
+#IEroot6 #menu ul li ul{ margin-top:none; }
+#menu ul li ul li { clear:left; }
+#menu ul li ul li a { width:260px; color:#333; text-decoration:none; background-color:#fff; line-height:16px;
+	border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;
+}
+#menu ul li ul li a:hover{ width:260px; color:#c03; text-decoration:underline; background-color:#ededed; 
+	border-radius:0px; -moz-border-radius:0px; -webkit-border-radius:0px;
+}
+#menu ul li ul li ul{ clear:left; display:none; position:absolute; top:0; left:140px;
+	/* Bengin CSS-HACK, for Microsoft Internet Explorer */
+	_left:120px;
+	/* End CSS-HACK */
+}
+/*==== Flyout <Select> UL/LI Drop-down Menu by Jquery Ends ===========================================*/
