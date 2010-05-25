@@ -103,9 +103,9 @@ body {
 #signfields { float:left; width:281px;}
 #signfields ul{ float:left; width:281px; padding-top:15px;}
 #signfields ul li{ float:left; width:261px; list-style-type:none;  /*background:url(../images/fieldsbg.gif) no-repeat top;*/ height:30px; margin:0 0 10px 0; line-height:33px; padding:5px 0px 5px 20px; border:1px solid #ccc; border-radius: 14px; -moz-border-radius: 14px; -webkit-border-radius: 14px; }
-.datefields { float:left; width:112px;  padding:8px 0px 5px 5px; margin:0 5px 0 0; line-height:36px; border-radius: 14px; border:1px solid #ccc; -moz-border-radius: 14px; -webkit-border-radius: 14px;}
+.datefields { float:left; width:75px;  padding:8px 0px 5px 5px; margin:0 5px 0 0; line-height:36px; border-radius: 14px; border:1px solid #ccc; -moz-border-radius: 14px; -webkit-border-radius: 14px;}
 
-#signfieldsright { float:left; width:290px; padding-top:15px; padding-left:10px; }
+#signfieldsright { float:left; width:290px; padding-top:17px; padding-left:10px; }
 #signdown { float:left; width:590px; }
 #signdown h4 { float:left; width:590px; height:20px; line-height:20px; padding:0px; margin:0px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none;}
 #checkboxarea2 {float:left; width:590px; height:20px; padding-top:30px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none; }
@@ -241,6 +241,6 @@ a.footerlink:hover {font-weight: normal; font-size: 11px; color: #403c3e; font-f
 
 div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
 
-
+#error {font-size: 16px; color: red}
 
 

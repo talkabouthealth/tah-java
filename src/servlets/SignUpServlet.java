@@ -280,14 +280,16 @@ import java.security.MessageDigest;
 		month = request.getParameter("month");
 		day = request.getParameter("day");
 		year = request.getParameter("year");
-		gender = request.getParameter("gender");
+		//for now gender has default value
+		gender = "M";
+//		gender = request.getParameter("gender");
 		//zip = request.getParameter("zip");
 		//city = request.getParameter("city");
 		//state = request.getParameter("state");
 		//System.out.println(un+pw+email+month+day+year+gender);
 		
 		// data validation
-		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw) || !ValidateData.validateEmail(email) || !ValidateData.validateMonth(month)|| !ValidateData.validateDay(day)|| !ValidateData.validateYear(year)|| !ValidateData.validateGender(gender)){
+		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw) || !ValidateData.validateEmail(email) || !ValidateData.validateMonth(month)|| !ValidateData.validateDay(day)|| !ValidateData.validateYear(year)){
 			Exception e = new Exception("Login Failed - Data Validation Error!!");
 			e.printStackTrace();
 			response.sendRedirect("Error.jsp");
