@@ -163,59 +163,53 @@ function postNewTopicResponse() {
 				//alert("TopicLink: " + topicLink);
 				
 				// add topic to main topic list 
-				var mc_TopicTxtNode = document.createTextNode(topic);
+				var newTopic = createDiv('area');
+				
+				//left side - author information
+				var areaLeft = createDiv('arealeft2');
+				areaLeft.innerHTML = 
+					'<img src="images/img1.gif" width="71" height="71" /><br />'+
+					'<span class="bluetext11">Murray Jones</span><br/>'+
+					'<span class="currenttext">Advocate</span>';
+				newTopic.appendChild(areaLeft);
+				
+				//right side
+				var areaRight = createDiv('arearight');
+				newTopic.appendChild(areaRight);
+				
+				areaRight.appendChild(createDiv('areatop'));
+				var areaMid = createDiv('areamid');
+				areaRight.appendChild(areaMid); 
+				areaRight.appendChild(createDiv('areabot'));
+				
+				//fill aremid with data
+				areaMidLeft = createDiv('areamidleft');
+				areaMid.appendChild(areaMidLeft);
+				areaMidLeft.innerHTML = 
+					'<p><span class="blacktext14">'+topic+'<br />'+
+					'<span class="bluetext12">1 people talking</span> | '+ 
+				    '<span class="red12">Started 0 mins ago</span><br /></span>'+
+				    '<span class="blacktext">Community: Breast Cancer</span></p>';
 			
-				var mc_box = document.createElement("div");					
-				mc_box.className = 'box';
-				mc_box.appendChild(mc_TopicTxtNode);
-			
-				var mc_aRemoveLink = document.createElement("a");
-				mc_aRemoveLink.setAttribute("href", "javascript:removeTopicFromQueue('" + update[0] + "', '" + topicLink + "')");
-				mc_aRemoveLink.appendChild(mc_box);
-			
-				var mc_d = document.createElement("div");
-				mc_d.id = update[0];
-				mc_d.className = 'inQ';
-				mc_d.appendChild(mc_aRemoveLink);
-            
-                var mc = document.getElementById("topicstable");
-                
-                var topicsListFirstChild = mc.firstChild;
-                mc.insertBefore(mc_d, topicsListFirstChild);
-    			
-                mc_p = document.createElement("p");
-                mc.insertBefore(mc_p, mc_d);
-                //mc.replaceChild(mc_d, mc_Topic);
-                
-				// add topic node to queue
-    			//var topicTxt = update[1];
-    			//var txtLength = topicTxt.length;
-    			var txtLength = topic.length;
-    			if (txtLength > 60) {
-                    topic = topic.substring(0, 60) + "...";
-                }
-                   
-                var topicTxtNode = document.createTextNode(topic);
-               
-				var dTopic = document.createElement("div");
-    			dTopic.id = 'u_topic';
-    			
-				var aRemoveLink = document.createElement("a");
-    			aRemoveLink.setAttribute("href", "javascript:removeTopicFromQueue('" + update[0] + "', '" + topic + "')");
-				aRemoveLink.appendChild(dTopic);
-
-    			dTopic.appendChild(topicTxtNode);
-    			
-    			var dParent = document.createElement("div");
-    			dParent.id = 'q_topic_' + update[0];
-    			dParent.className = 'u_inQ';
-    			dParent.appendChild(aRemoveLink);
-    			
-    			var tiq_section = document.getElementById("u_topicsQ");
-                var firstChild = tiq_section.firstChild;
-                tiq_section.insertBefore(dParent, firstChild);
+				joinArea = createDiv('join');
+				areaMid.appendChild(joinArea);
+				joinArea.innerHTML = 
+					'<a href="javascript:open_chat('+update[0]+')">'+
+					'<img border="0" src="images/join_conv.gif" width="178" height="27" />'+ 
+				    '</a>';    
+				
+				//add topic as first topic in list
+				var topicList = document.getElementById("innermid");
+				var topicListFirstChild = topicList.firstChild;
+                topicList.insertBefore(newTopic, topicListFirstChild);				
 			}
 		}
 	}
+}
+
+function createDiv(className) {
+	var newDiv = document.createElement("div");
+	newDiv.className = className;
+	return newDiv;
 }
 

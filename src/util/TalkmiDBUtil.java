@@ -34,10 +34,10 @@ public class TalkmiDBUtil {
 		    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
 		    conn = ds.getConnection();
 		    
-		    String sqlStatement = "SELECT topic_id, topic, display_time FROM topics ORDER BY display_time DESC LIMIT 40";
+		    String sqlStatement = "SELECT topic_id, topic, display_time FROM topics ORDER BY display_time DESC LIMIT 20";
 		    ps = conn.prepareStatement(sqlStatement);
 		    rs = ps.executeQuery();
-		    Map <Integer, TopicBean> mapTopics = new LinkedHashMap<Integer, TopicBean>(40);
+		    Map <Integer, TopicBean> mapTopics = new LinkedHashMap<Integer, TopicBean>(20);
 		    while (rs.next()){
 		    	TopicBean tb = new TopicBean();
 		    	tb.setTopicID(rs.getInt(1));

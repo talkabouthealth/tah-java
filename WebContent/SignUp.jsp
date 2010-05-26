@@ -497,7 +497,7 @@
 							<input name="" type="checkbox" value="" /> Sign me up for the TalkAboutHealth newsletter
 						</div>
 						<div class="signupbutton">
-							<a href="javascript:validateFormOnSubmit(document.signup)">
+							<a href="#" onclick="validateFormOnSubmit(document.signup);">
 								<img src="images/signupbutton.gif" border="0" width="126" height="46" />
 							</a>
 						</div>

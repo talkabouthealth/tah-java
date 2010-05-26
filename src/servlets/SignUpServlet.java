@@ -18,6 +18,8 @@ import javax.sql.DataSource;
 import beans.TalkerBean;
 
 import util.ValidateData;
+import webapp.InsertLoginRecordThread;
+
 import java.security.MessageDigest;
 
 
@@ -334,13 +336,19 @@ import java.security.MessageDigest;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			/*
+			 * TODO: same functionality in login/signup/rememberme - move to separate class (logic)
+			 */
+			
 		    // get uid
 			initializeTalkerBean(cb);
 			
 			//System.out.println("*** Process New Talker - Setting Session Variables");
 		    //set session variables
 		    request.getSession().setAttribute("talker", cb);
-			
+		    request.getSession().setAttribute("username", cb.getUserName());
+				
 		    response.sendRedirect("TalkerHome.jsp");
 		}
 		//System.out.println("--------*** Process New Talker - End!!");

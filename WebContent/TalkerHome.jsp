@@ -25,6 +25,7 @@
 		LiveConversationsSingleton lcs = LiveConversationsSingleton.getReference();
 		if(lcs.getLiveConversationMap().size() < 20) {
 			mapTalkmiTopics = TalkmiDBUtil.queryTopics();
+			out.println(mapTalkmiTopics.size());
 		}
 		
 		session.setAttribute("mapTalkmiTopics", mapTalkmiTopics);
@@ -57,6 +58,19 @@
 	<script type="text/JavaScript" language="javascript" src="js/talkerhome.js" charset="utf-8"></script>    
 	<script type="text/javascript">
 		var username = "<%out.print(cb.getUserName());%>";
+		
+		function checkForm()
+		{
+			//Check topic name field
+			if((document.postnewtopic.newtopic.value == "") 
+					|| (document.postnewtopic.newtopic.value == "Please enter your Conversation here ...")) {
+				alert("Please enter topic name.");
+				document.postnewtopic.newtopic.focus();
+				return false;
+			}
+			
+			return true;
+		}
 
 		function submitenter(myfield,e) {
 			var keycode;
@@ -64,20 +78,22 @@
 			else if (e) keycode = e.which;
 			else return true;
 			
-			if (keycode == 13)
-			   {
-					if (checkForm()) {
-						postNewTopic(document.getElementById('newtopic'));
-						//myfield.form.submit();
-						return false;
-					}
-			   }
+			if (keycode == 13) {
+				createTopic();
+		    }
 			return true;
+		}
+		
+		function createTopic() {
+			if (checkForm()) {
+				postNewTopic(document.getElementById('newtopic'));
+				document.getElementById('newtopic').value = "Please enter your Conversation here ...";
+				return false;
+			}
 		}
 		
 		function open_chat(){
 			window.open("http://talkabouthealth.com:5080/tah/chat.jsp?id="+username);
-			alert("username: "+username);
 		}
 	</script>
 </head>
@@ -160,8 +176,7 @@
 				<form id="postform" name="postnewtopic" action="javascript:postNewTopic(document.getElementById('newtopic'));" method="post" > 
 					<textarea cols="" rows="" class="textarea" id="newtopic" name="newtopic" maxlength="40" 
 						onKeyPress="submitenter(this,event)" TABINDEX=1
-						value="Please enter your Conversation here ..." onclick="this.value=''" 
-						onblur="this.value='Please enter your Conversation here ...'">Please enter your Conversation here ...</textarea>
+						onclick="this.value=''" >Please enter your Conversation here ...</textarea>
 				</form>
 			</div>
 			<div id="arealefttextarea">
@@ -169,7 +184,7 @@
 					<p><a href="#" class="blacktext">&nbsp;Example Question</a></p>
 				</div>
 				<div id="arealeftgrey">
-					<a href="#" id="submitnewtopic" onClick="open_chat();" TABINDEX=2>
+					<a href="#" id="submitnewtopic" onClick="createTopic();" TABINDEX=2>
 						<img src="images/startbutton.gif" width="206" height="46" border="0" />
 					</a>
 				</div>
@@ -209,7 +224,7 @@
 						<div class="arealeft2">
 							<img src="images/img1.gif" width="71" height="71" /><br />
 				  			<span class="bluetext11">Murray Jones</span> 
-				  			<span class="currenttext">Advocate</span>
+				  			<span class="currenttext">Advocate<%= count %></span>
 				  		</div>
 						<div class="arearight">
 						    <div class="areatop"></div>
@@ -245,30 +260,6 @@
 							}
 						}
 					%>
-					<div class="area">
-						<div class="arealeft2">
-							<img src="images/img1.gif" width="71" height="71" /><br />
-				  			<span class="bluetext11">Murray Jones</span> 
-				  			<span class="currenttext">Advocate</span>
-				  		</div>
-						<div class="arearight">
-						    <div class="areatop"></div>
-						    <div class="areamid">
-						    	<div class="areamidleft">
-						    		<p>
-						    			<span class="blacktext14">
-						    				Received 2 Different Diagnoses Today<br />
-				        					<span class="bluetext12">3 people talking</span> | 
-				        					<span class="red12">Started 4 mins ago</span><br />
-				        				</span>
-				        				<span class="blacktext">Community: Breast Cancer</span>
-				        			</p>
-				        		</div>
-								<div class="join"><img src="images/join_conv.gif" width="178" height="27" /></div>
-							</div>
-			  				<div class="areabot"></div>
-			 	 		</div>
-					</div>
 				</div>
 				<div id="innerbot"></div>
 			</div>
