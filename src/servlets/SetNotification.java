@@ -73,6 +73,9 @@ public class SetNotification extends HttpServlet {
     	    conn.close(); // Return to connection pool
     	    conn = null;  // Make sure we don't close it twice
     	    
+    	    cb.setNfreq(notifyfreq);
+    	    cb.setNtime(notifytime);
+    	    
     	    //cb.setEmail(email);
     	    return;
     		}catch (SQLException ex) {
@@ -103,7 +106,7 @@ public class SetNotification extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processSetNotification(request);
 		
-		response.sendRedirect("TalkerHome.jsp");
+		response.sendRedirect("Settings.jsp");
 	}
 
 }

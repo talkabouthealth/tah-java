@@ -13,6 +13,13 @@ public class TalkerBean {
 	private char gender;
 	private Date dob;
 	private int UID;
+	private String MariStat;
+	private String Category;
+	private String city;
+	private String state;
+	private String country;
+	private int nfreq;
+	private int ntime;
 	
 	public TalkerBean(){}
 	
@@ -29,6 +36,30 @@ public class TalkerBean {
 	public int getUID() {
 		return UID;
 	}
+	
+	public String getMariStat(){
+		return MariStat;
+	}
+	public String getCategory(){
+		return Category;
+	}
+	
+	public String getCity(){
+		return city;
+	}
+	public String getState(){
+		return state;
+	}
+	public String getCountry(){
+		return country;
+	}
+	public int getNfreq(){
+		return nfreq;
+	}
+	public int getNtime(){
+		return ntime;
+	}
+	
 	public void setUID(int value) {
 		UID = value;
 	}
@@ -37,6 +68,28 @@ public class TalkerBean {
 	}
 	public void setPassword(String value) {
 		password = value;
+	}
+	public void setMariStat(String value){
+		MariStat = value;
+	}
+	public void setCategory(String value){
+		Category = value;
+	}
+	
+	public void setCity(String value){
+		city = value;
+	}
+	public void setState(String value){
+		state = value;
+	}
+	public void setCountry(String value){
+		country = value;
+	}
+	public void setNfreq(int value){
+		nfreq = value;
+	}
+	public void setNtime(int value){
+		ntime = value;
 	}
 	
 	public void setIM(String value){
@@ -54,6 +107,13 @@ public class TalkerBean {
 		setEmail(set.getString("email"));
 		setGender(set.getString("gender").charAt(0));
 		setDob(set.getDate("dob"));
+		setCity(set.getString("city"));
+		setState(set.getString("state"));
+		setCountry(set.getString("country"));
+		setNfreq(set.getInt("notifyfrequency"));
+		setNtime(set.getInt("notifytime"));
+		setMariStat(set.getString("Marital_Stat"));
+		setCategory(set.getString("category"));
 	}
 	public String getDOBYear() throws SQLException{
 		Calendar cal=Calendar.getInstance();

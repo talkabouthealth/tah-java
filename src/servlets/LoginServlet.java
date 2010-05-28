@@ -148,6 +148,8 @@ import webapp.InsertLoginRecordThread;
 			// add TalkerBean to session
 			request.getSession().setAttribute("talker", cb);
 			request.getSession().setAttribute("username", cb.getUserName());
+			//System.out.println(cb.getCity());
+			//System.out.println(cb.getEmail());
 			
 			response.sendRedirect("TalkerHome.jsp");
 		} else {

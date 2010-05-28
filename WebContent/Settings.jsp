@@ -11,8 +11,38 @@
 	<meta name="robots" content="all" /> 
 	<title>Insert title here</title>
 	
+<%@ page import="beans.TalkerBean" %>	
+	
+<% 
+response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+
+String sUserName = (String)session.getAttribute("username");
+if (sUserName == null) { 
+	response.sendRedirect("index.jsp");
+} else {
+	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
+	
+	int freq = cb.getNfreq();
+%>
+
+<script language="JavaScript">
+function onChecked(i, t)
+{
+	var len = document.setNotifyFrequency.notifyFre.length;
+
+	//var temp = i-1;
+	document.setNotifyFrequency.notifyFre[i-1].checked = true;
+	document.setNotifyFrequency.notifyTime[t-1].checked = true;
+	
+}
+
+</script> 
+	
 </head>
-<body>
+<body onLoad="onChecked(<%=cb.getNfreq() %>, <%=cb.getNtime()%>)">
 	<div id="header1">
 		<h1><span>Talkmi</span></h1>
 	</div>
@@ -24,7 +54,7 @@
   </tr>
 </table>
 <div>
-  <form id="NofifyFrequency" name="setNotifyFrequency" action="/tah-java/SetNotification" method="post">
+  <form id="NofifyFrequency" name="setNotifyFrequency" action="/tah-java/SetNotification" method="post"  >
   <hr />
   How often do you want to be notified ?&nbsp;
   <input name="notifyFre" type="radio" value="1"  />
@@ -79,7 +109,7 @@
    </select> 
   </label> 
  <br />
- <p>
+ <p>	
  <strong>E-mail</strong>
  <input type="text" name="email" />
 </p>
@@ -98,3 +128,5 @@
 <p>May 2, 2010 </p>
 </body>
 </html>
+
+<% }%>

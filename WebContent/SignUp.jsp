@@ -477,8 +477,21 @@
 		    <span for="female"><input type="radio" value="F" id="female" name="gender" />female</span>
   			</div>
 
-
-		 <br />	
+		 
+		 <label>Patient/Caregiver/etc.</label>
+		 	<select id="selection" name="selection">
+			<option selected value='0'>Patient/Caregiver/other/etc. </option>
+			<option value="Patient">Patient</option>
+			<option value="Former Patient">Former Patient</option>
+			<option value="Caregiver">Caregiver</option>
+			<option value="Family member">Family member</option> 
+			<option value="Friend">Friend</option>
+			<option value="Physician">Physician</option>
+			<option value="Nurse">Nurse</option> 
+			</select>
+		<br />
+		<br />
+			
 		 <font size="2" class="agreement">
 		<!--<input type="checkbox" value="0" id="age" name="age" />-->
 		<i>By clicking the "Create Account", you confirm  <p>that you are at least 18 years of age</p> <p>and agree to the <a href="tos.jsp">Terms of Service</a>.</p> 

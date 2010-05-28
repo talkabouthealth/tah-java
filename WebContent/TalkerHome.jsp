@@ -86,8 +86,7 @@ function open_chat(){
 
 			<a id="logout" href="/tah-java/Logout">Logout</a>
 			<a id="Edit" href="EditProfile.jsp">EditProfile</a>
-			<a id="Settings" href="Settings.jsp">Settings</a>
-			<a id="Account" href="Account.jsp"> Account </a>
+			<a id="Settings" href="Settings.jsp">NotificationSettings</a>
 			<div id="welcome">
 		  	Welcome! <%
 						out.print(cb.getUserName());
