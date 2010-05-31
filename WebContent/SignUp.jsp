@@ -233,7 +233,7 @@
 	<div id="top_container">
 		<div id="top">
 			<div id="logo">
-				<a href="#"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
+				<a href="index.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
 			</div>	
 		</div>
 		<div id="innerbanner"></div>
@@ -264,6 +264,7 @@
 							String zip = request.getParameter("zip");
 							String city = request.getParameter("city");
 							String state = request.getParameter("state");
+							
 							
 							if (unerror != null && unerror.equals("u")) {
 								out.println("<p>That user name is already in taken.</p>  Please enter a different user name.");
@@ -297,8 +298,15 @@
 							}if (state == null){
 								state = "";
 							}
-							%>
+							
+							//Parameter for creating topic directly from index (non-auth) page
+							String newTopic = request.getParameter("newtopic");
+							if (newTopic == null) {
+								newTopic = "";
+							}
+						%>
 						</h5>
+						<input type="hidden" id="newtopic" name="newtopic" value="<%= newTopic %>" />
 						<ul>
 							<li><input name="username" type="text" class="textfields" id="username" 
 								onclick="this.value=''"  value="<%= unerror %>" /></li>
@@ -494,7 +502,8 @@
     						<strong>Note:</strong> Your information will remain safe and private.
 						</h4>
 						<div id="checkboxarea2">
-							<input name="" type="checkbox" value="" /> Sign me up for the TalkAboutHealth newsletter
+							<input id="newsletter" name="newsletter" type="checkbox" checked /> 
+							Sign me up for the TalkAboutHealth newsletter
 						</div>
 						<div class="signupbutton">
 							<a href="#" onclick="validateFormOnSubmit(document.signup);">
@@ -502,7 +511,7 @@
 							</a>
 						</div>
 						<div id="alreadyuser">
-							<span class="blacktext14">Already have an account?</span> 
+							<span class="blacktext14">Already have an account?&nbsp;</span> 
 							<a href="SignIn.jsp" class="pinktext16">Sign in</a>
 						</div>
 					</div>

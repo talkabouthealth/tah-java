@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,10 +18,8 @@ import javax.sql.DataSource;
 
 import beans.TalkerBean;
 
+import util.EmailUtil;
 import util.ValidateData;
-import webapp.InsertLoginRecordThread;
-
-import java.security.MessageDigest;
 
 
 /**
@@ -39,6 +38,7 @@ import java.security.MessageDigest;
    private String year;
    private String gender;
    private String dob;
+   private boolean newsletter;
    private SimpleDateFormat SQL_DATE_FORMAT;
    //private String zip;
    //private String city;
@@ -162,7 +162,8 @@ import java.security.MessageDigest;
 		//char g = gender.charAt(0);
 		// insert info into database
 		//String insertQuery = "Insert into talkers (uname, password, email, dob, gender, zip, city, state, passcode) values ('" + un + "', '" + pw + "', '" + email + "', '" + dob + "', '" + gender + "', '" + zip + "', '" + city + "', '"  + state + "', '" + sPassCode +  "')";
-		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM) values (?, ?, ?, ?, ?, ?,?)";
+		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM, newsletter) " +
+				"values (?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		try {
@@ -171,13 +172,12 @@ import java.security.MessageDigest;
 		    ps = conn.prepareStatement(insertQuery);
 		    ps.setString(1, un);
 		    ps.setString(2, pw);
-		    System.out.println("here");
-		    System.out.println(pw);
 		    ps.setString(3, email);
 		    ps.setString(4, dob);
 		    ps.setString(5, gender);
 		    ps.setString(6, sqlDate);
 		    ps.setString(7, IM);
+		    ps.setBoolean(8, newsletter);
 		    
 		    ps.executeUpdate();
 		    
@@ -288,7 +288,12 @@ import java.security.MessageDigest;
 		//zip = request.getParameter("zip");
 		//city = request.getParameter("city");
 		//state = request.getParameter("state");
-		//System.out.println(un+pw+email+month+day+year+gender);
+		//System.out.println(un+pw+email+month+day+year+gender);	
+		
+		newsletter = false;
+		if (request.getParameter("newsletter") != null) {
+			newsletter = true;
+		}
 		
 		// data validation
 		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw) || !ValidateData.validateEmail(email) || !ValidateData.validateMonth(month)|| !ValidateData.validateDay(day)|| !ValidateData.validateYear(year)){
@@ -321,6 +326,9 @@ import java.security.MessageDigest;
 				response.sendRedirect("Error.jsp");
 				return;
 			}
+			
+			//Successful signup!
+			EmailUtil.sendEmail(EmailUtil.WELCOME_TEMPLATE, email);
 				
 			// create session
 		    TalkerBean cb= new TalkerBean();
@@ -348,8 +356,15 @@ import java.security.MessageDigest;
 		    //set session variables
 		    request.getSession().setAttribute("talker", cb);
 		    request.getSession().setAttribute("username", cb.getUserName());
+		    
+		    String params = "";
+		    //If user tried to create topic and signed up - save topic name in the field
+		    String newTopic = request.getParameter("newtopic");
+		    if (newTopic != null && newTopic.trim().length() != 0) {
+		    	params = "?newtopic="+URLEncoder.encode(newTopic, "UTF-8");
+		    }
 				
-		    response.sendRedirect("TalkerHome.jsp");
+		    response.sendRedirect("TalkerHome.jsp"+params);
 		}
 		//System.out.println("--------*** Process New Talker - End!!");
 	}   	  	    

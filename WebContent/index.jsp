@@ -39,38 +39,38 @@
 
 	<!-- scripts -->
 	<script language="javascript">
-		function trim(stringToTrim) {
-			return stringToTrim.replace(/^\s+|\s+$/g,"");
-		}
-	
 		function checkForm()
 		{
-			//Prompt if missing userid and password
-			if((document.login.username.value == "") && (document.login.password.value == ""))
-			{
-				alert("Please enter your username and password");
-				document.login.username.focus();
-				return false;
-			}
-			//Prompt if missing userid
-			if(document.login.username.value == "")
-			{
-				alert("Please enter your username");
-				document.login.username.focus();
-				return false;
-			}
-	
-			//Prompt if missing password
-			if(document.login.password.value == "")
-			{
-				alert("Please enter your password");
-				document.login.password.focus();
+			//Check topic name field
+			var newTopicField = document.postnewtopic.newtopic;
+			if((newTopicField.value == "") 
+					|| (newTopicField.value == "Please enter your Conversation here ...")) {
+				alert("Please enter topic name.");
+				newTopicField.focus();
 				return false;
 			}
 			
 			return true;
 		}
- 
+
+		function submitenter(myfield,e) {
+			var keycode;
+			if (window.event) keycode = window.event.keyCode;
+			else if (e) keycode = e.which;
+			else return true;
+			
+			if (keycode == 13) {
+				signup();
+		    }
+			return true;
+		}
+		
+		function signup() {
+			if (checkForm()) {
+				var newTopic = document.getElementById('newtopic').value;				
+				document.location = "SignUp.jsp?newtopic="+encodeURIComponent(newTopic);
+			}
+		}
 	</script>
 </head>
 
@@ -106,15 +106,19 @@
 			<h1>Ask a question <span class="text24">or start a new conversation:</span></h1>
 			<div id="curvetop"></div>
 			<div id="lefttextarea">
-				<textarea cols="" rows="" class="textarea" value="Please enter your Conversation here ..." onclick="this.value=''" 
-					onblur="this.value='Please enter your Conversation here ...'">Please enter your Conversation here ...</textarea>
+				<form id="postform" name="postnewtopic" action="javascript:signup();" method="post" > 
+					<textarea cols="" rows="" class="textarea" id="newtopic" name="newtopic" maxlength="40" 
+						onKeyPress="submitenter(this,event)" TABINDEX=1
+						onclick="if (this.value == 'Please enter your Conversation here ...') this.value=''"
+						>Please enter your Conversation here ...</textarea>
+				</form>
 			</div>
 			<div id="arealefttextarea">
 				<div id="arealefttext">
 					<p><a href="#" class="blacktext">&nbsp;Example Question</a></p>
 				</div>
 				<div id="arealeftgrey">
-					<a href="#"><img src="images/startbutton.gif" width="206" height="46" border="0" /></a>
+					<a href="#" onclick="signup()"><img src="images/startbutton.gif" width="206" height="46" border="0" /></a>
 				</div>
 			</div>
 			<div id="curvebottom"></div>

@@ -25,10 +25,14 @@
 		LiveConversationsSingleton lcs = LiveConversationsSingleton.getReference();
 		if(lcs.getLiveConversationMap().size() < 20) {
 			mapTalkmiTopics = TalkmiDBUtil.queryTopics();
-			out.println(mapTalkmiTopics.size());
 		}
 		
 		session.setAttribute("mapTalkmiTopics", mapTalkmiTopics);
+		
+		String newTopic = request.getParameter("newtopic");
+		if (newTopic == null) {
+			newTopic = "Please enter your Conversation here ...";
+		}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -62,10 +66,11 @@
 		function checkForm()
 		{
 			//Check topic name field
-			if((document.postnewtopic.newtopic.value == "") 
-					|| (document.postnewtopic.newtopic.value == "Please enter your Conversation here ...")) {
+			var newTopicField = document.postnewtopic.newtopic;
+			if((newTopicField.value == "") 
+					|| (newTopicField.value == "Please enter your Conversation here ...")) {
 				alert("Please enter topic name.");
-				document.postnewtopic.newtopic.focus();
+				newTopicField.focus();
 				return false;
 			}
 			
@@ -176,7 +181,7 @@
 				<form id="postform" name="postnewtopic" action="javascript:postNewTopic(document.getElementById('newtopic'));" method="post" > 
 					<textarea cols="" rows="" class="textarea" id="newtopic" name="newtopic" maxlength="40" 
 						onKeyPress="submitenter(this,event)" TABINDEX=1
-						onclick="this.value=''" >Please enter your Conversation here ...</textarea>
+						onclick="if (this.value == 'Please enter your Conversation here ...') this.value=''" ><%= newTopic %></textarea>
 				</form>
 			</div>
 			<div id="arealefttextarea">
