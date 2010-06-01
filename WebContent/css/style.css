@@ -95,6 +95,7 @@ body {
 #innerheading { float:left; width: 100%; height:56px; line-height:56px;}
 #innermiddlearea {float:left; width: 942px; padding-top:20px; padding-bottom:20px;}
 #signupleft { float:left; width:590px;}
+#signupleft h5 { margin: 0px; padding-top: 10px; font-size:14px; clear:both;}
 #signupright { float:right; width:300px; }
 .socialicons2{ float:left; width:590px;  }
 .socialicons2 ul{ float:left; padding-bottom:8px; padding-top:8px; border-bottom:1px dotted #433d3d; width:590px;  }

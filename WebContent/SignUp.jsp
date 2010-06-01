@@ -250,8 +250,7 @@
 							<li><img src="images/googleicon.gif" width="150" height="22" />&nbsp;&nbsp;</li>
 						</ul>
 					</div>
-					<div id="signfields">
-						<h5>
+					<h5>
 						<%
 							String unerror = request.getParameter("username");
 							String password = request.getParameter("password");
@@ -280,7 +279,11 @@
 								threeDigits = tnerror.substring(4,7);
 								fourDigits = tnerror.substring(7,11);
 							}*/
-							if (email == null){
+							
+							if (email != null && email.equals("notvalid")) {
+								out.println("Please enter a valid email address.");
+								email = "";
+							} else if (email == null) {
 								email = "Email";
 							}
 							if (month == null){
@@ -305,7 +308,8 @@
 								newTopic = "";
 							}
 						%>
-						</h5>
+					</h5>
+					<div id="signfields">
 						<input type="hidden" id="newtopic" name="newtopic" value="<%= newTopic %>" />
 						<ul>
 							<li><input name="username" type="text" class="textfields" id="username" 

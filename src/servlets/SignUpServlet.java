@@ -296,7 +296,16 @@ import util.ValidateData;
 		}
 		
 		// data validation
-		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw) || !ValidateData.validateEmail(email) || !ValidateData.validateMonth(month)|| !ValidateData.validateDay(day)|| !ValidateData.validateYear(year)){
+		if (!ValidateData.validateEmail(email)) {
+			response.sendRedirect("SignUp.jsp?username=" + un + "&email=notvalid"+ 
+					"&month=" + month + "&day=" + day + "&year=" + year);
+			return;
+		}
+		
+		// Other fields are validated using JavaScript on client,
+		// so if server side validation fails - error is unknown and we can redirect to common error page
+		if(!ValidateData.validateUserName(un) || !ValidateData.validatePassword(pw) 
+				|| !ValidateData.validateMonth(month) || !ValidateData.validateDay(day)|| !ValidateData.validateYear(year)) {
 			Exception e = new Exception("Login Failed - Data Validation Error!!");
 			e.printStackTrace();
 			response.sendRedirect("Error.jsp");
@@ -315,7 +324,7 @@ import util.ValidateData;
 			} else {
 				//System.out.println("*** Process New Talker - matching username or tnumber: " + errors[0] + errors[1] + email);
 			    // redirecting to SignUp page, will exhibit msg about errors
-				response.sendRedirect("SignUpTalker.jsp?username=" + errors[0] + "&email=" + email + "&month=" + month + "&day=" + day + "&year=" + year + "&gender=" + gender);
+				response.sendRedirect("SignUp.jsp?username=" + errors[0] + "&email=" + email + "&month=" + month + "&day=" + day + "&year=" + year + "&gender=" + gender);
 			}
 		} else {
 			//System.out.println("*** Process New Talker - Inserting talker info into DB");
