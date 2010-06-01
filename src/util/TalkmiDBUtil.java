@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import beans.TalkerBean;
@@ -388,10 +389,7 @@ public class TalkmiDBUtil {
 		ResultSet rs = null;
 		
 		try {
-		    Context initContext = new InitialContext();
-		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
-		    conn = ds.getConnection();
+			conn = getConnection();
 		    
 		    ps = conn.prepareStatement("SELECT count(*) FROM talkers");
 		    rs = ps.executeQuery();
@@ -442,10 +440,7 @@ public class TalkmiDBUtil {
 		ResultSet rs = null;
 		
 		try {
-		    Context initContext = new InitialContext();
-		    Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
-		    conn = ds.getConnection();
+			conn = getConnection();
 		    
 		    ps = conn.prepareStatement("SELECT count(*) FROM topics WHERE uid = ?");
 		    ps.setInt(1, uid);
@@ -490,7 +485,7 @@ public class TalkmiDBUtil {
 	
 	public static boolean validateLogin(TalkerBean cb){
 		// create sql statement
-		String sqlValidate = "select * from talkers where uname= ?";
+		String sqlValidate = "select * from talkers where uname = ? and password = ?";
 		//String sqlValidate = "select * from talkers";
 		boolean validated = false; 
 		
@@ -498,29 +493,11 @@ public class TalkmiDBUtil {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-		    Context initContext = new InitialContext();
-		    Context envContext  = (Context)initContext.lookup("java:comp/env");
-		    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
-		    conn = ds.getConnection();
-	    	if (conn == null)
-	    		System.out.println("Didn't get the connection!");
-	    	if(!conn.isClosed())
-	    		System.out.println("Get the connection!");
-//	    	Statement stmt = conn.createStatement();
-//	    	ResultSet rst = stmt.executeQuery("select * from talkers");
-//	    	System.out.println("Another query is ok" + rst.next());
-//	    	rst.close();
-//	    	rst = null;
-//	    	Statement state = conn.createStatement();
-//            ResultSet qry = state.executeQuery("select * from talkers WHERE uname = 'm'");
-//            System.out.println("Another query is : " + qry.getObject("uname").toString());
-	    	
+			conn = getConnection();
+			
 	    	ps = (PreparedStatement)conn.prepareStatement(sqlValidate);
-		    
-		    System.out.println("Username stored in Javabean!");
-		    System.out.println("Password stored in Javabean!");
 		    ps.setString(1, cb.getUserName());
-		   // ps.setString(2, cb.getPassword());
+		    ps.setString(2, cb.getPassword());
 		    rs = ps.executeQuery();
 		    //System.out.println("Now the status of query for DB is:" + rs.first());
 		    
@@ -560,5 +537,101 @@ public class TalkmiDBUtil {
 		      conn = null;
 		    }
 		}
+	}
+
+	public static TalkerBean getTalkerByEmail(String email){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+		    
+		    ps = conn.prepareStatement("SELECT * FROM talkers WHERE email = ?");
+		    ps.setString(1, email);
+		    rs = ps.executeQuery();
+		    
+		    TalkerBean user = null;
+		    if (rs.next()) {
+		    	user = new TalkerBean();
+		    	user.setEmail(rs.getString("email"));
+		    	user.setUID(rs.getInt("uid"));
+		    	user.setUserName(rs.getString("uname"));
+			}
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		   
+		    return user;
+		} catch (SQLException ex) {
+			    // handle any errors
+			    ex.printStackTrace();
+				return null;
+		} catch (Exception ex) {
+				ex.printStackTrace();
+				return null;
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (rs != null) {
+		      try { rs.close(); } catch (SQLException e) { ; }
+		      rs = null;
+		    }
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
+	public static void updateTalker(TalkerBean user) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+		    conn = getConnection();
+		    
+		    ps = conn.prepareStatement("UPDATE talkers SET uname = ?, password = ?, email = ? WHERE uid = ?");
+		    ps.setString(1, user.getUserName());
+		    ps.setString(2, user.getPassword());
+		    ps.setString(3, user.getEmail());
+		    ps.setInt(4, user.getUID());
+		    
+		    ps.executeUpdate();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		} catch (SQLException ex) {
+		    // handle any errors
+		    ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
+	private static Connection getConnection() throws NamingException, SQLException {
+		Context initContext = new InitialContext();
+	    Context envContext  = (Context)initContext.lookup("java:/comp/env");
+	    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
+	    Connection conn = ds.getConnection();
+	    return conn;
 	}
 }
