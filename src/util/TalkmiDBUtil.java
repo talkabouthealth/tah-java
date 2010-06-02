@@ -598,11 +598,13 @@ public class TalkmiDBUtil {
 		try {
 		    conn = getConnection();
 		    
-		    ps = conn.prepareStatement("UPDATE talkers SET uname = ?, password = ?, email = ? WHERE uid = ?");
+		    ps = conn.prepareStatement("UPDATE talkers " +
+		    		"SET uname = ?, password = ?, email = ?, invitations = ? WHERE uid = ?");
 		    ps.setString(1, user.getUserName());
 		    ps.setString(2, user.getPassword());
 		    ps.setString(3, user.getEmail());
-		    ps.setInt(4, user.getUID());
+		    ps.setInt(4, user.getInvitations());
+		    ps.setInt(5, user.getUID());
 		    
 		    ps.executeUpdate();
 		    ps = null;

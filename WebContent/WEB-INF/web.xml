@@ -141,6 +141,26 @@
 		<servlet-name>ForgotPassword</servlet-name>
 		<url-pattern>/ForgotPassword</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>Invitations</servlet-name>
+		<servlet-class>servlets.InvitationsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Invitations</servlet-name>
+		<url-pattern>/Invitations</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 
+		Is tested now - login with Google OpenID
+		<servlet>
+			<servlet-name>OpenIDServlet</servlet-name>
+			<servlet-class>servlets.OpenIDServlet</servlet-class>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>OpenIDServlet</servlet-name>
+			<url-pattern>/openid</url-pattern>
+		</servlet-mapping>
+	-->
 
 	<!-- Filters -->
 	<filter>

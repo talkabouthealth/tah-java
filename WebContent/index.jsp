@@ -6,12 +6,11 @@
 	response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
 	response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
 	
-	int numberOfMembers = TalkmiDBUtil.getNumberOfMembers();
-	
 	String sUserName = (String)session.getAttribute("username");
 	if (sUserName != null) { 
 		response.sendRedirect("TalkerHome.jsp");
 	} else {
+		int numberOfMembers = TalkmiDBUtil.getNumberOfMembers();
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

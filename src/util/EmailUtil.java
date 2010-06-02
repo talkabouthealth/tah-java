@@ -21,6 +21,7 @@ public class EmailUtil {
 	
 	public static final String WELCOME_TEMPLATE = "welcome";
 	public static final String FORGOT_PASSWORD_TEMPLATE = "forgotpassword";
+	public static final String INVITATION_TEMPLATE = "invitation";
 	
 	public static void sendEmail(String templateName, String toEmail) {
 		sendEmail(templateName, toEmail, null, null);

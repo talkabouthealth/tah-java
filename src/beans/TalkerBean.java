@@ -13,6 +13,7 @@ public class TalkerBean {
 	private char gender;
 	private Date dob;
 	private int UID;
+	private int invitations;
 	
 	public TalkerBean(){}
 	
@@ -54,6 +55,7 @@ public class TalkerBean {
 		setEmail(set.getString("email"));
 		setGender(set.getString("gender").charAt(0));
 		setDob(set.getDate("dob"));
+		setInvitations(set.getInt("invitations"));
 	}
 	public String getDOBYear() throws SQLException{
 		Calendar cal=Calendar.getInstance();
@@ -91,5 +93,13 @@ public class TalkerBean {
 
 	public Date getDob() {
 		return dob;
+	}
+
+	public int getInvitations() {
+		return invitations;
+	}
+
+	public void setInvitations(int invitations) {
+		this.invitations = invitations;
 	}
 }	

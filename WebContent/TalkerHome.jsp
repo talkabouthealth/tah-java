@@ -100,6 +100,10 @@
 		function open_chat(){
 			window.open("http://talkabouthealth.com:5080/tah/chat.jsp?id="+username);
 		}
+		
+		function openInvitationsWindow() {
+			window.open("Invitations.jsp", "TalkAboutHealth Invitations", "width=600,height=350");
+		}
 	</script>
 </head>
 
@@ -294,7 +298,7 @@
 					<div class="innerrighmid">
 						<span class="redtext">Share TalkAboutHealth</span><br />
 			  			<span class="blacktext14">Invite friends to join the community</span><br /><br />
-						<img src="images/invite.gif" />
+						<a href="#" onclick="openInvitationsWindow()"><img border="0" src="images/invite.gif" /></a>
 					</div>
 					<div class="innerrighbot"></div>
 				</div>
