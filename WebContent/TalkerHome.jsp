@@ -34,18 +34,7 @@
 			newTopic = "Please enter your Conversation here ...";
 		}
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-	<meta name="author" content="Talkmi" /> 
-	<meta name="keywords" content="support, health, talk" /> 
-	<meta name="description" content="real-time support for your health issues" /> 
-	<meta name="robots" content="all" /> 
-	<title>Talkmi: Real-time support for your health issues</title>
-	
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
+<%@ include file="header.jsp" %>
 	<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
@@ -322,18 +311,5 @@
 	</div>
 </div>
 
-<!-- begin Google Analytics -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-13005583-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-<!-- end Google Analytics -->
-
-</body>
-</html>
+<%@ include file="footer.jsp" %>
 <% }%>
