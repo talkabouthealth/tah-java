@@ -1,14 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" > 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="author" content="Talkmi" /> 
-	<meta name="keywords" content="support, health, talk" /> 
-	<meta name="description" content="real-time support for your health issues" /> 
-	<meta name="robots" content="all" /> 
-	<title>Talkmi : Real-time support for your health issues</title>
-	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<style>
+body {
+	margin: 0px;
+	padding:0px;
+	font-family:arial;
+	font-size:11px;
+	color:#000000;
+	background:url(images/inner_bg.gif) repeat-x top;
+	}
+	
+</style>
 
 <script type="text/javascript" charset="utf-8">
 	function validateFormOnSubmit(signup) {
@@ -210,24 +219,29 @@
 
 </head>
 
-<body>
-<div class="top">
-	<h5>
-		<a href="index.jsp"> Home |</a>
-		<a href="faq.jsp"> FAQ |</a>
-		<a href="feedback.jsp"> Feedback</a>
-	</h5>
-</div>	
+<body onLoad="P7_ExpMenu()">
+<div id="top_container">
+<div id="top">
+<div id="logo"><a href="TalkerHome.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a> </div>
 
-<div class="center">
-	<a href="/tah-java/index.jsp"><h1><span>Talkmi</span></h1></a>
-	<div id="signup">	
-	<div id="padding">
+</div>
+<div id="innerbanner"></div>
+<div id="innermain">
+<form id="form" name="signup" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/SignUp" method="post">
+<div class="blacktext2" id="innerheading">Sign Up Now</div>
+<div id="innermiddlearea">
+<div id="signupleft">
+<span class="blacktext14">Save time entering your information</span>
+<div class="socialicons2">
+<ul>
+<li><img src="images/facebookicon.gif" width="150" height="22" />&nbsp;&nbsp;</li>
+<li><img src="images/twittericon.gif" width="150" height="22" />&nbsp;&nbsp;</li>
+<li><img src="images/googleicon.gif" width="150" height="22" />&nbsp;&nbsp;</li>
+</ul>
+</div>
+<div id="signfields">
 
-
-		<h2>Create your account</h2>
-		<form id="form" name="signup" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/SignUp" method="post">
-			<h5>
+<h5>
 			<%@page import = "java.sql.*" %>
 			<%@page import = "java.security.MessageDigest" %>
 			
@@ -280,103 +294,42 @@
 				state = "";
 			}
 				
-			/*String URL = "jdbc:mysql://localhost:3306/";
-			Connection con = null;
-			
-			try{
-				//Class.forName("com.mysql.jdbc.Driver");
-				//con = DriverManager.getConnection(URL, "root", "applepie");
-				Context initContext = new InitialContext();
-		    	Context envContext  = (Context)initContext.lookup("java:comp/env");
-		   	 	DataSource ds = (DataSource)envContext.lookup("jdbc/Talkmidb");
-		   	 	
-		   	 	con = ds.getConnection();
-				
-				PreparedStatement ps = con.prepareStatement("INSERT INTO Register(user, pass, name, phone) VALUES()");
-				ps.setString(1, unerror);
-				ps.setString(2, pw);
-				int i = ps.executeUpdate();
-				ps.close();	
-				con.close();
-			}catch(Exception e){}   */
 			%>
-			</h5>
-			
-		    <label for="username" id="uname"><span>Username</span>
-		        <input id="username" name="username" maxlength="25" size="25" type="text" class="box" value='<%= unerror %>' /><br />
-		    </label>
-		    <label for="password" id="passwd"><span>Password</span>
-		    	<input id="password" name="password" maxlength="25" size="25" type="password" class="box" /><br />
-		    </label>
-		    <label for="email" id="mail"><span>Email</span>
-		    	<input id="email" name="email" maxlength="55" size="25" type="text" class="box" value='<%= email %>' /><br />
-			</label>
-			<label for="IMServie" id="IM"><span>IMService</span>
-				<select id="IMService" name="IMService" class="DOBbox"  >
-					<option selected value='0'>Select an IM service</option>
-					<option value="YahooIM">YahooIM</option>
-					<option value="WindowLive">WindowLive</option>
-					<option value="AOL">AOL</option>
-					<option value="GoogleTalk">GoogleTalk</option>
-					<option value="SkypeIM">SkypeIM</option> 
-				</select> 
-			</label> <br />
+</h5>
 
-			<label for="mm,dd,yyyy" id="dob"><span>Date of Birth</span>
-				<select id="mm" name="month" class="DOBbox">
-					<option selected value='0'>month</option>
-					<option value=01>Jan</option>
-					<option value=02>Feb</option>
-					<option value=03>Mar</option>
-					<option value=04>Apr</option>
-					<option value=05>May</option>
-					
-					<option value=06>Jun</option>
-					<option value=07>Jul</option>
-					<option value=08>Aug</option>
-					<option value=09>Sep</option>
-					<option value=10>Oct</option>
-					<option value=11>Nov</option>
-					
-					<option value=12>Dec</option>                      
-				</select> 
-                <select id="dd" name="day"  class="DOBbox">
-                	<option selected value='0'>day</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
-					<option value="22">22</option>
-					<option value="23">23</option>
-					<option value="24">24</option>
-					<option value="25">25</option>
-					<option value="26">26</option>
-					<option value="27">27</option>
-					<option value="28">28</option>
-					<option value="29">29</option>
-					<option value="30">30</option>
-					<option value="31">31</option>
-              	</select>
-                 <select id="yyyy" name="year"  class="DOBbox">
-                	<option selected value='0'>year</option>
-					<option value="1991">1991</option>
+<ul>
+<li><input name="username" type="text" class="textfields" id="textfield" onclick="this.value=''"  value="Username" /></li>
+<li><input name="password" type="text" class="textfields" id="textfield" onclick="this.value=''"  value="Password" /></li>
+<li><input name="Email" type="text" class="textfields" id="textfield" onclick="this.value=''"  value="Email" /></li>
+<li style="margin:0 0 2px 0;"><select name="IMService" class="textarea1">
+  <option value="Select an IM Service" selected="selected">Select an IM Service</option>
+  <option value="YahooIM">YahooIM</option>
+  <option value="WindowLive">WindowLive</option>
+  <option value="AOL">AOL</option>
+  <option value="GoogleTalk">GoogleTalk</option>
+  <option value="SkypeIM">SkypeIM</option> 
+</select></li>
+<li class="blacktext14" style="border:none; padding:0; margin:0;">&nbsp; Date of Birth</li>
+<li style="border:none; padding:0px 0px 5px 0px;">
+
+<div class="datefields"><select name="month" style="font-size: 14px; width:100px; border:none; ">
+  <option value="month" selected="selected">Month</option>
+  <option>January</option>
+  <option>February</option>
+  <option>March</option>
+  <option>April</option>
+  <option>May</option>
+  <option>June</option>
+  <option>July</option>
+  <option>August</option>
+  <option>September</option>
+  <option>October</option>
+  <option>November</option>
+  <option>December</option>
+</select></div>
+<div class="datefields"><select name="year" style="font-size: 14px; width:100px; border:none; ">
+  <option value="Year">Year</option>
+  <option value="1991">1991</option>
 					<option value="1990">1990</option>
 					<option value="1989">1989</option>
 					<option value="1988">1988</option>
@@ -467,73 +420,72 @@
 					<option value="1903">1903</option>
 					<option value="1902">1902</option>
 					<option value="1901">1901</option>
-					<option value="1900">1900</option>              	
-              	</select>              	
-			</label>
-
-			<div id="gender">
-			<span>Gender</span>
-		    <span for="male"><input type="radio" value="M" id="male" name="gender" />male</span>
-		    <span for="female"><input type="radio" value="F" id="female" name="gender" />female</span>
-  			</div>
-
-		 
-		 <label>Patient/Caregiver/etc.</label>
-		 	<select id="selection" name="selection">
-			<option selected value='0'>Patient/Caregiver/other/etc. </option>
-			<option value="Patient">Patient</option>
+					<option value="1900">1900</option> 
+</select></div>
+</li>
+<li><select name="" class="textarea1">
+  <option value="Your Community" selected="selected">Your Community</option>
+</select></li>
+<li><select name="selection" class="textarea1">
+  <option value="Patient/Caregiver/Family Member" selected="selected">Patient/Caregiver/Family Member</option>
+  <option value="Patient">Patient</option>
 			<option value="Former Patient">Former Patient</option>
 			<option value="Caregiver">Caregiver</option>
 			<option value="Family member">Family member</option> 
 			<option value="Friend">Friend</option>
 			<option value="Physician">Physician</option>
 			<option value="Nurse">Nurse</option> 
-			</select>
-		<br />
-		<br />
-			
-		 <font size="2" class="agreement">
-		<!--<input type="checkbox" value="0" id="age" name="age" />-->
-		<i>By clicking the "Create Account", you confirm  <p>that you are at least 18 years of age</p> <p>and agree to the <a href="tos.jsp">Terms of Service</a>.</p> 
-		</i>
-		</font>	
-		<br />
-		 	<input id="submit" name="submit" type="submit" value="Create Account" />
-	 		
-		</form>
-		<br />
-		<br />
-		<div id="privacy">
-		<a href="privacy.jsp">We value your privacy</a>
-		</div>
-	</div>
-	</div>
-	<div class="clear">
-	</div>
+</select></li>
+
+</ul>
+<!--  <input id="submit" name="submit" type="submit" value="Create Account" />  -->	
+
+</div>
+<div id="signfieldsright" class="blacktext">How other users will recognize you.<br /> 
+You might not want to associate your real name.<br /><br /><br />You must be over 18 years old to use this service.<br /><br /><br /><br /><br /><br /><br />TalkAboutHealth notifies you of conversations via IM.</div>
+<div id ="signdown"><h4>By signing up you agree to the <a href="#" class="pinktext14">Terms Of Service</a> and <a href="#" class="pinktext14">Privacy Policy</a><br />
+    <strong>Note:</strong> Your information will remain safe and private.
+</h4>
+<div id="checkboxarea2"><input name="" type="checkbox" value="" /> Sign me up for the TalkAboutHealth newsletter
 </div>
 
-<div class="bottom">
-	<div id="footer">
-		<ul>
-			<li><a href="index.jsp"> Home</a>
-			<li><a href="faq.jsp"> FAQ</a>
-			<li><a href="privacy.jsp"> Privacy</a>
-			<li><a href="tos.jsp"> Terms of Use</a>
-			<li><a href="mailto:feedback@Talkmi.com"> Feedback</a>
-		</ul>
-		<p>Copyright Talkmi </p>
-	</div>
+<!--  <div class="signupbutton"><img src="images/signupbutton.gif" width="126" height="46" /></div> -->
+
+<div class="signupbutton"> 
+<input id="submit" name="submit" type="image" src="images/signupbutton.gif" value="Create Account" />
 </div>
-<!-- begin Google Analytics -->
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-13005583-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-<!-- end Google Analytics -->
+<div id="alreadyuser"><span class="blacktext14">Already have an account?</span> <a href="login.htm" class="pinktext16">Sign in</a></div>
+
+</form>
+</div>
+</div>
+<div id="signupright">
+<div class="signrightbox">
+<div class="signrightop"></div>
+<div class="signrighmid">
+<span class="bluetext14">Get the health information you need in 
+real-time, 24X7.<br /><br />
+Advice and support from experienced 
+peers<br /><br />
+Meet and develop friendships with 
+others just like you.<br /><br />Share you story with others who 
+understand.</span></div>
+<div class="signrighbot"></div>
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+<div id="bottom_container"></div>
+<div id="footerarea">
+<div id="footer">
+<div id="footerleft"><a href="#" class="footerlink">Blog</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="footerlink">Faq</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="footerlink">Contact Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="footerlink">About Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="footerlink">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="footerlink">Terms of Service</a></div>
+<div id="footerright"><img src="images/footerlogo.gif" width="237" height="25" alt="" /></div>
+</div>
+</div>
+
 </body>
 </html>

@@ -18,6 +18,7 @@ public class TalkerBean {
 	private String city;
 	private String state;
 	private String country;
+	private int itype;
 	private int nfreq;
 	private int ntime;
 	
@@ -53,6 +54,9 @@ public class TalkerBean {
 	public String getCountry(){
 		return country;
 	}
+	public int getItype(){
+		return itype;
+	}
 	public int getNfreq(){
 		return nfreq;
 	}
@@ -84,6 +88,9 @@ public class TalkerBean {
 	}
 	public void setCountry(String value){
 		country = value;
+	}
+	public void setItype(int value){
+		itype = value;
 	}
 	public void setNfreq(int value){
 		nfreq = value;
