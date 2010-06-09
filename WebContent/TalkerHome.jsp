@@ -136,8 +136,8 @@
 						<ul>
 							<li><a href="EditProfile.jsp" title="Law">Edit Profile</a></li>
 							<li><a href="Settings.jsp" title="Law">Notification Settings</a></li>
-							<li><a href="#" title="Law">Edit Health Information</a></li>
-							<li><a href="Settings.jsp" title="Law">Profile Preferences</a></li>
+							<li><a href="HealthDetails.jsp" title="Law">Edit Health Information</a></li>
+							<li><a href="ProfilePreferences.jsp" title="Law">Profile Preferences</a></li>
 						</ul>
 						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 					</li>
@@ -292,21 +292,6 @@
 					<div class="innerrighbot"></div>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<div id="footerarea">
-	<div id="footer">
-		<div id="footerleft">
-			<a href="#" class="footerlink">Blog</a>&nbsp;&nbsp;|&nbsp;
-			<a href="faq.jsp" class="footerlink">Faq</a>&nbsp;&nbsp;|&nbsp;
-			<a href="mailto:feedback@Talkmi.com" class="footerlink">Contact Us</a>&nbsp;&nbsp;|&nbsp;
-			<a href="#" class="footerlink">About Us</a>&nbsp;&nbsp;|&nbsp;
-			<a href="privacy.jsp" class="footerlink">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;
-			<a href="tos.jsp" class="footerlink">Terms of Service</a>
-		</div>
-		<div id="footerright">
-			<img src="images/footerlogo.gif" width="237" height="25" alt="" />
 		</div>
 	</div>
 </div>

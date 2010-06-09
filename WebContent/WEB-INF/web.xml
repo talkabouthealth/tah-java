@@ -149,7 +149,22 @@
 		<servlet-name>Invitations</servlet-name>
 		<url-pattern>/Invitations</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<servlet-name>HealthDetails</servlet-name>
+		<servlet-class>servlets.HealthDetailsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HealthDetails</servlet-name>
+		<url-pattern>/HealthDetails</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ProfilePreferences</servlet-name>
+		<servlet-class>servlets.ProfilePreferencesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProfilePreferences</servlet-name>
+		<url-pattern>/ProfilePreferences</url-pattern>
+	</servlet-mapping>
 	<!-- 
 		Is tested now - login with Google OpenID
 		<servlet>

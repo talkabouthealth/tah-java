@@ -210,18 +210,6 @@ function validateEmail(fld) {
 		</div>	
 	</div>
 
-<div class="bottom">
-	<div id="footer">
-		<ul>
-			<li><a href="index.jsp"> Home</a>
-			<li><a href="faq.jsp"> FAQ</a>
-			<li><a href="privacy.jsp"> Privacy</a>
-			<li><a href="tos.jsp"> Terms of Use</a>
-			<li><a href="mailto:feedback@Talkmi.com"> Feedback</a>
-		</ul>
-		<p>Copyright Talkmi </p>
-	</div>
-</div>
 
 <%@ include file="footer.jsp" %>
 <% }%>

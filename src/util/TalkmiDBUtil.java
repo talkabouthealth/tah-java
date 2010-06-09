@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,6 +18,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import beans.TalkerBean;
+import beans.TalkerDiseaseBean;
 import beans.TopicBean;
 
 
@@ -599,12 +602,14 @@ public class TalkmiDBUtil {
 		    conn = getConnection();
 		    
 		    ps = conn.prepareStatement("UPDATE talkers " +
-		    		"SET uname = ?, password = ?, email = ?, invitations = ? WHERE uid = ?");
+		    		"SET uname = ?, password = ?, email = ?, " +
+		    		"invitations = ?, profilepreferences = ? WHERE uid = ?");
 		    ps.setString(1, user.getUserName());
 		    ps.setString(2, user.getPassword());
 		    ps.setString(3, user.getEmail());
 		    ps.setInt(4, user.getInvitations());
-		    ps.setInt(5, user.getUID());
+		    ps.setInt(5, user.profilePreferencesToInt());
+		    ps.setInt(6, user.getUID());
 		    
 		    ps.executeUpdate();
 		    ps = null;
@@ -629,11 +634,153 @@ public class TalkmiDBUtil {
 		}
 	}
 	
+	public static Map<Integer, String> getValuesByDisease(String type, int diseaseId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+		    
+		    ps = conn.prepareStatement("SELECT id, name FROM disease_"+type+" WHERE disease_id = ?");
+		    ps.setInt(1, diseaseId);
+		    rs = ps.executeQuery();
+		    
+		    Map<Integer, String> valuesMap = new HashMap<Integer, String>();
+		    while (rs.next()) {
+		    	valuesMap.put(rs.getInt(1), rs.getString(2));
+			}
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		    
+		    return valuesMap;
+		} catch (SQLException ex) {
+			    // handle any errors
+			    ex.printStackTrace();
+				return null;
+		} catch (Exception ex) {
+				ex.printStackTrace();
+				return null;
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (rs != null) {
+		      try { rs.close(); } catch (SQLException e) { ; }
+		      rs = null;
+		    }
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
 	private static Connection getConnection() throws NamingException, SQLException {
 		Context initContext = new InitialContext();
 	    Context envContext  = (Context)initContext.lookup("java:/comp/env");
 	    DataSource ds = (DataSource)envContext.lookup(DATA_SOURCE_NAME);
 	    Connection conn = ds.getConnection();
 	    return conn;
+	}
+	
+	public static void saveTalkerDisease(TalkerDiseaseBean talkerDisease) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+		    conn = getConnection();
+		    
+		    ps = conn.prepareStatement("INSERT INTO talker_disease VALUES " +
+		    		"(NULL, ?, ?, ?, ?, ?, ?)");
+		    ps.setInt(1, talkerDisease.getUid());
+		    ps.setInt(2, talkerDisease.getStageId());
+		    ps.setInt(3, talkerDisease.getTypeId());
+		    ps.setBoolean(4, talkerDisease.isRecurrent());
+		    //TODO: easier?
+		    ps.setDate(5, new java.sql.Date(talkerDisease.getSymptomDate().getTime()));
+		    ps.setDate(6, new java.sql.Date(talkerDisease.getDiagnoseDate().getTime()));
+		    
+		    ps.executeUpdate();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		} catch (SQLException ex) {
+		    // handle any errors
+		    ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
+	public static TalkerDiseaseBean getTalkerDisease(int userId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+		    
+		    ps = conn.prepareStatement("SELECT * FROM talker_disease WHERE uid = ?");
+		    ps.setInt(1, userId);
+		    rs = ps.executeQuery();
+		    
+		    TalkerDiseaseBean talkerDisease = new TalkerDiseaseBean();
+		    while (rs.next()) {
+		    	talkerDisease.setStageId(rs.getInt(3));
+		    	talkerDisease.setTypeId(rs.getInt(4));
+		    	talkerDisease.setRecurrent(rs.getBoolean(5));
+		    	talkerDisease.setSymptomDate(rs.getDate(6));
+		    	talkerDisease.setDiagnoseDate(rs.getDate(7));
+			}
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		    
+		    return talkerDisease;
+		} catch (SQLException ex) {
+			    // handle any errors
+			    ex.printStackTrace();
+				return null;
+		} catch (Exception ex) {
+				ex.printStackTrace();
+				return null;
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (rs != null) {
+		      try { rs.close(); } catch (SQLException e) { ; }
+		      rs = null;
+		    }
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
 	}
 }

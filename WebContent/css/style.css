@@ -278,10 +278,14 @@ a.redtext:hover {font-weight: bold; font-size: 14px; color: #eb1d90; font-family
 
 div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
 
-/* Additions */
+/* 
+	Additions/Fixes 
+	We put this separately because designer's code changes frequently now.
+*/
 .datefields {width:75px;}
 #signfieldsright {padding-top:17px;}
 #signupleft h5 {margin: 0px; padding-top: 10px; font-size:14px; clear:both;}
 #error {font-size: 16px; color: red}
+#footerleft {font-size:11px;}
 
-
+#innermiddlearea #tipsbox {float: right; width: 200px; font-size: 14px;}
