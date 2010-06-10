@@ -115,6 +115,21 @@ body {
 #innerheading { float:left; width: 100%; height:56px; line-height:56px;}
 #innermiddlearea {float:left; width: 942px; padding-top:20px; padding-bottom:20px;}
 #signupleft { float:left; width:590px;}
+#personalleft { float:left; width:437px;}
+.personalmain { float:left; width:437px; padding-bottom:10px;}
+.personaltextarea {float:left; width:156px; height:27px; line-height:27px; padding-top:10px;}
+.personaltextfield {float:left; width:276px; background:url(../images/fieldsbg.gif) no-repeat top; height:37px; line-height:37px;  padding-top:4px; padding-left:5px;  }
+#personalsettings {float:left; width:270px; height:37px; line-height:37px; }
+.personalcheck {float:left; width:281px; padding-left:156px; }
+.personalcheck1 {float:left; width:138px; padding-right:5px; }
+.personalcheck2 {float:left; width:138px;   }
+.personaltextarea2 {float:left; width:156px; height:94px; padding-top:10px;}
+.textareabig {float:left; width:276px; background:url(../images/textareabig.gif) no-repeat top; height:94px; padding-top:4px; margin-bottom:5px; padding-left:5px; }
+.textarea3 { border:0px solid #ffffff; width:271px; height:85px;}
+#personalright { float:left; width:143px; padding-left:10px;}
+#personalrightimg { float:left; width:143px; }
+#personalrighttext { float:left; width:143px; padding-top:5px; }
+
 #signupright { float:right; width:300px; }
 .socialicons2{ float:left; width:590px;  }
 .socialicons2 ul{ float:left; padding-bottom:8px; padding-top:8px; border-bottom:1px dotted #433d3d; width:590px;  }
@@ -136,6 +151,8 @@ body {
 #alreadyuser { float:left; width:300px; height:54px; line-height:54px; }
 #signfieldsright { float:left; width:290px; padding-left:10px; }
 .signrightbox { float:left; width:284px; padding-top:20px;}
+.personalinfosignrightbox { float:left; width:284px; padding-top:5px;}
+.personalinfosignrighttop { float:left; width:284px; background:url(../images/personalinforight_top.gif) no-repeat; height:57px; }
 .signrightop { float:left; width:284px; background:url(../images/signrighttop.gif) no-repeat; height:57px; }
 .aboutrightop { float:left; width:284px; background:url(../images/aboutrighttop.gif) no-repeat; height:57px; }
 .signrighmid { float:left; width:254px; background:url(../images/sinmid.gif) repeat-y; padding:15px; }
@@ -147,6 +164,7 @@ body {
 .fieldarealeft{ float:left; width:15px; background:url(../images/txtfieldleft.gif) no-repeat left; height:37px;}
 .fieldareamid{ float:left; width:249px;  height:37px; border-bottom:1px solid #b3b3b3; border-top:1px solid #b3b3b3;}
 .textfields{width:249px;  height:22px; padding-top:10px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
+.personalfields{width:249px;  height:22px; padding-top:5px; margin-bottom:5px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
 .fieldarearight{ float:left; width:15px; background:url(../images/txtfieldright.gif) no-repeat right; height:37px;}
 .forgotpassword{ float:left; text-align:right; height:20px; width:138px; padding-top:20px; font-weight: normal; font-size: 12px; color: #1450a4; font-family:arial; text-decoration: none;  }
 .checkboxarea{ float:left; height:20px; width:140px; padding-top:20px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none; }
@@ -194,7 +212,7 @@ body {
 .signfields2 ul li{ float:left; width:261px; list-style-type:none;  background:url(../images/textfieldbluebg.gif) no-repeat top; height:36px; line-height:36px; padding:1px 0px 15px 20px; }
 .signfields2 h1 { float:left; width:618px; font-weight: bold; font-size: 18px; color: #1550a4; font-family:arial; text-decoration: none; padding-bottom:5px; }
 
-#footerarea { float:left; width:100%; height:70px;  }
+#footerarea { float:left; width:100%; height:70px; }
 #footer { width:962px; padding-top:10px; margin-left:auto; margin-right:auto;}
 #footerleft {float:left; width:700px; height:25px; line-height:25px;}
 #footerright {float:left; width:250px;}
@@ -246,6 +264,7 @@ a.pinktext16:hover {text-decoration: none; color: #eb1d90;}
 .blacktext14 {font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000; line-height:20px;}
 a.blacktext14:hover {text-decoration: none; color: #000000;}
 .blacktextgrey14 {font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #434242; line-height:20px;}
+.textgreylight12 {font-family: arial; font-size: 12px; font-weight: normal; text-decoration: none; color: #7c7c7c; line-height:20px;}
 a.blacktextgrey14:hover {text-decoration: none; color: #434242;}
 .greytext {font-family: arial; font-size: 11px; font-weight: bold; text-decoration: none; color: #434242;}
 a.greytext:hover {text-decoration: none; color: #434242;}
@@ -273,7 +292,7 @@ a.redtext:hover {font-weight: bold; font-size: 14px; color: #eb1d90; font-family
 
 .textarea { width:660px; height:95px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;} 
 
-.textarea1{width:249px;  height:28px; padding-top:8px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
+.textarea1 {width:249px;  height:28px; padding-top:8px; border:0px solid #ffffff; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
 .textarea2{width:60px;  height:20px;  margin:5px 5px 5px 0; border:0;  font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
 
 div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
@@ -289,3 +308,7 @@ div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
 #footerleft {font-size:11px;}
 
 #innermiddlearea #tipsbox {float: right; width: 200px; font-size: 14px;}
+.notifactionboxmid #submit {padding-left: 10px}
+
+.signfields2 .row label {float: left; display: block; width: 300px; font-size: 18px; padding-top:5px;}
+.signfields2 .row div { background:transparent url(images/textfieldbluebg.gif) no-repeat scroll center top; height:36px; line-height:36px; padding:1px 0 7px 20px; width:261px; margin-left:300px;}

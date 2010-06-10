@@ -1,6 +1,7 @@
 package beans;
 
 import java.util.Date;
+import java.util.Set;
 
 public class TalkerDiseaseBean {
 	
@@ -11,6 +12,7 @@ public class TalkerDiseaseBean {
 	private boolean recurrent;
 	private Date symptomDate;
 	private Date diagnoseDate;
+	private Set<Integer> healthItems;
 	
 	public int getStageId() {
 		return stageId;
@@ -53,6 +55,12 @@ public class TalkerDiseaseBean {
 	}
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+	public Set<Integer> getHealthItems() {
+		return healthItems;
+	}
+	public void setHealthItems(Set<Integer> healthItems) {
+		this.healthItems = healthItems;
 	}
 
 }

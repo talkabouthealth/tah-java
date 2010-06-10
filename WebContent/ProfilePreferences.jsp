@@ -20,12 +20,8 @@
 			color:#000000;
 			background:url(images/inner_bg.gif) repeat-x top;
 		}
-		.signfields2 ul {
-			padding-top: 0px;
-		}
-		.signfields2 ul li {
+		.notiblueareamid ul li {
 			font-size: 14px;
-			background: none;
 			line-height: 28px;
 			padding: 0px;
 			width:600px;
@@ -49,7 +45,7 @@
 					<div class="notifactionboxmid">
 						<div class="notibluearea">
 							<div class="notiblueareatop"></div>
-							<div class="signfields2">							
+							<div class="notiblueareamid">							
 								<ul>
 									<%
 										for (ProfilePreference preference : ProfilePreference.values()) {

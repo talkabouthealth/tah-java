@@ -1,11 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Map.Entry" %>
 <%@ page import="util.TalkmiDBUtil" %>
 <%@ page import="beans.TalkerBean" %>
 <%@ page import="beans.TalkerDiseaseBean" %>
+<%@page import="beans.HealthItemBean" %>
+<%!
+	//prints tree of items for given parent, checks given items
+	public void printTree(HealthItemBean healthItem, Set<Integer> checkedHealthItems, JspWriter out) throws Exception {
+		for (HealthItemBean item : healthItem.getChildren()) {
+			if (item.getChildren() != null && item.getChildren().size() > 0) {
+				out.println("<li><b>"+item.getName()+"</b></li>");
+				printTree(item, checkedHealthItems, out);
+			}
+			else {
+				out.print("<li>");
+				out.print("<input name='healthitem"+item.getId()+"' type='checkbox' ");
+				if (checkedHealthItems.contains(item.getId())) {
+					out.print("checked='checked'");
+				}
+				out.print(" /> "+item.getName());
+				out.println("</li>");
+			}
+		}
+	}
+%>
 <%
 TalkerBean talker = (TalkerBean)session.getAttribute("talker");
 if (talker == null) { 
@@ -20,9 +42,13 @@ if (talker == null) {
 	Map<Integer, String> typesMap = TalkmiDBUtil.getValuesByDisease("type", diseaseId);
 	
 	TalkerDiseaseBean talkerDisease = TalkmiDBUtil.getTalkerDisease(talker.getUID());
+	int talkerDiseaseId = 0;
+	if (talkerDisease != null) {
+		talkerDiseaseId = talkerDisease.getId();
+	}
 %>
 <%@ include file="header.jsp" %>
-	<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
+<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
 			margin: 0px;
@@ -32,22 +58,17 @@ if (talker == null) {
 			color:#000000;
 			background:url(images/inner_bg.gif) repeat-x top;
 		}
-		
-		.signfields2 .row label {
-			float: left;
-			display: block;
-			width: 300px;
-			font-size: 18px;
-			padding-top:5px;
+		.signfields2 ul {
+			padding-top: 0px;
 		}
-		.signfields2 .row div {
-			background:transparent url(images/textfieldbluebg.gif) no-repeat scroll center top;
-			height:36px;
-			line-height:36px;
-			padding:1px 0 7px 20px;
-			width:261px;
-			margin-left:300px;
-		}
+		.signfields2 ul li {
+			background:none;
+			font-size: 14px;
+			line-height: 24px;
+			height: 24px;
+			padding: 0px;
+			width:600px;
+		}	
 	</style>
 </head>
 <body>
@@ -59,6 +80,7 @@ if (talker == null) {
 		</div>
 		<div id="innerbanner"></div>
 		<form id="healthdetailsform" name="healthdetailsform" action="HealthDetails" method="POST" />
+		<input type="hidden" name="talkerdiseaseid" value="<%= talkerDiseaseId %>" />
 		<div id="innermain">
 			<div class="blacktext2" id="innerheading">General Health Details</div>
 			<div id="innermiddlearea">
@@ -121,7 +143,7 @@ if (talker == null) {
 										<input name="symptomdate" type="text" class="textfields" 
 											onclick="this.value=''" 
 											<%											
-										 		if (talkerDisease != null) {
+										 		if (talkerDisease != null && talkerDisease.getSymptomDate() != null) {
 										 			out.print("value='"+dateFormat.format(talkerDisease.getSymptomDate())+"'");
 										    	}
 										 		else {
@@ -137,7 +159,7 @@ if (talker == null) {
 										<input name="diagnosedate" type="text" class="textfields" 
 											onclick="this.value=''" 
 											<%											
-										 		if (talkerDisease != null) {
+										 		if (talkerDisease != null && talkerDisease.getDiagnoseDate() != null) {
 										 			out.print("value='"+dateFormat.format(talkerDisease.getDiagnoseDate())+"'");
 										    	}
 										 		else {
@@ -147,11 +169,12 @@ if (talker == null) {
 											/>
 									</div> 
 								</div>
-								<h1>What were the initial symptoms you experienced?</h1>
+								<h1 style="margin-top: 15px;" >What were the initial symptoms you experienced?</h1>
 								<ul>
-									<li>
-										<input name="textfield" type="checkbox" id="textfield" /> Test 1
-									</li>
+									<%
+										HealthItemBean symptomItem = TalkmiDBUtil.getHealthItemByName("symptoms", diseaseId);
+										printTree(symptomItem, talkerDisease.getHealthItems(), out);
+									%>
 								</ul>
 							</div>
 							<div class="notiblueareabot"></div>
@@ -177,12 +200,65 @@ if (talker == null) {
 				<div id="notifactionbox2">
 					<div class="notifactionboxtop"></div>
 					<div class="notifactionboxmid">
-						...
+						<div class="notibluearea">
+							<div class="notiblueareatop"></div>
+							<div class="signfields2">								
+								<h1>Which of the following tests have you had?</h1>
+								<ul>
+									<%
+										HealthItemBean testsItem = TalkmiDBUtil.getHealthItemByName("tests", diseaseId);
+										printTree(testsItem, talkerDisease.getHealthItems(), out);
+									%>
+								</ul>
+							</div>
+							<div class="notiblueareabot"></div>
+						</div>
+						<div class="notibluearea">
+							<div class="notiblueareatop"></div>
+							<div class="signfields2">								
+								<h1>What procedures / surgeries have you had?</h1>
+								<ul>
+									<%
+										HealthItemBean proceduresItem = TalkmiDBUtil.getHealthItemByName("procedures", diseaseId);
+										printTree(proceduresItem, talkerDisease.getHealthItems(), out);
+									%>
+								</ul>
+							</div>
+							<div class="notiblueareabot"></div>
+						</div>
+						<div id="savebutton" onclick="document.healthdetailsform.submit();"><img src="images/save.gif" width="186" height="46" /></div>
 					</div>
 					<div class="notifactionboxbot"></div>
 				</div>
 			</div>
 		</div>
+		
+		<div id="midnoticontainer">
+			<div id="midnoticontainermain">
+				<div id="boxarea_head2" class="blacktext2">Treatments and medications</div>
+				<div id="notifactionbox2">
+					<div class="notifactionboxtop"></div>
+					<div class="notifactionboxmid">
+						<div class="notibluearea">
+							<div class="notiblueareatop"></div>
+							<div class="signfields2">								
+								<h1>What treatments / medications have you taken?</h1>
+								<ul>
+									<%
+										HealthItemBean treatmentsItem = TalkmiDBUtil.getHealthItemByName("treatments", diseaseId);
+										printTree(treatmentsItem, talkerDisease.getHealthItems(), out);
+									%>
+								</ul>
+							</div>
+							<div class="notiblueareabot"></div>
+						</div>
+						<div id="savebutton" onclick="document.healthdetailsform.submit();"><img src="images/save.gif" width="186" height="46" /></div>
+					</div>
+					<div class="notifactionboxbot"></div>
+				</div>
+			</div>
+		</div>
+		
 		</form>
 <%@ include file="footer.jsp" %>
 <%

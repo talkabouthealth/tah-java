@@ -107,9 +107,9 @@ if (sUserName == null) {
 								</div>
 								<div class="notiblueareabot"></div>
 							</div>
-<!-- <div id="savebutton"><a href="/tah-java/SetNotification"><img src="images/save.gif" width="186" height="46" /></a></div> --> 
+<!-- <div id="savebutton"><a href="/tah-java/SetNotification"><img src="images/save.gif" width="186" height="46" /></a></div> -->
+							<input id="submit" name="submit1" type="image" src="images/save.gif" value="save changes"> 
 						</div>
-						<input id="submit" name="submit1" type="image" src="images/save.gif" value="save changes">
 						<div class="notifactionboxbot"></div>
 					</div>
 				</div>
@@ -161,7 +161,6 @@ if (sUserName == null) {
 				</form>
 				</div>
 			</div>
-		</div>
 
 <%@ include file="footer.jsp" %>
 <% } %>

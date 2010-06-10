@@ -25,21 +25,17 @@ public class ProfilePreferencesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
 		
-		
+		@SuppressWarnings("unchecked")
 		Enumeration<String> parameters = request.getParameterNames();
 		EnumSet<ProfilePreference> preferencesSet = EnumSet.noneOf(ProfilePreference.class);
-		int test = 0;
 		while (parameters.hasMoreElements()) {
+			//try to parse all parameters to ProfilePreference enum
 			String paramName = parameters.nextElement();
 			try {
 				ProfilePreference preference = ProfilePreference.valueOf(paramName);
 				preferencesSet.add(preference);
-				
-				test = test | preference.getValue();
 			}
-			catch (IllegalArgumentException iae) {
-				//
-			}
+			catch (IllegalArgumentException iae) {}
 		}
 		
 		talker.setProfilePreferences(preferencesSet);

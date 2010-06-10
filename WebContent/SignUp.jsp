@@ -303,7 +303,7 @@
 								onclick="this.value=''"  value="Password" /></li>
 							<li><input name="email" type="text" class="textfields" id="email" 
 								onclick="this.value=''"  value="<%= email %>" /></li>
-							<li style="margin:0 0 3px 0;">
+							<li>
 								<select id="IMService" name="IMService" class="textarea1">
 							  		<option selected value='0'>Select an IM service</option>
 									<option value="YahooIM">YahooIM</option>

@@ -8,8 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Map.Entry;
 
 import javax.naming.Context;
@@ -17,6 +21,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import beans.HealthItemBean;
 import beans.TalkerBean;
 import beans.TalkerDiseaseBean;
 import beans.TopicBean;
@@ -709,6 +714,14 @@ public class TalkmiDBUtil {
 		    ps.setDate(6, new java.sql.Date(talkerDisease.getDiagnoseDate().getTime()));
 		    
 		    ps.executeUpdate();
+		    
+		    ResultSet rs =  ps.getGeneratedKeys();
+		    if (rs.next()) {
+		    	int generatedId = rs.getInt(1);
+			    saveHealthItems(generatedId, talkerDisease.getHealthItems());
+		    }
+		    
+		    ps.close();
 		    ps = null;
 		    conn.close(); // Return to connection pool
 		    conn = null;  // Make sure we don't close it twice
@@ -731,6 +744,104 @@ public class TalkmiDBUtil {
 		}
 	}
 	
+	public static void updateTalkerDisease(TalkerDiseaseBean talkerDisease) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+		    conn = getConnection();
+		    
+		    ps = conn.prepareStatement("UPDATE talker_disease SET " +
+		    		"stage_id = ?, type_id = ?, recurrent = ?, symptom_date = ?, diagnose_date = ? " +
+		    		"WHERE id = ?");
+		    ps.setInt(1, talkerDisease.getStageId());
+		    ps.setInt(2, talkerDisease.getTypeId());
+		    ps.setBoolean(3, talkerDisease.isRecurrent());
+		    //TODO: easier?
+		    if (talkerDisease.getSymptomDate() != null) {
+		    	ps.setDate(4, new java.sql.Date(talkerDisease.getSymptomDate().getTime()));
+		    }
+		    else {
+		    	ps.setDate(4, null);
+		    }
+		    if (talkerDisease.getDiagnoseDate() != null) {
+		    	ps.setDate(5, new java.sql.Date(talkerDisease.getDiagnoseDate().getTime()));
+		    }
+		    else {
+		    	ps.setDate(5, null);
+		    }
+		    ps.setInt(6, talkerDisease.getId());
+		    
+		    ps.executeUpdate();
+		    
+		    saveHealthItems(talkerDisease.getId(), talkerDisease.getHealthItems());
+		    
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		} catch (SQLException ex) {
+		    // handle any errors
+		    ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
+	private static void saveHealthItems(int talkerDiseaseId, Set<Integer> healthItems) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+		    conn = getConnection();
+		    
+		    //delete all items
+		    ps = conn.prepareStatement("DELETE FROM talker_disease_items WHERE talker_disease_id = ?");
+		    ps.setInt(1, talkerDiseaseId);
+		    ps.executeUpdate();
+		    ps.close();
+		    
+		    //add new
+		    //TODO: many db requests for one save - think about better solution?
+		    ps = conn.prepareStatement("INSERT INTO talker_disease_items VALUES (NULL, ?, ?)");
+		    ps.setInt(1, talkerDiseaseId);
+		    for (Integer healthItemId : healthItems) {
+		    	ps.setInt(2, healthItemId);
+		    	ps.executeUpdate();
+		    }
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		} catch (SQLException ex) {
+		    // handle any errors
+		    ex.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
 	public static TalkerDiseaseBean getTalkerDisease(int userId) {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -745,6 +856,7 @@ public class TalkmiDBUtil {
 		    
 		    TalkerDiseaseBean talkerDisease = new TalkerDiseaseBean();
 		    while (rs.next()) {
+		    	talkerDisease.setId(rs.getInt(1));
 		    	talkerDisease.setStageId(rs.getInt(3));
 		    	talkerDisease.setTypeId(rs.getInt(4));
 		    	talkerDisease.setRecurrent(rs.getBoolean(5));
@@ -755,10 +867,101 @@ public class TalkmiDBUtil {
 		    rs = null;
 		    ps.close();
 		    ps = null;
+		    
+		    //get health items
+		    ps = conn.prepareStatement("SELECT * FROM talker_disease_items WHERE talker_disease_id = ?");
+		    ps.setInt(1, talkerDisease.getId());
+		    rs = ps.executeQuery();
+		    Set<Integer> healthItems = new HashSet<Integer>();
+		    while (rs.next()) {
+		    	healthItems.add(rs.getInt(3));
+		    }
+		    talkerDisease.setHealthItems(healthItems);
+		    
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
 		    conn.close(); // Return to connection pool
 		    conn = null;  // Make sure we don't close it twice
 		    
 		    return talkerDisease;
+		} catch (SQLException ex) {
+			    // handle any errors
+			    ex.printStackTrace();
+				return null;
+		} catch (Exception ex) {
+				ex.printStackTrace();
+				return null;
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (rs != null) {
+		      try { rs.close(); } catch (SQLException e) { ; }
+		      rs = null;
+		    }
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
+	public static HealthItemBean getHealthItemByName(String name, int diseaseId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+		    
+		    ps = conn.prepareStatement(
+		    		"SELECT t2.id, t2.name FROM health_items t1 " +
+		    		"LEFT JOIN health_items AS t2 ON t2.parent_id = t1.id " +
+		    		"WHERE t1.name = ? AND t2.disease_id = ?");
+		    ps.setString(1, name);
+		    ps.setInt(2, diseaseId);
+		    rs = ps.executeQuery();
+		    
+		    HealthItemBean parentItem = new HealthItemBean(name);
+		    //TODO: update to orderable collection?
+		    Set<HealthItemBean> childrenSet = new LinkedHashSet<HealthItemBean>();
+		    while (rs.next()) {
+		    	childrenSet.add(new HealthItemBean(rs.getInt("id"), rs.getString("name")));
+			}
+		    parentItem.setChildren(childrenSet);		    
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
+		    
+		    ps = conn.prepareStatement(
+		    		"SELECT t2.id, t2.name FROM health_items t1 " +
+		    		"LEFT JOIN health_items AS t2 ON t2.parent_id = t1.id " +
+		    		"WHERE t2.parent_id = ?");
+		    for (HealthItemBean healthItem : parentItem.getChildren()) {
+			    ps.setInt(1, healthItem.getId());
+			    rs = ps.executeQuery();
+			    
+			    childrenSet = new TreeSet<HealthItemBean>();
+			    while (rs.next()) {
+			    	childrenSet.add(new HealthItemBean(rs.getInt("id"), rs.getString("name")));
+				}
+			    healthItem.setChildren(childrenSet);
+			    
+			    rs.close();
+			    rs = null;
+		    }
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		    
+		    return parentItem;
 		} catch (SQLException ex) {
 			    // handle any errors
 			    ex.printStackTrace();

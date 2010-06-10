@@ -91,7 +91,7 @@
 		}
 		
 		function openInvitationsWindow() {
-			window.open("Invitations.jsp", "TalkAboutHealth Invitations", "width=600,height=350");
+			window.open("Invitations.jsp", "TalkAboutHealthInvitations", "width=600,height=350");
 		}
 	</script>
 </head>
