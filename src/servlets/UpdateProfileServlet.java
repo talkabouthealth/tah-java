@@ -49,6 +49,14 @@ import beans.TalkerBean;
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		
+		String city = request.getParameter("city");
+		String state = request.getParameter("state");
+		String country = request.getParameter("country");
+		String category = request.getParameter("selection");
+		String maritalstatus = request.getParameter("maritalstatus");
+		String childrenNum = request.getParameter("children");
+		//System.out.println(maritalstatus);
+		
 		// getting session and TalkerBean
 		HttpSession session = request.getSession();
 		TalkerBean cb = (TalkerBean)session.getAttribute("talker");
@@ -68,7 +76,9 @@ import beans.TalkerBean;
 		// check to make sure no duplicate UserName
 		
 		// if not duplicate, update info and change TalkerBean info in session
-		String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? WHERE uname= ?";
+		String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
+		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? city = ? state = ? country = ? category = ? childrenNum = ? WHERE uname= ?";
+		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? WHERE uname= ?";
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		try {
@@ -83,7 +93,15 @@ import beans.TalkerBean;
 		    ps.setString(3, email);
 		    ps.setString(4, dob);
 		    ps.setString(5, gender);
-		    ps.setString(6, oldUserName);
+		    
+		    ps.setString(6, maritalstatus);
+		    ps.setString(7, city);
+		    ps.setString(8, state);
+		    ps.setString(9, country);
+		    ps.setString(10, category);
+		    ps.setInt(11, Integer.parseInt(childrenNum));
+		    
+		    ps.setString(12, oldUserName);
 		    
 		    ps.executeUpdate();
 		    
@@ -96,6 +114,12 @@ import beans.TalkerBean;
 			cb.setPassword(password);
 			cb.setEmail(email);
 			cb.setGender(gender.charAt(0));
+			cb.setCategory(category);
+			cb.setMariStat(maritalstatus);
+			cb.setCity(city);
+			cb.setState(state);
+			cb.setCountry(country);
+			
 			try {
 				cb.setDob(SQL_DATE_FORMAT.parse(dob));
 			} catch (ParseException e) {
@@ -137,6 +161,6 @@ import beans.TalkerBean;
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.processSQLUpdate(request);
-		response.sendRedirect("TalkerHome.jsp");
+		response.sendRedirect("EditProfile.jsp");
 	}   	  	    
 }

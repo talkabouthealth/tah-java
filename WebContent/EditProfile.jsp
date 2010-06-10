@@ -1,17 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" > 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="author" content="Talkmi" /> 
-	<meta name="keywords" content="support, health, talk" /> 
-	<meta name="description" content="real-time support for your health issues" /> 
-	<meta name="robots" content="all" /> 
-	<title>Talkmi : Real-time support for your health issues</title>
-	
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="beans.TalkerBean" %>
-
 <% 
 response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
@@ -24,40 +12,36 @@ if (sUserName == null) {
 } else {
 	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
 %>
+<%@ include file="header.jsp" %>
 
 <script>
-
-/*
-Auto tabbing script- By JavaScriptKit.com
-http://www.javascriptkit.com
-This credit MUST stay intact for use
-*/
-
-function autotab(original,destination){
-if (original.getAttribute&&original.value.length==original.getAttribute("maxlength"))
-destination.focus()
-}
-
+	/*
+	Auto tabbing script- By JavaScriptKit.com
+	http://www.javascriptkit.com
+	This credit MUST stay intact for use
+	*/ 
+	function autotab(original,destination){
+		if (original.getAttribute&&original.value.length==original.getAttribute("maxlength"))
+			destination.focus()
+	}
 </script>
 
 <script type="text/javascript" charset="utf-8">
 function validateFormOnSubmit(updateprofile) {
 var reason = "";
-
+	
   reason += validateUsername(updateprofile.username);
   reason += validatePassword(updateprofile.password);
   reason += validateEmail(updateprofile.email);
   reason += validatePhone1(updateprofile.phone1);
   reason += validatePhone2(updateprofile.phone2);
   reason += validatePhone3(updateprofile.phone3);
-
-
-      
+    
   if (reason != "") {
     alert("Some fields need correction:\n" + reason);
     return false;
   }
-
+	
   alert("All fields are filled correctly");
   return true;
 }
@@ -115,7 +99,7 @@ function trim(s)
 {
   return s.replace(/^\s+|\s+$/, '');
 }
-function validateEmail(fld) {
+function validateEmail(fld){
     var error="";
     var tfld = trim(fld.value);                        // value of field with whitespace trimmed off
     var emailFilter = /^[^@]+@[^@.]+\.[^@]*\w\w$/ ;
@@ -136,14 +120,19 @@ function validateEmail(fld) {
     return error;
 }
 
+function display(){
+	document.updateprofile.maritalstatus.selectedIndex = 1;
+	//document.updateprofile.maritalstatus.v
+	//var valueIndex = document.updateprofile.maritalstatus.selectedIndex;
+	//var selectedValue = document.updateprofile.maritalstatus.options[valueIndex];
+	//document.updateprofile.maritalstatus.value = selectedValue;
+	//document.updateprofile.submit();
+} 
 
 </script>
-	
 </head>
 
-
-<body>
-
+<body onLoad="display()">
 	<div id="header">
 	<h1><span>Talkmi</span></h1>
 	
@@ -151,11 +140,10 @@ function validateEmail(fld) {
 	
 			<form id="form" name="updateprofile" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/UpdateProfile" method="post" >
 
-				
 				<label><span>Username</span></label>
-					<input id="username" name="username" maxlength="15" size="25" class="input-box" type="text" value="<%=cb.getUserName()%>"><br>
-			  
-				    <label><span>Gender</span></label>
+					<input id="username" name="username" maxlength="15" size="25" class="input-box" type="text" value="<%=cb.getUserName() %>"><br> 
+				
+				<label><span><br />Gender</span></label>
 			    	<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>"><br>
 			 
 			  	<label><span>Date of Birth <h5>(mm / dd / yyyy)</h5></span></label>
@@ -164,10 +152,14 @@ function validateEmail(fld) {
 					<input id="year" name="year" maxlength="4" size="4" class="input-box2" type="text"  value="<%=cb.getDOBYear()%>"><br><br>
 			 
 			    <label><span>Email</span></label>
-			    	<input id="email" name="email" maxlength="45" size="25" type="text" class="input-box" value="<%=cb.getEmail()%>"><br>
-			 	
-			 	<label>ZipCode</label>
-			 		<input id="zipcode" name="zipcode" type="text"> <br />
+			    	<input id="email" name="email" maxlength="45" size="25" type="text" class="input-box" value="<%=cb.getEmail()%>"> <br>
+			    	 	
+				<label>City</label>
+			 		<input id="city" name="city" type="text" value="<%=cb.getCity()%>"> <br />
+			 	<label>State</label>
+			 		<input id="state" name="state" type="text" value="<%=cb.getState()%>"> <br />
+			 	<label>Country</label>
+			 		<input id="country" name="country" type="text" value="<%=cb.getCountry() %>"> <br />	
 			 	
 			 	<label>Patient/Caregiver/etc.</label>
 			 		<select id="selection" name="selection">
@@ -182,34 +174,33 @@ function validateEmail(fld) {
 					</select>
 					<br/>
 				
-				<label>Marital status</label>
-			 		<select id="maritalstatus" name="maritalstatus" >
-				 		<option selected value='Single'>Single</option>
+				<label>Marital status </label>
+			 		<select id="maritalstatus" name="maritalstatus" onChange="display()">
+				 		<option value='Single'>Single</option>
 						<option value="Married">Married/partnered relationship</option>
 						<option value="Divorced">Divorced</option>
 						<option value="Separated">Separated</option>
 						<option value="Widowed">Widowed</option> 
 					</select> <br />
 				
-				<label>Number of Children
+				<label>Children Number
 					<select id="children" name="children" >
-					<option selected value="1"> 1 </option>
-					<option value="2"> 2 </option>
-					<option value="3"> 3 </option>
-					<option value="more"> More than 3 </option> 
+						<option selected value="1"> 1 </option>
+						<option value="2"> 2 </option>
+						<option value="3"> 3 </option>
+						<option value="more"> More than 5 </option> 
 					</select> 
-				</label> <br />				
-					
-			  	<label><span>Password</span></label>
+				</label> <br />		
+				
+			  	<label><span>Pwd</span></label>	
 					<input id="password" name="password" maxlength="15" size="25" class="input-box"  type="password" value="<%=cb.getPassword()%>"><br />
 					
 					<input id="submit" name="submit" type=submit value="Update Profile"> <br />
-			</form>
+			</form>	
 			
 			<p><a href="TalkerHome.jsp">Cancel</a></p>
-		</div>	
+		</div>				
 	</div>
-
 
 <%@ include file="footer.jsp" %>
 <% }%>

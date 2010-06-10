@@ -21,6 +21,7 @@ public class SetNotification extends HttpServlet {
 	private static final long serialVersionUID = 1L;     
  
 	DataSource ds;
+	private int interestT;
 	private int notifyfreq;
 	private int notifytime;
 	
@@ -42,11 +43,12 @@ public class SetNotification extends HttpServlet {
     public void processSetNotification(HttpServletRequest request)
     {
     	String temp = request.getParameter("notifyFre");
-    	if(( request.getParameter("notifyFre")==null) || ( request.getParameter("notifyTime")== null) )
+    	if(( request.getParameter("notifyFre")==null) || ( request.getParameter("notifyTime")== null) || request.getParameter("iType") == null)
     		return;
     	
     	notifyfreq = Integer.parseInt(request.getParameter("notifyFre"));
     	notifytime = Integer.parseInt(request.getParameter("notifyTime"));
+    	interestT = Integer.parseInt(request.getParameter("iType"));
     	
     	System.out.println("Setting Notification!");
     	
@@ -54,7 +56,7 @@ public class SetNotification extends HttpServlet {
     	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
     	String oldUserName = cb.getUserName();
     	
-    	String updateQuery = "UPDATE talkers SET notifyfrequency= ?, notifytime= ? WHERE uname= ?";
+    	String updateQuery = "UPDATE talkers SET notifyfrequency= ?, notifytime= ?, ctype= ? WHERE uname= ?";
 		Connection conn = null; 
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
     	
@@ -64,7 +66,8 @@ public class SetNotification extends HttpServlet {
     	    ps = conn.prepareStatement(updateQuery);
     	    ps.setInt(1, notifyfreq);
     	    ps.setInt(2, notifytime);
-    	    ps.setString(3, oldUserName);
+    	    ps.setInt(3, interestT);
+    	    ps.setString(4, oldUserName);
     	   
     	    ps.executeUpdate();
     	    
@@ -72,6 +75,10 @@ public class SetNotification extends HttpServlet {
     	    ps = null;
     	    conn.close(); // Return to connection pool
     	    conn = null;  // Make sure we don't close it twice
+    	    
+    	    cb.setNfreq(notifyfreq);
+    	    cb.setNtime(notifytime);
+    	    cb.setItype(interestT);
     	    
     	    //cb.setEmail(email);
     	    return;
@@ -103,7 +110,7 @@ public class SetNotification extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processSetNotification(request);
 		
-		response.sendRedirect("TalkerHome.jsp");
+		response.sendRedirect("Settings.jsp");
 	}
 
 }

@@ -1,100 +1,167 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="author" content="Talkmi" /> 
-	<meta name="keywords" content="support, health, talk" /> 
-	<meta name="description" content="real-time support for your health issues" /> 
-	<meta name="robots" content="all" /> 
-	<title>Insert title here</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="beans.TalkerBean" %>
+<% 
+response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+
+String sUserName = (String)session.getAttribute("username");
+if (sUserName == null) { 
+	response.sendRedirect("index.jsp");
+} else {
+	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
 	
+	int freq = cb.getNfreq();
+%>
+<%@ include file="header.jsp" %>
+<style>
+	body {
+		margin: 0px;
+		padding:0px;
+		font-family:arial;
+		font-size:11px;
+		color:#000000;
+		background:url(images/inner_bg.gif) repeat-x top;
+	}
+</style>
+
+<script language="JavaScript">
+	function onChecked(i, t, m)
+	{
+		var len = document.setNotifyFrequency.notifyFre.length;
+	
+		//var temp = i-1;
+		document.setNotifyFrequency.notifyFre[i-1].checked = true;
+		document.setNotifyFrequency.notifyTime[t-1].checked = true;
+		document.setNotifyFrequency.iType[m-1].checked = true;
+	}
+</script> 
 </head>
-<body>
-	<div id="header1">
-		<h1><span>Talkmi</span></h1>
-	</div>
-	
-	<h3><strong>Spefification and Settings </strong></h3>
-<table width="428" border="1">
-  <tr>
-    <td height="8"><h3>Notification Settings</h3></td>
-  </tr>
-</table>
-<div>
-  <form id="NofifyFrequency" name="setNotifyFrequency" action="/tah-java/SetNotification" method="post">
-  <hr />
-  How often do you want to be notified ?&nbsp;
-  <input name="notifyFre" type="radio" value="1"  />
-  more than 10 times per day <br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input name="notifyFre" type="radio" value="2" /> 5 to 10 times per day<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input name="notifyFre" type="radio" value="3" /> 2 to 5 times per day<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <input name="notifyFre" type="radio" value="4" /> 1 time per day
-  <hr />
-  <p>When do you want to be notified? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input name="notifyTime" type="checkbox" value="1"  /> whenever I am online <br />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input name="notifyTime" type="checkbox" value="2"  />&nbsp;Weekdays(9AM - 6PM) <br/>
-  	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input name="notifyTime" type="checkbox" value="3"  />&nbsp;Weeknights(5PM - 10PM) <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input name="notifyTime" type="checkbox" value="4"  />&nbsp;Weekends(Sat. and Sun. ) </p>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input id="submit" name="submit1" type="submit" value="save changes">
-    <br/>
-  </p>
-  </form>
-  <table width="431" height="8" border="1">
-  <tr>
-    <td width="383"><h3>Accounts where we notify you</h3></td>
-  </tr>
-</table> <hr />
- <form id="primaryIM" name="setPrimaryIM" action="/tah-java/SetAccount" method="post">
- <label for="IMServie" id="IM"><span><strong>IM</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
-   <select id="IMService" name="IMService" class="DOBbox"  >
-     <option selected value='0'>Select an IM service</option>
-     <option value="YahooIM">YahooIM</option>
-     <option value="WindowLive">WindowLive</option>
-     <option value="AOL">AOL</option>
-     <option value="GoogleTalk">GoogleTalk</option>
-     <option value="SkypeIM">SkypeIM</option> 
-   </select> 
-  </label> 
- <br />
- <p>
- <strong>E-mail</strong>
- <input type="text" name="email" />
-</p>
-  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <input id="submit" name="submit1" type="submit" value="save changes">
- <p><br />
- </p>
- </form>
-</h3>
-</h3>
-</div>
 
+<body onLoad="onChecked(<%=cb.getNfreq() %>, <%=cb.getNtime()%>, <%=cb.getItype()%>)">
+	<div id="top_container">
+		<div id="top">
+			<div id="logo">
+				<a href="TalkerHome.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
+			</div>
+			<div id="innerbanner"></div>
+			<div id="innermain">
+			<form id="NofifyFrequency" name="setNotifyFrequency" action="/tah-java/SetNotification" method="post"  >
+				<div class="blacktext2" id="innerheading">Notification Settings</div>
+				<div id="innermiddlearea">
+					<div id="notifactionbox">
+						<div class="notifactionboxtop"></div>
+						<div class="notifactionboxmid">
+							<div class="notibluearea">
+								<div class="notiblueareatop"></div>
+								<div class="notiblueareamid">
+									<h1>How often do you want to be notified?</h1>
+									<ul>
+										<li><input name="notifyFre" type="radio" value="1" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">more than 10 times per day</span></li>
+										<li><input name="notifyFre" type="radio" value="2" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">5 to 10 times per day
+											</span></li>
+									  	<li><input name="notifyFre" type="radio" value="3" class="radiobutton" /> 
+									  		<span class="blacktext" style="vertical-align:top;">2 to 5 times per day</span></li>
+										<li><input name="notifyFre" type="radio" value="4" class="radiobutton" /> 
+									  		<span class="blacktext" style="vertical-align:top;">1 time per day</span></li>
+									</ul>
+								</div>
+								<div class="notiblueareabot"></div>
+							</div>
+							<div class="notibluearea">
+								<div class="notiblueareatop"></div>
+								<div class="notiblueareamid">
+									<h1>When do you want to be notified?</h1>
+									<ul>
+										<li><input name="notifyTime" type="radio" value="1" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">whenever I am online</span></li>
+										  <li><input name="notifyTime" type="radio" value="2" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">weekdays (9AM - 5PM)
+										</span></li>
+										  <li><input name="notifyTime" type="radio" value="3" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">weeknights (5PM - 10PM)</span></li>
+										<li><input name="notifyTime" type="radio" value="4" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">weekends (Sat and Sun)</span></li>
+									</ul>
+								</div>
+								<div class="notiblueareabot"></div>
+							</div>
+							<div class="notibluearea">
+								<div class="notiblueareatop"></div>
+								<div class="notiblueareamid">
+									<h1>When types of conversations interest you the most?</h1>
+									<ul>
+										<li><input name="iType" type="radio" value="1" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">Informational</span></li>
+										  <li><input name="iType" type="radio" value="2" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">Advice and opinions
+										</span></li>
+										  <li><input name="iType" type="radio" value="3" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">Meet new people</span></li>
+										<li><input name="iType" type="radio" value="4" class="radiobutton" /> 
+										  <span class="blacktext" style="vertical-align:top;">Emotional support</span></li>
+									</ul>
+								</div>
+								<div class="notiblueareabot"></div>
+							</div>
+<!-- <div id="savebutton"><a href="/tah-java/SetNotification"><img src="images/save.gif" width="186" height="46" /></a></div> --> 
+						</div>
+						<input id="submit" name="submit1" type="image" src="images/save.gif" value="save changes">
+						<div class="notifactionboxbot"></div>
+					</div>
+				</div>
+			</form>
+			</div>
+			
+			<div id="midnoticontainer">
+				<div id="midnoticontainermain">
+				<form id="primaryIM" name="setPrimaryIM" action="/tah-java/SetAccount" method="post">
+					<div id="boxarea_head2" class="blacktext2">Accounts where we notify you</div>
+					<div id="notifactionbox2">
+						<div class="notifactionboxtop"></div>
+						<div class="notifactionboxmid">
+							<div class="notibluearea">
+								<div class="notiblueareatop"></div>
+								<div class="signfields2">
+									<h1>Instant Messenger</h1>
+									<ul>
+										<li><select name="IMService" class="textarea1">
+										  <option value="Your Community" selected="selected">Select an IM service</option>
+										  <option value="YahooIM">YahooIM</option>
+										  <option value="WindowLive">WindowLive</option>
+										  <option value="AOL">AOL</option>
+										  <option value="GoogleTalk">GoogleTalk</option>
+										  <option value="SkypeIM">SkypeIM</option> 
+										  
+										</select></li>
+										  <li><input name="textfield" type="text" class="textfields" 
+										  	id="textfield" onclick="this.value=''" onblur="this.value='murrayjones'" value="murrayjones" /></li>
+									</ul>
+								</div>
+								<div class="notiblueareabot"></div>
+							</div>
+							<div class="notibluearea">
+								<div class="notiblueareatop"></div>
+								<div class="signfields2">
+									<h1>Email</h1>
+									<ul>
+									  <li><input name="email" type="text" class="textfields" id="textfield" value="<%=cb.getEmail() %>"/></li>
+									</ul>
+								</div>
+								<div class="notiblueareabot"></div>
+							</div>
+<!-- <div id="savebutton"><img src="images/save.gif" width="186" height="46" /></div> -->
+							<input id="submit" name="submit1" type="image" src="images/save.gif" value="save changes"> 
+						</div>
+						<div class="notifactionboxbot"></div>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
 
-<p><a href="mailto:t@t.com">Contact</a></p>
-<p>May 2, 2010 </p>
-</body>
-</html>
+<%@ include file="footer.jsp" %>
+<% } %>

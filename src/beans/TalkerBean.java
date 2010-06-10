@@ -45,6 +45,14 @@ public class TalkerBean {
 	private Date dob;
 	private int UID;
 	private int invitations;
+	private String MariStat;
+	private String Category;
+	private String city;
+	private String state;
+	private String country;
+	private int itype;
+	private int nfreq;
+	private int ntime;
 	
 	private EnumSet<ProfilePreference> profilePreferences;
 	
@@ -89,6 +97,13 @@ public class TalkerBean {
 		setGender(set.getString("gender").charAt(0));
 		setDob(set.getDate("dob"));
 		setInvitations(set.getInt("invitations"));
+		setCity(set.getString("city"));
+		setState(set.getString("state"));
+		setCountry(set.getString("country"));
+		setNfreq(set.getInt("notifyfrequency"));
+		setNtime(set.getInt("notifytime"));
+		setMariStat(set.getString("Marital_Stat"));
+		setCategory(set.getString("category")); 
 		
 		parseProfilePreferences(set.getInt("profilepreferences"));
 	}
@@ -164,5 +179,69 @@ public class TalkerBean {
 				profilePreferences.add(preference);
 			}
 		}
+	}
+
+	public String getMariStat() {
+		return MariStat;
+	}
+
+	public void setMariStat(String mariStat) {
+		MariStat = mariStat;
+	}
+
+	public String getCategory() {
+		return Category;
+	}
+
+	public void setCategory(String category) {
+		Category = category;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public int getItype() {
+		return itype;
+	}
+
+	public void setItype(int itype) {
+		this.itype = itype;
+	}
+
+	public int getNfreq() {
+		return nfreq;
+	}
+
+	public void setNfreq(int nfreq) {
+		this.nfreq = nfreq;
+	}
+
+	public int getNtime() {
+		return ntime;
+	}
+
+	public void setNtime(int ntime) {
+		this.ntime = ntime;
 	}
 }	
