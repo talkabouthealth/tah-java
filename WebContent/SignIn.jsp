@@ -99,7 +99,7 @@
 							<div class="forgotpassword"><a href="ForgotPassword.jsp" class="bluetext12">Forgot password?</a></div>
 						</div>
 						<div class="signupbutton">
-							<a tabindex="3" href="javascript:checkForm()">
+							<a tabindex="3" onclick="checkForm()" href="#">
 								<img src="images/signinbutton.gif" border="0" width="126" height="46" />
 							</a>
 						</div>

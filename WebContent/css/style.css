@@ -311,4 +311,4 @@ div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
 .notifactionboxmid #submit {padding-left: 10px}
 
 .signfields2 .row label {float: left; display: block; width: 300px; font-size: 18px; padding-top:5px;}
-.signfields2 .row div { background:transparent url(images/textfieldbluebg.gif) no-repeat scroll center top; height:36px; line-height:36px; padding:1px 0 7px 20px; width:261px; margin-left:300px;}
+.signfields2 .row div { background:transparent url(../images/textfieldbluebg.gif) no-repeat scroll center top; height:36px; line-height:36px; padding:1px 0 7px 20px; width:261px; margin-left:300px;}

@@ -163,7 +163,6 @@ public class TalkerBean {
 	
 	/* 
 	 * Convert from Integer to ProfilePreferences EnumSet and vice versa 
-	 * TODO: think about other place for this methods
 	 */
 	public int profilePreferencesToInt() {
 		int dbValue = 0;

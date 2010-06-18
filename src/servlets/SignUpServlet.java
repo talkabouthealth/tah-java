@@ -350,7 +350,6 @@ import util.ValidateData;
 		    try {
 				cb.setDob(SQL_DATE_FORMAT.parse(dob));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

@@ -14,7 +14,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Map.Entry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -608,13 +607,18 @@ public class TalkmiDBUtil {
 		    
 		    ps = conn.prepareStatement("UPDATE talkers " +
 		    		"SET uname = ?, password = ?, email = ?, " +
-		    		"invitations = ?, profilepreferences = ? WHERE uid = ?");
+		    		"invitations = ?, profilepreferences = ?, " +
+		    		"notifyfrequency = ?, notifytime = ?, ctype = ? " +
+		    		"WHERE uid = ?");
 		    ps.setString(1, user.getUserName());
 		    ps.setString(2, user.getPassword());
 		    ps.setString(3, user.getEmail());
 		    ps.setInt(4, user.getInvitations());
 		    ps.setInt(5, user.profilePreferencesToInt());
-		    ps.setInt(6, user.getUID());
+		    ps.setInt(6, user.getNfreq());
+		    ps.setInt(7, user.getNtime());
+		    ps.setInt(8, user.getItype());
+		    ps.setInt(9, user.getUID());
 		    
 		    ps.executeUpdate();
 		    ps = null;
@@ -813,7 +817,6 @@ public class TalkmiDBUtil {
 		    ps.close();
 		    
 		    //add new
-		    //TODO: many db requests for one save - think about better solution?
 		    ps = conn.prepareStatement("INSERT INTO talker_disease_items VALUES (NULL, ?, ?)");
 		    ps.setInt(1, talkerDiseaseId);
 		    for (Integer healthItemId : healthItems) {
@@ -928,7 +931,6 @@ public class TalkmiDBUtil {
 		    rs = ps.executeQuery();
 		    
 		    HealthItemBean parentItem = new HealthItemBean(name);
-		    //TODO: update to orderable collection?
 		    Set<HealthItemBean> childrenSet = new LinkedHashSet<HealthItemBean>();
 		    while (rs.next()) {
 		    	childrenSet.add(new HealthItemBean(rs.getInt("id"), rs.getString("name")));

@@ -58,7 +58,6 @@ public Map<Integer, TopicBean> queryNextTopics(String sEarliestTimeStamp){
 	try {
 		dBeginning = SQL_DATE_FORMAT.parse("2009-01-1 00:00:00");
 	} catch (ParseException e2) {
-		// TODO Auto-generated catch block
 		e2.printStackTrace();
 		return null;
 	}
@@ -67,7 +66,6 @@ public Map<Integer, TopicBean> queryNextTopics(String sEarliestTimeStamp){
 	try {
 		dETS = SQL_DATE_FORMAT.parse(sEarliestTimeStamp);
 	} catch (ParseException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
 	////System.out.println("*** retrieveNextTopicServlet - Latest TimeStamp: Long: " + dLTS.getTime());

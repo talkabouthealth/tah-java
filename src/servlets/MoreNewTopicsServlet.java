@@ -62,7 +62,6 @@ public Map<Integer, TopicBean> queryNextTopics(String sLatestTimeStamp){
 	try {
 		dLTS = SQL_DATE_FORMAT.parse(sLatestTimeStamp);
 	} catch (ParseException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
 	////System.out.println("*** retrieveNextTopicServlet - Latest TimeStamp: Long: " + dLTS.getTime());

@@ -1,21 +1,17 @@
-
-
-
 // validation
 
 function validateFormOnSubmit(updateprofile) {
-var reason = "";
+	var reason = "";
 
-  reason += validatePassword(updateprofile.password);
-  reason += validateEmail(updateprofile.email);
+  	reason += validatePassword(updateprofile.password);
+  	reason += validateEmail(updateprofile.email);
       
-  if (reason != "") {
-    alert("Some fields need correction:\n" + reason);
-    return false;
-  }
+	if (reason != "") {
+	    alert("Some fields need correction:\n" + reason);
+	    return false;
+	}
 
-  alert("All fields are filled correctly");
-  return true;
+	return true;
 }
 function validateEmpty(fld) {
     var error = "";

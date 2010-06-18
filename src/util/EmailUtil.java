@@ -1,12 +1,6 @@
 package util;
 
-import java.io.IOException;
 import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.commons.httpclient.HttpException;
-import org.xml.sax.SAXException;
 
 import com.sailthru.TriggerMailClient;
 
@@ -31,22 +25,17 @@ public class EmailUtil {
 		sendEmail(templateName, toEmail, vars, null);
 	}
 	
-	public static void sendEmail(String templateName, String toEmail, Map<String, String> vars, Map<String, String> options) {
+	public static void sendEmail(String templateName, String toEmail, 
+			Map<String, String> vars, Map<String, String> options) {
 		TriggerMailClient client;
 		try {
 			client = new TriggerMailClient(SAILTHRU_APIKEY, SAILTHRU_SECRET);
 			//TODO: replace to real "toEmail" later
 			client.send(templateName, "support@talkabouthealth.com", vars, options);
 			
-			//TODO: handle exceptions
-		} catch (ParserConfigurationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (HttpException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Couldn't send email: "+e.getMessage());
 		}
 	}
 }

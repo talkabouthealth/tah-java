@@ -51,11 +51,6 @@ if (talker == null) {
 <link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
-			margin: 0px;
-			padding:0px;
-			font-family:arial;
-			font-size:11px;
-			color:#000000;
 			background:url(images/inner_bg.gif) repeat-x top;
 		}
 		.signfields2 ul {

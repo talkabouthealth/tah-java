@@ -52,7 +52,7 @@ public class HealthDetailsServlet extends HttpServlet {
 		talkerDisease.setUid(talker.getUID());
 		
 		//Save or update
-		//TODO: unify it?
+		//TODO: unify save and update? todo with Mongo
 		if (talkerDiseaseId != 0) {
 			talkerDisease.setId(talkerDiseaseId);
 			TalkmiDBUtil.updateTalkerDisease(talkerDisease);

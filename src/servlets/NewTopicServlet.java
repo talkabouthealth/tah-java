@@ -168,7 +168,6 @@ public int queryTopicID(TopicBean tb){
 			writer = response.getWriter();
 			writer.println("|");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return;
@@ -194,7 +193,6 @@ public int queryTopicID(TopicBean tb){
 //			tm.matcher();
 //			System.out.println(tm.getUserList().size());
 //		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
 //			e1.printStackTrace();
 //		}
 //		System.out.println(tm.getUserList().size());
