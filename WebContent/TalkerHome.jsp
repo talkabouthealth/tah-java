@@ -35,14 +35,8 @@
 		}
 %>
 <%@ include file="header.jsp" %>
-	<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
-			margin: 0px;
-			padding:0px;
-			font-family:arial;
-			font-size:11px;
-			color:#000000;
 			background:url(images/innerpagebg.gif) repeat-x top;
 		}
 	</style>
@@ -103,93 +97,37 @@
 			<a href="index.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
 		</div>
 		<div id="topnav">
-			<!--[if IE]><div id="IEroot"><![endif]-->
-			<!--[if gte IE 7]><div id="IEroot7"><![endif]-->
-			<!--[if IE 6]><div id="IEroot6"><![endif]-->
-			<div class="menu" style="float:right; padding-right:50px;">
-  				<ul>
-    				<li class="no-image"><a href="#" title="Our Solutions">You<!--[if IE 7]><!--></a><!--<![endif]-->
-      					<!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul>
-					        <li><a href="Account.jsp" title="Law">Profile</a></li>
-							<li><a href="#" title="Law">Conversation History</a></li>
-							<li><a href="#" title="Law">Followers</a></li>
-							<li><a href="#" title="Law">Following</a></li>
-					        <li><a href="#" title="Law">Activity Stream</a></li>
-					    </ul>
-      					<div style="clear:both;"></div>
-      					<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-					<li class="no-image"><a href="#" title="Our Solutions">Community<!--[if IE 7]><!--></a><!--<![endif]-->
-						<!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul>
-							<li><a href="#" title="Law">Search People</a></li>
-							<li><a href="#" title="Law">Browse People</a></li>
-							<li><a href="#" title="Law">Search Conversations</a></li>
-							<li><a href="#" title="Law">Browse Conversations</a></li>
-						</ul>
-						<div style="clear: both;"></div>
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-					<li class="no-image"><a href="#" title="About Us">Settings<!--[if IE 7]><!--></a><!--<![endif]-->
-						<!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul>
-							<li><a href="EditProfile.jsp" title="Law">Edit Profile</a></li>
-							<li><a href="Settings.jsp" title="Law">Notification Settings</a></li>
-							<li><a href="HealthDetails.jsp" title="Law">Edit Health Information</a></li>
-							<li><a href="ProfilePreferences.jsp" title="Law">Profile Preferences</a></li>
-						</ul>
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-					<li class="no-image"><a href="#" title="Shop">Help<!--[if IE 7]><!--></a><!--<![endif]-->
-						<!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul>
-							<li><a href="faq.jsp" title="Law">FAQ</a></li>
-							<li><a href="#" title="Law">Enabling IM</a></li>
-							<li><a href="#" title="Law">IM Commands</a></li>
-							<li><a href="#" title="Law">Tips and Etiquette</a></li>
-							<li><a href="#" title="Law">Blog</a></li>
-							<li><a href="#" title="Law">Feedback</a></li>
-							<li><a href="#" title="Law">Share TalkAboutHealth</a></li>
-						</ul>
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-					<li class="no-image"><a href="Logout" title="Customer Services">Logout<!--[if IE 7]><!--></a><!--<![endif]-->
-						<!--[if lte IE 6]><table><tr><td><![endif]--> <!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-				</ul>
-			</div>
-			<!--[if IE]></div><![endif]-->
+			<%@ include file="menu.jsp" %>
 		</div>
 	</div>
 </div>
 
 <div id="innerbanner"></div>
 <div id="bottom_container">
-	<div id="middle_area">
-		<div id="arealeft">
+	<div id="middle_area_inner">
+		<div id="arealeftinner">
 			<h1>Start <span class="text24">a New Conversation </span></h1>
 			<div id="curvetop"></div>
-			<div id="lefttextarea">
+			<div id="lefttextareainner">
 				<form id="postform" name="postnewtopic" action="javascript:postNewTopic(document.getElementById('newtopic'));" method="post" > 
 					<textarea cols="" rows="" class="textarea" id="newtopic" name="newtopic" maxlength="40" 
 						onKeyPress="submitenter(this,event)" TABINDEX=1
 						onclick="if (this.value == 'Please enter your Conversation here ...') this.value=''" ><%= newTopic %></textarea>
 				</form>
 			</div>
-			<div id="arealefttextarea">
-				<div id="arealefttext">
+			<div id="arealefttextareainner">
+				<div id="examplequestion">
 					<p><a href="#" class="blacktext">&nbsp;Example Question</a></p>
 				</div>
-				<div id="arealeftgrey">
+				<div id="greybg">
 					<a href="#" id="submitnewtopic" onClick="createTopic();" TABINDEX=2>
 						<img src="images/startbutton.gif" width="206" height="46" border="0" />
 					</a>
 				</div>
 			</div>
-			<div id="curvebottom"></div>
+			<div id="curvebottominner"></div>
 		</div>
-		<div id="arearight">
+		<div id="arearightinner">
 			<div id="rightcurvetop"></div>
 			<div id="rightmid">
 				<div id="imgarea"><img src="images/img.jpg" width="71" height="71" /></div>
@@ -222,7 +160,7 @@
 						<div class="arealeft2">
 							<img src="images/img1.gif" width="71" height="71" /><br />
 				  			<span class="bluetext11">Murray Jones</span> 
-				  			<span class="currenttext">Advocate<%= count %></span>
+				  			<span class="blacktext11">Advocate</span>
 				  		</div>
 						<div class="arearight">
 						    <div class="areatop"></div>

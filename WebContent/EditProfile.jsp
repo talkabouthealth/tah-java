@@ -13,20 +13,16 @@ if (sUserName == null) {
 	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
 %>
 <%@ include file="header.jsp" %>
-
-<script>
-	/*
-	Auto tabbing script- By JavaScriptKit.com
-	http://www.javascriptkit.com
-	This credit MUST stay intact for use
-	*/ 
-	function autotab(original,destination){
-		if (original.getAttribute&&original.value.length==original.getAttribute("maxlength"))
-			destination.focus()
+<style>
+	body {
+		background:url(images/inner_bg.gif) repeat-x top;
 	}
-</script>
-
+</style>
 <script type="text/javascript" charset="utf-8">
+function validatePasswordForm() {
+	
+}
+
 function validateFormOnSubmit(updateprofile) {
 var reason = "";
 	
@@ -128,79 +124,247 @@ function display(){
 	//document.updateprofile.maritalstatus.value = selectedValue;
 	//document.updateprofile.submit();
 } 
-
 </script>
 </head>
-
 <body onLoad="display()">
-	<div id="header">
-	<h1><span>Talkmi</span></h1>
-	
-		<div id="box">
-	
-			<form id="form" name="updateprofile" onsubmit="return validateFormOnSubmit(this)" action="/tah-java/UpdateProfile" method="post" >
-
-				<label><span>Username</span></label>
-					<input id="username" name="username" maxlength="15" size="25" class="input-box" type="text" value="<%=cb.getUserName() %>"><br> 
-				
-				<label><span><br />Gender</span></label>
-			    	<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>"><br>
-			 
-			  	<label><span>Date of Birth <h5>(mm / dd / yyyy)</h5></span></label>
-					<input id="month" name="month" maxlength="2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.month)"  value="<%=cb.getDOBMonth()%>">
-					<input id="day" name="day" maxlength=2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.day)"  value="<%=cb.getDOBDay()%>">
-					<input id="year" name="year" maxlength="4" size="4" class="input-box2" type="text"  value="<%=cb.getDOBYear()%>"><br><br>
-			 
-			    <label><span>Email</span></label>
-			    	<input id="email" name="email" maxlength="45" size="25" type="text" class="input-box" value="<%=cb.getEmail()%>"> <br>
-			    	 	
-				<label>City</label>
-			 		<input id="city" name="city" type="text" value="<%=cb.getCity()%>"> <br />
-			 	<label>State</label>
-			 		<input id="state" name="state" type="text" value="<%=cb.getState()%>"> <br />
-			 	<label>Country</label>
-			 		<input id="country" name="country" type="text" value="<%=cb.getCountry() %>"> <br />	
-			 	
-			 	<label>Patient/Caregiver/etc.</label>
-			 		<select id="selection" name="selection">
-			 		<option selected value='0'>Patient/Caregiver/other/etc. </option>
-			 		<option value="Patient">Patient</option>
-				 	<option value="Former Patient">Former Patient</option>
-				 	<option value="Caregiver">Caregiver</option>
-				 	<option value="Family member">Family member</option> 
-					<option value="Friend">Friend</option>
-					<option value="Physician">Physician</option>
-					<option value="Nurse">Nurse</option> 
-					</select>
-					<br/>
-				
-				<label>Marital status </label>
-			 		<select id="maritalstatus" name="maritalstatus" onChange="display()">
-				 		<option value='Single'>Single</option>
-						<option value="Married">Married/partnered relationship</option>
-						<option value="Divorced">Divorced</option>
-						<option value="Separated">Separated</option>
-						<option value="Widowed">Widowed</option> 
-					</select> <br />
-				
-				<label>Children Number
-					<select id="children" name="children" >
-						<option selected value="1"> 1 </option>
-						<option value="2"> 2 </option>
-						<option value="3"> 3 </option>
-						<option value="more"> More than 5 </option> 
-					</select> 
-				</label> <br />		
-				
-			  	<label><span>Pwd</span></label>	
-					<input id="password" name="password" maxlength="15" size="25" class="input-box"  type="password" value="<%=cb.getPassword()%>"><br />
-					
-					<input id="submit" name="submit" type=submit value="Update Profile"> <br />
-			</form>	
-			
-			<p><a href="TalkerHome.jsp">Cancel</a></p>
-		</div>				
+<div id="top_container">
+	<div id="top">
+		<div id="logo">
+			<a href="index.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
+		</div>
+		<div id="topnav">
+			<%@ include file="menu.jsp" %>
+		</div>
 	</div>
-
+	<div id="innerbanner"></div>
+	<div id="innermain">
+		<div class="blacktext2" id="innerheading">Personal Info and Password</div>
+		<div id="innerpersonalarea">
+			<div id="signupleft">
+			<form id="form" name="updateprofile" onsubmit="return validateFormOnSubmit(this)" action="UpdateProfile" method="post" >	
+				<div id="personalleft">
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Username</span></div>
+						<div class="personaltextfield">
+							<input id="username" name="username" maxlength="15" size="25" 
+								class="personalfields" type="text" value="<%=cb.getUserName()%>" />
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Email</span></div>
+						<div class="personaltextfield">
+						  	<input name="email" type="text" class="personalfields" id="email" value="<%=cb.getEmail()%>" />
+						</div>
+					</div>
+					<!-- 
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">First Name</span></div>
+						<div class="personaltextfield">
+						  	<input name="textfield2" type="text" class="personalfields" id="textfield2" onclick="this.value=''"  value="Murray" />
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Last Name</span></div>
+						<div class="personaltextfield">
+							<input name="textfield3" type="text" class="personalfields" id="textfield3" onclick="this.value=''"  value="Jones" />
+						</div>
+					</div>
+					-->
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Birth Date</span></div>
+						<div class="personaltextfield">
+							<input name="textfield3" type="text" class="personalfields" id="textfield3" value="5/20/1975" />
+							<!-- 
+							<input id="month" name="month" maxlength="2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.month)"  value="<%=cb.getDOBMonth()%>">
+							<input id="day" name="day" maxlength=2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.day)"  value="<%=cb.getDOBDay()%>">
+							<input id="year" name="year" maxlength="4" size="4" class="input-box2" type="text"  value="<%=cb.getDOBYear()%>">
+							-->
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Gender</span></div>
+						<div class="personaltextfield">
+							<!-- 
+							<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>">
+							-->
+							<select class="personalfields" >
+							  <option value="Select Gender" selected="selected">Select Gender</option>
+							  <option value="Male">Male</option>
+							  <option value="Female">Female</option>
+							</select>
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">City</span></div>
+						<div class="personaltextfield">
+							<input id="city" name="city" type="text" class="personalfields" value="<%=cb.getCity()%>">
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">State</span></div>
+						<div class="personaltextfield">
+							<input id="state" name="state" type="text" class="personalfields" value="<%=cb.getState()%>">
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Zip Code</span></div>
+						<div class="personaltextfield"><input name="textfield3" type="text" class="personalfields" id="textfield3" onclick="this.value=''"  value="10014" /></div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Country</span></div>
+						<div class="personaltextfield" style="border:0;">
+							<input id="country" name="country" type="text" class="personalfields" value="<%=cb.getCountry() %>">
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Martial Status</span></div>
+						<div class="personaltextfield">
+							<select id="maritalstatus" name="maritalstatus" class="personalfields">
+						 		<option value='Single'>Single</option>
+								<option value="Married">Married/partnered relationship</option>
+								<option value="Divorced">Divorced</option>
+								<option value="Separated">Separated</option>
+								<option value="Widowed">Widowed</option> 
+							</select>
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">No. Of Children</span></div>
+						<div class="personaltextfield">
+							<input id="children" name="children" type="text" class="personalfields" value="1" />
+						</div>
+					</div>
+					<!-- 
+					<div class="personalmain">
+					<div class="personaltextarea"><span class="blacktext14">Ages of Children</span></div>
+						<div class="personalcheck">
+							<div class="personalcheck1"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">new born</span></div>
+							<div class="personalcheck2"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">6-12 years old</span></div>
+							<div class="personalcheck1"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">1-2 years old</span></div>
+							<div class="personalcheck2"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">12-18 years old</span></div>
+							<div class="personalcheck1"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">1-2 years old</span></div>
+							<div class="personalcheck2"><input name="" type="checkbox" value="" />&nbsp; <span class="blacktext14">12-18 years old</span></div>
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Patient, Caregiver etc</span></div>
+						<div class="personaltextfield">
+							<select id="selection" name="selection" class="personalfields">
+						 		<option selected value='0'>Patient/Caregiver/other/etc. </option>
+						 		<option value="Patient">Patient</option>
+							 	<option value="Former Patient">Former Patient</option>
+							 	<option value="Caregiver">Caregiver</option>
+							 	<option value="Family member">Family member</option> 
+								<option value="Friend">Friend</option>
+								<option value="Physician">Physician</option>
+								<option value="Nurse">Nurse</option> 
+							</select>
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Web Page</span></div>
+						<div class="personaltextfield">
+							<input name="textfield2" type="text" class="personalfields" id="textfield2" 
+								onclick="this.value=''"  value="http://talkabouthealth.com" />
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea2"><span class="blacktext14">Conversation Topic<br />
+							  <span class="footerlink">Key words of what you 
+								like to talk about i.e. cooking, 
+								sports etc.</span></span>
+						</div>
+						<div class="textareabig">
+							<textarea name="textarea" id="textarea" cols="45" rows="5" class="textarea3"></textarea>
+						</div>
+					</div>
+					<div class="personalmain">
+						<div class="personaltextarea"><span class="blacktext14">Bio</span></div>
+						<div class="textareabig"><textarea name="textarea" id="textarea" cols="45" rows="5" class="textarea3"></textarea></div>
+					</div>
+					-->
+					<div class="personalmain">
+						<div class="personaltextarea"></div>
+						<div class="personaltextarea" >
+							<a href="#"><img src="images/savechanges_btn.gif" width="186" height="46" border="0" /></a>
+						</div>
+					</div>
+					<div class="personalmain"></div>
+				</div>
+				<div id="personalright">
+					<div id="personalrightimg">
+					<img src="images/imageuploadpic.gif" />
+					</div>
+					<div class="bluetext12" id="personalrighttext"><a href="#" class="bluetext12">Change Photos</a></div>
+				</div>
+			</form>
+			</div>
+			
+			<div id="signupright">
+				<div class="personalinfosignrightbox">
+					<div class="personalinfosignrighttop"></div>
+					<div class="signrighmid">
+						<span class="pinktext14"><strong>Picture</strong></span>
+						<span class="textgreylight12"><br />
+						A real picture does add a personal touch, 
+						but its not advised if you do not want others 
+						to recognize you.</span>
+						<span class="pinktext14"><strong><br /><br />Username visibility</strong></span>
+						<span class="textgreylight12"><br />
+						Your Username will be visibe to other 
+						members. If you want to remain anonymous, 
+						we recommend you make your user name 
+						different than your real name.</span>
+						<span class="pinktext14"><strong><br />
+						<br />Why provide more information?</strong></span>
+						<span class="textgreylight12"><br />
+						Filling in your profile information enables us 
+						to find others similar to you for conversations. 
+						The more information we have, the better we 
+						can match you..<br /><br />As well the more information everyone in the 
+						community shares, the more we help each 
+						other. We find others just like us develop 
+						friendships and know that we can get the 
+						support we need.</span></span><br />
+						<br />
+					</div>
+					<div class="signrighbot"></div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<div id="personalarea">
+	<div id="personalinner">
+		<div id="personalleft1">
+		<form action="UpdateProfile?action=changepassword" method="post">
+			<div class="personalmain">
+				<div class="personaltextarea"><span class="blacktext14">Current Password</span></div>
+				<div class="personaltextfield">
+					<input name="curpassword" id="curpassword" type="password" class="personalfields" value="" />
+				</div>
+			</div>
+			<div class="personalmain">
+				<div class="personaltextarea"><span class="blacktext14">New Password</span></div>
+				<div class="personaltextfield">
+					<input name="newpassword" id="newpassword" type="password" class="personalfields" value="" />
+				</div>
+			</div>
+			<div class="personalmain">
+				<div class="personaltextarea"><span class="blacktext14">Confirm Password</span></div>
+				<div class="personaltextfield">
+					<input name="confirmpassword" id="confirmpassword" type="password" class="personalfields" value="" />
+				</div>
+			</div>
+			<div class="personalmain">
+				<div class="personaltextarea"></div>
+				<div class="personaltextarea" style="height:46px; padding-top:2px;">
+					<a href="#" onclick="validatePasswordForm()"><img src="images/changepass_btn.gif" width="186" height="46" border="0" /></a>
+				</div>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
 <%@ include file="footer.jsp" %>
 <% }%>

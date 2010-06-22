@@ -617,7 +617,7 @@ public class TalkmiDBUtil {
 		    ps.setInt(5, user.profilePreferencesToInt());
 		    ps.setInt(6, user.getNfreq());
 		    ps.setInt(7, user.getNtime());
-		    ps.setInt(8, user.getItype());
+		    ps.setString(8, user.getCtypeStr());
 		    ps.setInt(9, user.getUID());
 		    
 		    ps.executeUpdate();

@@ -5,6 +5,7 @@ body {
 	padding:0px;
 	font-family:arial;
 	font-size:11px;
+	width:100%;
 	color:#000000;}
 
 
@@ -19,12 +20,6 @@ body {
 #topnav ul li a {width:150px;  font-weight: normal; font-size: 14px; color: #2a2a2a; font-family:arial; text-decoration: none;  }
 #topnav ul li a:hover {    font-weight: normal; font-size: 14px; color: #eb1d90; font-family:arial; text-decoration: none;   }
 
-#topnav2 { float:right; width:100px; margin:0px;  padding:30px 0px 0px 30px; }
-#topnav2 ul {padding:0; margin:0; width:100%; float:left; list-style:none;}
-#topnav2 ul li {display: inline; }
-#topnav2 ul li a {  font-weight: normal; font-size: 14px; color: #2a2a2a; font-family:arial; text-decoration: none;  padding:10px 0px 15px 10px; 	}
-#topnav2 ul li a:hover { padding:10px 0px 12px 10px;  font-weight: normal; font-size: 14px; color: #eb1d90; font-family:arial; text-decoration: none;   }
-#topnav2 ul li a.currenttext { font-weight: normal; font-size: 14px; color: #eb1d90; font-family:arial; text-decoration: none; 	}
 
 #topright { float:right; width:95px; margin:0px;  padding-top:20px; height:53px; text-align:right;}
 .icon { float:right; width:27px; margin:0px;  padding-top:4px; height:27px; text-align:right; padding-right:4px;}
@@ -40,10 +35,10 @@ body {
 #lefttextarea {float:left;  width:672px;  background-color:#FFFFFF; border-left:1px solid #9abcca;  padding:5px; border-bottom:1px dashed #939393;border-right:1px solid #9abcca;   }
 #lefttextareainner {float:left;  width:662px;  background-color:#FFFFFF; border-left:1px solid #9abcca;  padding:10px; border-bottom:1px dotted #939393;border-right:1px solid #9abcca;   }
 #comingsoonhead {float:left; background-color:#FFFFFF;  padding-right:10px; }
-#dashedborder {float:left; height:1px; width:100%; /*border-bottom:1px dashed #939393;*/ background:url(../images/bordergraphic.gif) repeat-x;}
+
 
 #arealeftgrey {float:left;  width:627px; background-color:#ffffff;  padding:10px 3px 0 5px; height:46px; border-top:1px solid #ffffff; text-align:left; }
-#greybg {float:left;  width:460px; background-color:#e4e4e4;  padding:3px 3px 0 0; height:46px; border-top:1px solid #ffffff; text-align:right; }
+#greybg {float:left;  width:485px; background-color:#e4e4e4;  padding:3px 3px 0 0; height:46px;  text-align:right; }
 #examplequestion {float:left;  width:150px; background:url(../images/questionIcon.gif) no-repeat center left; height:50px; line-height:50px; padding-left:25px; }
 #arealefttextarea {float:left;  width:637px; padding-left:0px; background-color:#ffffff; border-left:1px solid #9abcca; border-right:1px solid #9abcca;      }
 #arealefttextareainner {float:left;  width:675px; padding-left:7px; background-color:#e4e4e4; border-left:1px solid #9abcca; border-right:1px solid #9abcca;      }
@@ -82,8 +77,9 @@ body {
 .innerrighmid { float:left; width:211px; background:url(../images/innerrightmid.gif) repeat-y; padding:15px; }
 .innerrighbot { float:left; width:241px; background:url(../images/innerrightbot.gif) no-repeat; height:10px;}
 
-#searcharea { float:left; width:199px; background:url(../images/searchleft.gif) no-repeat left; padding-left:6px; height:35px; }
+
 .search { float:left; width:199px; height:22px; padding-top:10px;border-bottom:1px solid #c9c9c9;  border-top:1px solid #c9c9c9; border-left:0px solid #ffffff; border-right:0px solid #ffffff;  }
+#searcharea { float:left; width:199px; background:url(../images/searchleft.gif) no-repeat left; padding-left:6px; height:35px; }
 #searchright {float:left; width:34px;  height:35px;}
 #innermid { float:left; width:683px; border-left: 1px solid #c9c9c9; border-right: 1px solid #c9c9c9;  }
 .area { float:left; padding:10px; width:663px; border-bottom:1px dashed #c9c9c9;}
@@ -93,7 +89,7 @@ body {
 .areamid { float:left; width:562px; background-color:#e2eef3; padding:7px 5px 7px 10px; }
 
 .areabot { float:left; width:577px; background:url(../images/blue_curvebot.gif) no-repeat top; height:8px; }
-.join { float:left; width:160px; padding-right:5px;  padding-left:367px}
+.join { float:right; width:178px; padding-right:5px;  padding-left:367px; text-align:right;}
 
 #innerbot { float:left; width:685px; background:url(../images/inner_box_bot.gif) no-repeat; height:9px; font-size:1px; }
 #innerlefttop { float:left; width:685px; background:url(../images/inner_box_top.gif) no-repeat; height:20px; }
@@ -114,13 +110,17 @@ body {
 
 #innerheading { float:left; width: 100%; height:56px; line-height:56px;}
 #innermiddlearea {float:left; width: 942px; padding-top:20px; padding-bottom:20px;}
+#innerpersonalarea {float:left; width: 942px; padding-top:20px; padding-bottom:10px;}
 #signupleft { float:left; width:590px;}
+#signupleft h6 { padding:0px; margin:0px;}
+#dashedborder {float:left; height:1px; width:100%; /*border-bottom:1px dashed #939393;*/ background:url(../images/bordergraphic.gif) repeat-x;}
 #personalleft { float:left; width:437px;}
+#personalleft1 { float:left; width:437px; padding-left:30px;}
 .personalmain { float:left; width:437px; padding-bottom:10px;}
 .personaltextarea {float:left; width:156px; height:27px; line-height:27px; padding-top:10px;}
 .personaltextfield {float:left; width:276px; background:url(../images/fieldsbg.gif) no-repeat top; height:37px; line-height:37px;  padding-top:4px; padding-left:5px;  }
 #personalsettings {float:left; width:270px; height:37px; line-height:37px; }
-.personalcheck {float:left; width:281px; padding-left:156px; }
+.personalcheck {float:left; width:281px; padding-left:156px; padding-bottom:10px; }
 .personalcheck1 {float:left; width:138px; padding-right:5px; }
 .personalcheck2 {float:left; width:138px;   }
 .personaltextarea2 {float:left; width:156px; height:94px; padding-top:10px;}
@@ -135,11 +135,16 @@ body {
 .socialicons2 ul{ float:left; padding-bottom:8px; padding-top:8px; border-bottom:1px dotted #433d3d; width:590px;  }
 .socialicons2 ul li { width:135px; display:inline;  }
 .signuparea { float:left; width:281px; padding-top:10px;}
-#signfields { float:left; width:281px;}
 #editfields { float:left; width:500px;}
-#dob { float:left; width:281px; height:28px;}
+#signfields { float:left; width:281px;}
+#signfields ul h5 { float:left; width:281px; height:28px; padding:0xp; margin:0px;}
 #signfields ul{ float:left; width:281px; padding-top:15px;}
 #signfields ul li{ float:left; width:261px; list-style-type:none;  background:url(../images/fieldsbg.gif) no-repeat top; height:36px; line-height:36px; padding:1px 0px 15px 20px; }
+#signfieldsleft { float:left; width:281px;}
+.signfields1 { float:left; width:281px;}
+.signfields1 h5 { float:left; width:281px;  padding:0xp; margin:0px;}
+.signfields1 ul{ float:left; width:281px; padding-top:10px;}
+.signfields1 ul li{ float:left; width:261px; list-style-type:none;  background:url(../images/fieldsbg.gif) no-repeat top; height:36px; line-height:36px; padding:1px 0px 15px 20px; }
 #homefields { float:left; width:281px; height:50px; padding:0 0 0 5px;}
 #homefields ul{ float:left; width:281px; padding-top:5px;}
 #homefields ul li{ float:left; width:261px; list-style-type:none;  background:url(../images/fieldsbg.gif) no-repeat top; height:36px; line-height:36px; padding:1px 0px 15px 20px; }
@@ -149,7 +154,10 @@ body {
 #signdown h4 { float:left; width:590px; height:20px; line-height:20px; padding:0px; margin:0px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none;}
 #checkboxarea2 {float:left; width:590px; height:20px; padding-top:30px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none; }
 #alreadyuser { float:left; width:300px; height:54px; line-height:54px; }
-#signfieldsright { float:left; width:290px; padding-left:10px; }
+#signfieldsright { float:left; width:285px; padding-left:5px; }
+#usertext { float:left; width:285px;  padding-top:15px; }
+#selectim { float:left; width:285px; padding-top:130px; }
+#datebirth { float:left; width:285px;  padding-top:70px;}
 .signrightbox { float:left; width:284px; padding-top:20px;}
 .personalinfosignrightbox { float:left; width:284px; padding-top:5px;}
 .personalinfosignrighttop { float:left; width:284px; background:url(../images/personalinforight_top.gif) no-repeat; height:57px; }
@@ -162,9 +170,9 @@ body {
 #loginarea h1 {float:left; width:281px; font-family:arial; font-size:14px; color:#3b3b3b; padding-bottom:6px; padding-top:20px;}
 .fieldarea{ float:left; width:281px;  }
 .fieldarealeft{ float:left; width:15px; background:url(../images/txtfieldleft.gif) no-repeat left; height:37px;}
-.fieldareamid{ float:left; width:249px;  height:37px; border-bottom:1px solid #b3b3b3; border-top:1px solid #b3b3b3;}
+.fieldareamid{ float:left; width:249px;  height:35px; border-bottom:1px solid #b3b3b3; border-top:1px solid #b3b3b3;}
 .textfields{width:249px;  height:22px; padding-top:10px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
-.personalfields{width:249px;  height:22px; padding-top:5px; margin-bottom:5px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
+.personalfields{width:249px;  height:23px; margin-top:5px; margin-bottom:5px; border:0; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
 .fieldarearight{ float:left; width:15px; background:url(../images/txtfieldright.gif) no-repeat right; height:37px;}
 .forgotpassword{ float:left; text-align:right; height:20px; width:138px; padding-top:20px; font-weight: normal; font-size: 12px; color: #1450a4; font-family:arial; text-decoration: none;  }
 .checkboxarea{ float:left; height:20px; width:140px; padding-top:20px; font-weight: normal; font-size: 14px; color: #545454; font-family:arial; text-decoration: none; }
@@ -199,7 +207,7 @@ body {
 .notiblueareabot { float:left; width:640px; background:url(../images/notcurvebluebot.gif) no-repeat top; height:9px; font-size:1px; }
 .notiblueareamid ul { float:left; width:620px; list-style-type:none;}
 .notiblueareamid ul li { float:left; width:620px; padding-top:4px; padding-bottom:4px; list-style-type:none; }
-.radiobutton {font-family: arial; font-size: 25px; font-weight: normal; text-decoration: none; color: #000000; border:1px solid #b4b5b5; background:url(../images/radiobutton.gif) repeat-x bottom; } 
+.radiobutton {font-family: arial; font-size: 25px; font-weight: normal; text-decoration: none; color: #000000;  } 
 #savebutton {float:left; width:654px; padding-left:10px;}
 
 
@@ -212,7 +220,12 @@ body {
 .signfields2 ul li{ float:left; width:261px; list-style-type:none;  background:url(../images/textfieldbluebg.gif) no-repeat top; height:36px; line-height:36px; padding:1px 0px 15px 20px; }
 .signfields2 h1 { float:left; width:618px; font-weight: bold; font-size: 18px; color: #1550a4; font-family:arial; text-decoration: none; padding-bottom:5px; }
 
-#footerarea { float:left; width:100%; height:70px; }
+#personalarea { float:left; width:100%; background:url(../images/bordergraphic.gif) repeat-x; padding-bottom:15px; }
+/*#footerarea { float:left; width:100%; height:119px; border-top:1px dotted #cccccc; }*/
+#personalinner { width:962px; padding-top:10px; margin-left:auto; margin-right:auto;}
+
+#footerarea { float:left; width:100%; height:72x; background:url(../images/bordergraphic.gif) repeat-x; padding-bottom:15px; }
+/*#footerarea { float:left; width:100%; height:119px; border-top:1px dotted #cccccc; }*/
 #footer { width:962px; padding-top:10px; margin-left:auto; margin-right:auto;}
 #footerleft {float:left; width:700px; height:25px; line-height:25px;}
 #footerright {float:left; width:250px;}
@@ -233,7 +246,10 @@ a.text24:hover {text-decoration: none; color: #000000;}
 a.pinktext:hover {text-decoration: none; color: #eb1d90;}
 .pinktext14 {font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #eb1d90;}
 a.pinktext14:hover {text-decoration: none; color: #1550a4;}
+.pinktext11 {font-family: arial; font-size: 11px; font-weight: normal; text-decoration: none; color: #eb1d90;}
+a.pinktext11:hover {text-decoration: none; color: #1550a4;}
 .blacktext {font-family: arial; font-size: 12px; font-weight: normal; text-decoration: none; color: #000000;}
+.blacktext11 {font-family: arial; font-size: 11px; font-weight: normal; text-decoration: none; color: #000000;}
 a.blacktext:hover {text-decoration: none; color: #000000;}
 .red {font-family: arial; font-size: 18px; font-weight: bold; text-decoration: none; color: #e21c3f;}
 a.red:hover {text-decoration: none; color: #e21c3f;}
@@ -276,6 +292,10 @@ a.bluetext11:hover {text-decoration: none; color: #1550a4;}
 a.bluetext12:hover {text-decoration: none; color: #1550a4;}
 .bluetext14 {font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #1550a4; line-height:20px;}
 a.bluetext14:hover {text-decoration: none; color: #eb1d90;}
+.bluetext16 {font-family: arial; font-size: 16px; font-weight: normal; text-decoration: none; color: #1550a4; line-height:20px;}
+a.bluetext16:hover {text-decoration: none; color: #eb1d90;}
+.bluetext18 {font-family: arial; font-size: 16px; font-weight: bold; text-decoration: none; color: #1550a4; line-height:20px;}
+a.bluetext18:hover {text-decoration: none; color: #eb1d90;}
 .bluetext {font-weight: bold; font-size: 14px; color: #5e82b1; font-family:arial; text-decoration: none;}
 a.bluetext:link {font-weight: bold; font-size: 14px; color: #5e82b1; font-family:arial; text-decoration: none;}
 a.bluetext:active {font-weight: bold; font-size: 14px; color: #5e82b1; font-family:arial; text-decoration: none;}
@@ -292,18 +312,72 @@ a.redtext:hover {font-weight: bold; font-size: 14px; color: #eb1d90; font-family
 
 .textarea { width:660px; height:95px; border:0px; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;} 
 
-.textarea1 {width:249px;  height:28px; padding-top:8px; border:0px solid #ffffff; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
+.textarea1 {width:249px;  height:20px; border:none; border:hidden; font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000; margin:6px 0px 0px 0px;}
 .textarea2{width:60px;  height:20px;  margin:5px 5px 5px 0; border:0;  font-family: arial; font-size: 14px; font-weight: normal; text-decoration: none; color: #000000;}
 
 div, p, h1 , h2, h3, ul,li { padding:0px; margin:0px;}
+select { border:none;}
+
+/*blog*/
+#blogleft { float:left; width:665px;}
+.blogtextarea { float:left; width:665px; padding-bottom:20px;}
+.blogtextareahead { float:left; width:665px; border-bottom:1px dashed #cccccc; padding-bottom:12px;}
+.blogimgarea { float:left; width:665px;  padding-top:18px;}
+.blogimg { float:left; padding-right:20px; width:48px;}
+.blogimgtext { float:left; padding-right:10px; width:533px;}
+.blogimgright { float:left; padding-right:10px; width:44px;}
+.blogtext { float:left; padding-top:20px; padding-right:10px; width:655px; padding-bottom:10px;}
+.blogiconarea { float:left; width:665px;}
+.likepost { float:left; width:100px; height:26px; padding-right:5px;}
+.face { float:left; width:236px; height:14px; vertical-align:bottom; padding-top:7px; padding-right:10px;}
+.blogicon { float:left; width:158px; height:16px; padding-top:7px; padding-right:10px;}
+.blogicon ul { float:left;padding:0px; margin:0px; list-style-type:none; width:158px;}
+.blogicon ul li {float:left; padding:0px; margin:0px; list-style-type:none; width:16px; padding-left:10px; display:inline;}
+.blogicontext { float:right; width:140px; height:16px; padding-top:7px;}
+#blogright { float:left; width:272px; padding-left:5px;}
+#blogrighttop { float:left; width:272px; background:url(../images/blogrighttop.gif) no-repeat top; height:7px;}
+.blogrightmidmain { float:left; width:250px; background:url(../images/blogrightmid.gif) repeat-y top; padding:5px 5px 5px 17px; }
+#blogrightbottom { float:left; width:272px; background:url(../images/blogrightbottom.gif) no-repeat top; height:7px;}
+#searcharea2 { float:left; width:199px; background:url(../images/searchleft2.gif) no-repeat left; padding-left:6px; height:35px; }
+#searchright {float:left; width:34px;  height:35px;}
+.blogrightmidmain1 { float:left; width:255px; background:url(../images/blogrightmid.gif) repeat-y top; padding:5px 5px 5px 12px; }
+.blogarearight { float:left;  width:242px; padding-top:20px; }
+.blogrightcurvetop { float:left; width:242px; height:9px; background:url(../images/right_curvetop.gif) no-repeat top; font-size:1px;}
+.blogrightmid { float: left; width:227px; background:url(../images/right_curvemid.gif) repeat-y top; padding-left:15px;}
+.blogrightmid h1 { float:left; font-weight: bold; font-size: 16px; color: #0286bc; font-family:arial; text-decoration: none; }
+.blogrightbot { float: left; width:242px; height:9px;  background:url(../images/right_curvebot.gif) no-repeat top; }
+.blogiconright { float:left; width:227px; height:22px; padding-top:7px; padding-right:10px;}
+.blogiconright ul { float:left;padding:0px; margin:0px; list-style-type:none; width:227px;}
+.blogiconright ul li {float:left; padding:0px; margin:0px; list-style-type:none; width:21px; padding-right:10px; display:inline;}
+.blogiconright2 { float:left; width:217px;  padding-top:7px; padding-right:10px;}
+.blogiconright2 ul { float:left;padding:0px; margin:0px; list-style-type:none; width:227px;}
+.blogiconright2 ul li {float:left; padding:0px; margin:0px; list-style-type:none; width:217px; height:20px; line-height:20px; padding-right:10px; }
+.blogbg { float:left; width:270px; border-left:1px solid #b6d5e1; border-right:1px solid #b6d5e1; background:url(../images/blogbg.gif) no-repeat; font-size:1px; height:2px;  }
+.blogbluetop { float:left; width:246px; height:9px; background:url(../images/blogbluetop.gif) no-repeat top; font-size:1px;}
+.blogbluemid1 { float: left; width:231px; background:url(../images/blogbluemid1.gif) repeat-y top; padding-left:15px; border-bottom:1px dashed #9dc2cf;}
+.blogbluemid2 { float: left; width:231x; background:url(../images/blogbluemid2.gif) repeat-y top; padding-left:15px; border-bottom:1px dashed #9dc2cf;}
+.blogbluemid3 { float: left; width:231px; background:url(../images/blogbluemid3.gif) repeat-y top; padding-left:15px; border-bottom:1px dashed #9dc2cf;}
+.blogbluemid4 { float: left; width:231px; background:url(../images/blogbluemid4.gif) repeat-y top; padding-left:15px;}
+.blogbluebot { float: left; width:246px; height:9px;  background:url(../images/blogbluebottom.gif) no-repeat top; }
+
+.blogarrow { float:left; width:221px;  padding-top:7px; padding-right:10px;}
+.blogarrow ul { float:left;padding:0px; margin:0px; width:227px;}
+.blogarrow ul li {float:left; padding:0px; margin:0px; list-style-type:none; list-style-position:inside; width:211px; padding-right:10px; padding-left:10px; padding-bottom:10px; }
+h4 { float:left; width:221px; padding-bottom:7px;  font-weight: bold; font-size: 14px; color: #303030; font-family:arial; text-decoration: none; margin:0px;}
+#topnav2 { float:right; width:200px; margin:0px;  padding:30px 0px 0px 30px; }
+#topnav2 ul {padding:0; margin:0; width:100%; float:left; list-style:none;}
+#topnav2 ul li {display: inline; }
+#topnav2 ul li a {  font-weight: normal; font-size: 14px; color: #2a2a2a; font-family:arial; text-decoration: none;  padding:10px 0px 15px 10px; 	}
+#topnav2 ul li a:hover { padding:10px 0px 12px 10px;  font-weight: normal; font-size: 14px; color: #eb1d90; font-family:arial; text-decoration: none;   }
+#topnav2 ul li a.currenttext { font-weight: normal; font-size: 14px; color: #eb1d90; font-family:arial; text-decoration: none; 	}
+
 
 /* 
 	Additions/Fixes 
 	We put this separately because designer's code changes frequently now.
 */
 .datefields {width:75px;}
-#signfieldsright {padding-top:17px;}
-#signupleft h5 {margin: 0px; padding-top: 10px; font-size:14px; clear:both;}
+/* #signupleft h5 {margin: 0px; padding-top: 10px; font-size:14px; clear:both;} */
 #error {font-size: 16px; color: red}
 #footerleft {font-size:11px;}
 

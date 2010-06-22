@@ -2,6 +2,7 @@ package beans;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumSet;
@@ -50,7 +51,8 @@ public class TalkerBean {
 	private String city;
 	private String state;
 	private String country;
-	private int itype;
+	//conversations types
+	private String[] ctype;
 	private int nfreq;
 	private int ntime;
 	
@@ -106,7 +108,9 @@ public class TalkerBean {
 		setCategory(set.getString("category")); 
 		
 		parseProfilePreferences(set.getInt("profilepreferences"));
+		parseCType(set.getString("ctype"));
 	}
+
 	public String getDOBYear() throws SQLException{
 		Calendar cal=Calendar.getInstance();
         cal.setTime(dob);
@@ -179,6 +183,17 @@ public class TalkerBean {
 			}
 		}
 	}
+	
+	private void parseCType(String dbCType) {
+		if (dbCType != null && dbCType.length() > 2) {
+			//remove [ and ] from string
+			dbCType = dbCType.substring(1, dbCType.length()-1);
+			ctype = dbCType.split(", ");
+		}
+		else {
+			ctype = new String[]{};
+		}
+	}
 
 	public String getMariStat() {
 		return MariStat;
@@ -220,14 +235,6 @@ public class TalkerBean {
 		this.country = country;
 	}
 
-	public int getItype() {
-		return itype;
-	}
-
-	public void setItype(int itype) {
-		this.itype = itype;
-	}
-
 	public int getNfreq() {
 		return nfreq;
 	}
@@ -242,5 +249,17 @@ public class TalkerBean {
 
 	public void setNtime(int ntime) {
 		this.ntime = ntime;
+	}
+
+	public String[] getCtype() {
+		return ctype;
+	}
+
+	public String getCtypeStr() {
+		return Arrays.toString(ctype);
+	}
+	
+	public void setCtype(String[] ctype) {
+		this.ctype = ctype;
 	}
 }	

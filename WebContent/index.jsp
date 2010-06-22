@@ -13,14 +13,8 @@
 		int numberOfMembers = TalkmiDBUtil.getNumberOfMembers();
 %>
 <%@ include file="header.jsp" %>
-
 	<style type="text/css">
 		body {
-			margin: 0px;
-			padding:0px;
-			font-family:arial;
-			font-size:11px;
-			color:#000000;
 			background:url(images/pagebg.gif) repeat-x top;
 		}
 	</style>
@@ -91,6 +85,27 @@
 <div id="bottom_container">
 	<div id="middle_area">
 		<div id="arealeft">
+			<div id="curvetophome"></div>
+			<div id="arealefttextarea">
+				<div id="comingsoonhead" class="bluetext30">&nbsp;Coming Soon</div>
+				<div id="dashedborder" style="width:638px;"></div>
+				<div id="arealeftgrey" class="blacktext14">
+					&nbsp;Sign up to receive the lates on our beta program and launch.<br />
+			  		<span class="pinktext14">&nbsp;(Your email won't be used for anything else.)</span>
+			  	</div>
+			  	<div id="homefields">
+					<ul>
+						<li><input name="textfield" type="text" class="textfields" 
+							id="textfield" onclick="this.value=''"  value="Your Email Address..." />
+						</li>
+					</ul>    
+			  	</div>
+			  	<div id="arearightbutton"><a href="#"><img src="images/signupbutton.gif" width="126" height="46" border="0" /></a></div>
+			  	<div id="arealefttext">Your email will remain safe and private</div>
+			</div>
+			<div id="curvebottom"></div>
+			
+			<!-- 
 			<h1>Ask a question <span class="text24">or start a new conversation:</span></h1>
 			<div id="curvetop"></div>
 			<div id="lefttextarea">
@@ -110,6 +125,7 @@
 				</div>
 			</div>
 			<div id="curvebottom"></div>
+			 -->
 		</div>
 		<div id="arearight">
 			<h1>Current Support Communities</h1>
@@ -205,6 +221,6 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <%@ include file="footer.jsp" %>
 <% }%>

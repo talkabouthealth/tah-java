@@ -31,19 +31,17 @@ public class SetNotification extends HttpServlet {
 	public void processSetNotification(HttpServletRequest request) {
 		if ((request.getParameter("notifyFre") == null)
 				|| (request.getParameter("notifyTime") == null)
-				|| request.getParameter("iType") == null)
+				|| request.getParameter("cType") == null)
 			return;
 
 		int notifyfreq = Integer.parseInt(request.getParameter("notifyFre"));
 		int notifytime = Integer.parseInt(request.getParameter("notifyTime"));
-		int interestT = Integer.parseInt(request.getParameter("iType"));
-
-		System.out.println("Setting Notification!");
-
+		String[] cTypes = request.getParameterValues("cType");
+		
 		TalkerBean talkerBean = (TalkerBean) request.getSession().getAttribute("talker");
 		talkerBean.setNfreq(notifyfreq);
 		talkerBean.setNtime(notifytime);
-		talkerBean.setItype(interestT);
+		talkerBean.setCtype(cTypes);
 		
 		TalkmiDBUtil.updateTalker(talkerBean);
 	}

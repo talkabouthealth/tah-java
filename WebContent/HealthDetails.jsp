@@ -48,7 +48,6 @@ if (talker == null) {
 	}
 %>
 <%@ include file="header.jsp" %>
-<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
 			background:url(images/inner_bg.gif) repeat-x top;
@@ -67,11 +66,13 @@ if (talker == null) {
 	</style>
 </head>
 <body>
-
 <div id="top_container">
 	<div id="top">
 		<div id="logo">
 			<a href="index.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
+		</div>
+		<div id="topnav">
+			<%@ include file="menu.jsp" %>
 		</div>
 		<div id="innerbanner"></div>
 		<form id="healthdetailsform" name="healthdetailsform" action="HealthDetails" method="POST" />

@@ -1,10 +1,19 @@
 	<div id="footerarea">
 		<div id="footer">
 			<div id="footerleft">
-				<a href="#" class="footerlink">Blog</a>&nbsp;&nbsp;|&nbsp;
+				<div id="footericons">Find us on Facebook and Twitter 
+					<a href="http://www.facebook.com/pages/TalkAboutHealth/123999230963635?ref=sgm" >
+						<img src="images/facebookfooter.gif" width="17" height="17" border="0" />
+					</a>
+					<a href="http://twitter.com/talkforhealth">
+						<img src="images/twitterfooter.gif" width="17" height="17" border="0" />
+					</a>
+				</div>
+				|&nbsp;&nbsp;
+				<a href="http://blog.talkabouthealth.com" class="footerlink">Blog</a>&nbsp;&nbsp;|&nbsp;
 				<a href="faq.jsp" class="footerlink">Faq</a>&nbsp;&nbsp;|&nbsp;
 				<a href="mailto:feedback@Talkmi.com" class="footerlink">Contact Us</a>&nbsp;&nbsp;|&nbsp;
-				<a href="#" class="footerlink">About Us</a>&nbsp;&nbsp;|&nbsp;
+				<a href="aboutus.jsp" class="footerlink">About Us</a>&nbsp;&nbsp;|&nbsp;
 				<a href="privacy.jsp" class="footerlink">Privacy Policy</a>&nbsp;&nbsp;|&nbsp;
 				<a href="tos.jsp" class="footerlink">Terms of Service</a>
 			</div>

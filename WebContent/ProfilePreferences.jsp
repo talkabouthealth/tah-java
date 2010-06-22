@@ -10,14 +10,8 @@
 		EnumSet<ProfilePreference> profilePreferences = talker.getProfilePreferences();
 %>
 <%@ include file="header.jsp" %>
-	<link href="css/drop-down-menu.css" type="text/css" rel="stylesheet" />
 	<style>
 		body {
-			margin: 0px;
-			padding:0px;
-			font-family:arial;
-			font-size:11px;
-			color:#000000;
 			background:url(images/inner_bg.gif) repeat-x top;
 		}
 		.notiblueareamid ul li {
@@ -34,6 +28,9 @@
 	<div id="top">
 		<div id="logo">
 			<a href="index.jsp"><img src="images/spacer.gif" alt="Talk About Health" width="328" height="73" border="0" /></a>
+		</div>
+		<div id="topnav">
+			<%@ include file="menu.jsp" %>
 		</div>
 		<div id="innerbanner"></div>
 		<form id="profilepreferencesform" name="profilepreferencesform" action="ProfilePreferences" method="POST" />
