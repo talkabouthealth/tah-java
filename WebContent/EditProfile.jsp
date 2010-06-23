@@ -20,7 +20,11 @@ if (sUserName == null) {
 </style>
 <script type="text/javascript" charset="utf-8">
 function validatePasswordForm() {
-	
+	document.changePasswordForm.submit();
+}
+
+function validateProfileForm() {
+	document.updateprofile.submit();
 }
 
 function validateFormOnSubmit(updateprofile) {
@@ -141,7 +145,7 @@ function display(){
 		<div class="blacktext2" id="innerheading">Personal Info and Password</div>
 		<div id="innerpersonalarea">
 			<div id="signupleft">
-			<form id="form" name="updateprofile" onsubmit="return validateFormOnSubmit(this)" action="UpdateProfile" method="post" >	
+			<form id="form" name="updateprofile" action="UpdateProfile" method="post" >	
 				<div id="personalleft">
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Username</span></div>
@@ -187,10 +191,10 @@ function display(){
 							<!-- 
 							<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>">
 							-->
-							<select class="personalfields" >
-							  <option value="Select Gender" selected="selected">Select Gender</option>
-							  <option value="Male">Male</option>
-							  <option value="Female">Female</option>
+							<select class="personalfields" id="gender" name="gender">
+							  <option value="Select Gender" >Select Gender</option>
+							  <option value="M" selected="selected">Male</option>
+							  <option value="F">Female</option>
 							</select>
 						</div>
 					</div>
@@ -206,10 +210,14 @@ function display(){
 							<input id="state" name="state" type="text" class="personalfields" value="<%=cb.getState()%>">
 						</div>
 					</div>
+					<!-- 
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Zip Code</span></div>
-						<div class="personaltextfield"><input name="textfield3" type="text" class="personalfields" id="textfield3" onclick="this.value=''"  value="10014" /></div>
+						<div class="personaltextfield">
+							<input name="textfield3" type="text" class="personalfields" id="textfield3" onclick="this.value=''"  value="10014" />
+						</div>
 					</div>
+					-->
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Country</span></div>
 						<div class="personaltextfield" style="border:0;">
@@ -286,7 +294,8 @@ function display(){
 					<div class="personalmain">
 						<div class="personaltextarea"></div>
 						<div class="personaltextarea" >
-							<a href="#"><img src="images/savechanges_btn.gif" width="186" height="46" border="0" /></a>
+							<a href="#" onclick="validateProfileForm()">
+								<img src="images/savechanges_btn.gif" width="186" height="46" border="0" /></a>
 						</div>
 					</div>
 					<div class="personalmain"></div>
@@ -337,7 +346,7 @@ function display(){
 <div id="personalarea">
 	<div id="personalinner">
 		<div id="personalleft1">
-		<form action="UpdateProfile?action=changepassword" method="post">
+		<form id="changePasswordForm" name="changePasswordForm" action="UpdateProfile?action=changepassword" method="post">
 			<div class="personalmain">
 				<div class="personaltextarea"><span class="blacktext14">Current Password</span></div>
 				<div class="personaltextfield">

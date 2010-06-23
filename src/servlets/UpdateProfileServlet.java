@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import util.TalkmiDBUtil;
+
 import beans.TalkerBean;
 
 /**
@@ -45,14 +47,36 @@ public class UpdateProfileServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		processSQLUpdate(request);
+		String action = request.getParameter("action");
+		if ("changepassword".equalsIgnoreCase(action)) {
+			//change pass
+			TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
+			String curPassword = request.getParameter("curpassword");
+			String newPassword = request.getParameter("newpassword");
+			String confirmPassword = request.getParameter("confirmpassword");
+			if (talker.getPassword().equals(curPassword)) {
+				if (newPassword != null && newPassword.equals(confirmPassword)) {
+					talker.setPassword(newPassword);
+					TalkmiDBUtil.updateTalker(talker);
+				}
+				else {
+					//TODO: report different pass error
+				}
+			}
+			else {
+				//TODO: report bad pass error
+			}
+			
+		}
+		else {
+			processSQLUpdate(request);
+		}
 		response.sendRedirect("EditProfile.jsp");
 	}
 
 	public void processSQLUpdate(HttpServletRequest request) {
 		//  get parameters sent through post
 		String uname = request.getParameter("username");
-		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 
 		String city = request.getParameter("city");
@@ -67,15 +91,15 @@ public class UpdateProfileServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		TalkerBean cb = (TalkerBean) session.getAttribute("talker");
 		String oldUserName = cb.getUserName();
-		String month = request.getParameter("month");
-		String day = request.getParameter("day");
-		String year = request.getParameter("year");
+//		String month = request.getParameter("month");
+//		String day = request.getParameter("day");
+//		String year = request.getParameter("year");
 		String gender = request.getParameter("gender");
 
 		Calendar cal = Calendar.getInstance();
 		//System.out.println("***ParseInt: " + year + month + day);
-		cal.set(Integer.parseInt(year), Integer.parseInt(month), Integer
-				.parseInt(day));
+//		cal.set(Integer.parseInt(year), Integer.parseInt(month), Integer
+//				.parseInt(day));
 		SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
 		String dob = SQL_DATE_FORMAT.format(cal.getTime());
@@ -84,7 +108,7 @@ public class UpdateProfileServlet extends HttpServlet {
 		// check to make sure no duplicate UserName
 
 		// if not duplicate, update info and change TalkerBean info in session
-		String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
+		String updateQuery = "UPDATE talkers SET uname= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
 		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? city = ? state = ? country = ? category = ? childrenNum = ? WHERE uname= ?";
 		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? WHERE uname= ?";
 		Connection conn = null;
@@ -97,19 +121,18 @@ public class UpdateProfileServlet extends HttpServlet {
 
 			ps = conn.prepareStatement(updateQuery);
 			ps.setString(1, uname);
-			ps.setString(2, password);
-			ps.setString(3, email);
-			ps.setString(4, dob);
-			ps.setString(5, gender);
+			ps.setString(2, email);
+			ps.setString(3, dob);
+			ps.setString(4, gender);
 
-			ps.setString(6, maritalstatus);
-			ps.setString(7, city);
-			ps.setString(8, state);
-			ps.setString(9, country);
-			ps.setString(10, category);
-			ps.setInt(11, Integer.parseInt(childrenNum));
+			ps.setString(5, maritalstatus);
+			ps.setString(6, city);
+			ps.setString(7, state);
+			ps.setString(8, country);
+			ps.setString(9, category);
+			ps.setInt(10, Integer.parseInt(childrenNum));
 
-			ps.setString(12, oldUserName);
+			ps.setString(11, oldUserName);
 
 			ps.executeUpdate();
 
@@ -119,7 +142,6 @@ public class UpdateProfileServlet extends HttpServlet {
 			conn = null; // Make sure we don't close it twice
 
 			cb.setUserName(uname);
-			cb.setPassword(password);
 			cb.setEmail(email);
 			cb.setGender(gender.charAt(0));
 			cb.setCategory(category);
