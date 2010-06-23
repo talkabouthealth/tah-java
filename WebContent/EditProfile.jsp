@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="beans.TalkerBean" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <% 
 response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
@@ -11,6 +13,9 @@ if (sUserName == null) {
 	response.sendRedirect("index.jsp");
 } else {
 	TalkerBean cb = (TalkerBean)session.getAttribute("talker");
+	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	
+	String result = request.getParameter("result");
 %>
 <%@ include file="header.jsp" %>
 <style>
@@ -20,30 +25,30 @@ if (sUserName == null) {
 </style>
 <script type="text/javascript" charset="utf-8">
 function validatePasswordForm() {
+	var reason = "";
+	
+	reason += validatePassword(document.changePasswordForm.newpassword);
+	if (reason != "") {
+	    alert(reason);
+	    return false;
+	}
+	
 	document.changePasswordForm.submit();
 }
 
 function validateProfileForm() {
-	document.updateprofile.submit();
-}
-
-function validateFormOnSubmit(updateprofile) {
-var reason = "";
+  var reason = "";
+  var updateprofile = document.updateprofile;
 	
   reason += validateUsername(updateprofile.username);
-  reason += validatePassword(updateprofile.password);
   reason += validateEmail(updateprofile.email);
-  reason += validatePhone1(updateprofile.phone1);
-  reason += validatePhone2(updateprofile.phone2);
-  reason += validatePhone3(updateprofile.phone3);
     
   if (reason != "") {
     alert("Some fields need correction:\n" + reason);
     return false;
   }
 	
-  alert("All fields are filled correctly");
-  return true;
+  document.updateprofile.submit();
 }
 function validateEmpty(fld) {
     var error = "";
@@ -121,7 +126,7 @@ function validateEmail(fld){
 }
 
 function display(){
-	document.updateprofile.maritalstatus.selectedIndex = 1;
+	//document.updateprofile.maritalstatus.selectedIndex = 1;
 	//document.updateprofile.maritalstatus.v
 	//var valueIndex = document.updateprofile.maritalstatus.selectedIndex;
 	//var selectedValue = document.updateprofile.maritalstatus.options[valueIndex];
@@ -147,6 +152,19 @@ function display(){
 			<div id="signupleft">
 			<form id="form" name="updateprofile" action="UpdateProfile" method="post" >	
 				<div id="personalleft">
+					<%
+						if (result != null) {
+					%>
+					<div class="personalmain" style="text-align: center">
+						<%
+							if (result.equals("okprofile")) {
+								out.println("<span class=\"blacktext14\">Changes are saved!</span>");
+							}
+						%>
+					</div>
+					<%
+						}
+					%>
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Username</span></div>
 						<div class="personaltextfield">
@@ -177,24 +195,28 @@ function display(){
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Birth Date</span></div>
 						<div class="personaltextfield">
-							<input name="textfield3" type="text" class="personalfields" id="textfield3" value="5/20/1975" />
-							<!-- 
-							<input id="month" name="month" maxlength="2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.month)"  value="<%=cb.getDOBMonth()%>">
-							<input id="day" name="day" maxlength=2" size="2" class="input-box2" type="text" onKeyup="autotab(this, document.signup.day)"  value="<%=cb.getDOBDay()%>">
-							<input id="year" name="year" maxlength="4" size="4" class="input-box2" type="text"  value="<%=cb.getDOBYear()%>">
-							-->
+							<input name="birthdate" type="text" class="personalfields" 
+								id="birthdate" value="<%= dateFormat.format(cb.getDob()) %>" />
 						</div>
 					</div>
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">Gender</span></div>
 						<div class="personaltextfield">
-							<!-- 
-							<input id="gender" name="gender" maxlength="1" size="3" type="text" class="input-box" value="<%=cb.getGender()%>">
-							-->
 							<select class="personalfields" id="gender" name="gender">
-							  <option value="Select Gender" >Select Gender</option>
-							  <option value="M" selected="selected">Male</option>
-							  <option value="F">Female</option>
+							  <option value="M"
+							  <%
+							  	if (cb.getGender() == 'M') {
+							  		out.println(" selected='selected' ");
+							  	}
+							  %>
+							  >Male</option>
+							  <option value="F"
+							  <%
+							  	if (cb.getGender() == 'F') {
+							  		out.println(" selected='selected' ");
+							  	}
+							  %>
+							  >Female</option>
 							</select>
 						</div>
 					</div>
@@ -228,18 +250,25 @@ function display(){
 						<div class="personaltextarea"><span class="blacktext14">Martial Status</span></div>
 						<div class="personaltextfield">
 							<select id="maritalstatus" name="maritalstatus" class="personalfields">
-						 		<option value='Single'>Single</option>
-								<option value="Married">Married/partnered relationship</option>
-								<option value="Divorced">Divorced</option>
-								<option value="Separated">Separated</option>
-								<option value="Widowed">Widowed</option> 
+								<%
+									String[] maritalStatusArr = new String[] {
+										"Single", "Married/partnered relationship", "Divorced", "Separated", "Widowed"
+									};
+									for (String maritalStatus : maritalStatusArr) {
+										out.print("<option value='"+maritalStatus+"' ");
+										if (maritalStatus.equals(cb.getMariStat())) {
+											out.print("selected='selected'");
+										}
+										out.println(" >"+maritalStatus+"</option>");
+									}
+								%>
 							</select>
 						</div>
 					</div>
 					<div class="personalmain">
 						<div class="personaltextarea"><span class="blacktext14">No. Of Children</span></div>
 						<div class="personaltextfield">
-							<input id="children" name="children" type="text" class="personalfields" value="1" />
+							<input id="children" name="children" type="text" class="personalfields" value="<%= cb.getChildrenNum() %>" />
 						</div>
 					</div>
 					<!-- 
@@ -346,7 +375,27 @@ function display(){
 <div id="personalarea">
 	<div id="personalinner">
 		<div id="personalleft1">
+		<a name="passwordform"></a>
 		<form id="changePasswordForm" name="changePasswordForm" action="UpdateProfile?action=changepassword" method="post">
+			<%
+				if (result != null) {
+			%>
+			<div class="personalmain" style="text-align: center">
+				<%
+					if (result.equals("badpass")) {
+						out.println("<font id=\"error\">Current password is wrong</font>");
+					}
+					else if (result.equals("differentpass")) {
+						out.println("<font id=\"error\">New and Confirm passwords are different</font>");
+					}
+					else if (result.equals("okpassword")) {
+						out.println("<span class=\"blacktext14\">Password is changed!</span>");
+					}
+				%>
+			</div>
+			<%
+				}
+			%>
 			<div class="personalmain">
 				<div class="personaltextarea"><span class="blacktext14">Current Password</span></div>
 				<div class="personaltextfield">
@@ -368,7 +417,9 @@ function display(){
 			<div class="personalmain">
 				<div class="personaltextarea"></div>
 				<div class="personaltextarea" style="height:46px; padding-top:2px;">
-					<a href="#" onclick="validatePasswordForm()"><img src="images/changepass_btn.gif" width="186" height="46" border="0" /></a>
+					<a href="#passwordform" onclick="validatePasswordForm()">
+						<img src="images/changepass_btn.gif" width="186" height="46" border="0" />
+					</a>
 				</div>
 			</div>
 		</form>

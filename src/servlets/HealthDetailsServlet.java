@@ -61,7 +61,7 @@ public class HealthDetailsServlet extends HttpServlet {
 			TalkmiDBUtil.saveTalkerDisease(talkerDisease);
 		}
 		
-		response.sendRedirect("HealthDetails.jsp");
+		response.sendRedirect("HealthDetails.jsp?result=ok");
 	} 
 	
 	private void parseHealthItems(HttpServletRequest request,

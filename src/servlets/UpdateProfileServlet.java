@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import util.TalkmiDBUtil;
-
 import beans.TalkerBean;
 
 /**
@@ -27,6 +27,8 @@ public class UpdateProfileServlet extends HttpServlet {
 	
 	static final long serialVersionUID = 1L;
 	DataSource ds;
+	
+	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	public void init() throws ServletException {
 		try {
@@ -58,20 +60,23 @@ public class UpdateProfileServlet extends HttpServlet {
 				if (newPassword != null && newPassword.equals(confirmPassword)) {
 					talker.setPassword(newPassword);
 					TalkmiDBUtil.updateTalker(talker);
+					response.sendRedirect("EditProfile.jsp?result=okpassword#passwordform");
+					return;
 				}
 				else {
-					//TODO: report different pass error
+					response.sendRedirect("EditProfile.jsp?result=differentpass#passwordform");
+					return;
 				}
 			}
 			else {
-				//TODO: report bad pass error
+				response.sendRedirect("EditProfile.jsp?result=badpass#passwordform");
+				return;
 			}
-			
 		}
 		else {
 			processSQLUpdate(request);
 		}
-		response.sendRedirect("EditProfile.jsp");
+		response.sendRedirect("EditProfile.jsp?result=okprofile");
 	}
 
 	public void processSQLUpdate(HttpServletRequest request) {
@@ -84,28 +89,25 @@ public class UpdateProfileServlet extends HttpServlet {
 		String country = request.getParameter("country");
 		String category = request.getParameter("selection");
 		String maritalstatus = request.getParameter("maritalstatus");
-		String childrenNum = request.getParameter("children");
-		//System.out.println(maritalstatus);
+		int childrenNum = 0;
+		try {
+			childrenNum = Integer.parseInt(request.getParameter("children"));
+		}
+		catch(NumberFormatException nfe){};
 
 		// getting session and TalkerBean
 		HttpSession session = request.getSession();
 		TalkerBean cb = (TalkerBean) session.getAttribute("talker");
 		String oldUserName = cb.getUserName();
-//		String month = request.getParameter("month");
-//		String day = request.getParameter("day");
-//		String year = request.getParameter("year");
+		Date dateOfBirth = parseDate(request.getParameter("birthdate"));
 		String gender = request.getParameter("gender");
 
-		Calendar cal = Calendar.getInstance();
-		//System.out.println("***ParseInt: " + year + month + day);
-//		cal.set(Integer.parseInt(year), Integer.parseInt(month), Integer
-//				.parseInt(day));
 		SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
-		String dob = SQL_DATE_FORMAT.format(cal.getTime());
+		String dob = SQL_DATE_FORMAT.format(dateOfBirth);
 		//char g = gender.charAt(0);
 
-		// check to make sure no duplicate UserName
+		// TODO: check to make sure no duplicate UserName
 
 		// if not duplicate, update info and change TalkerBean info in session
 		String updateQuery = "UPDATE talkers SET uname= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
@@ -130,7 +132,7 @@ public class UpdateProfileServlet extends HttpServlet {
 			ps.setString(7, state);
 			ps.setString(8, country);
 			ps.setString(9, category);
-			ps.setInt(10, Integer.parseInt(childrenNum));
+			ps.setInt(10, childrenNum);
 
 			ps.setString(11, oldUserName);
 
@@ -143,12 +145,14 @@ public class UpdateProfileServlet extends HttpServlet {
 
 			cb.setUserName(uname);
 			cb.setEmail(email);
+			cb.setDob(dateOfBirth);
 			cb.setGender(gender.charAt(0));
 			cb.setCategory(category);
 			cb.setMariStat(maritalstatus);
 			cb.setCity(city);
 			cb.setState(state);
 			cb.setCountry(country);
+			cb.setChildrenNum(childrenNum);
 
 			try {
 				cb.setDob(SQL_DATE_FORMAT.parse(dob));
@@ -184,5 +188,14 @@ public class UpdateProfileServlet extends HttpServlet {
 				conn = null;
 			}
 		}
+	}
+	
+	//TODO: move to Util?
+	private Date parseDate(String dateString) {
+		try {
+			Date date = dateFormat.parse(dateString);
+			return date;
+		} catch (ParseException e) {}
+		return null;
 	}
 }

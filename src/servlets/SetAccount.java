@@ -20,7 +20,7 @@ public class SetAccount extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		processSetAccount(request);
-		response.sendRedirect("TalkerHome.jsp");
+		response.sendRedirect("Settings.jsp?setaccount=ok#accountform");
 	}
 
 	public void processSetAccount(HttpServletRequest request) {
@@ -28,6 +28,7 @@ public class SetAccount extends HttpServlet {
 		String email = request.getParameter("email");
 
 		TalkerBean talkerBean = (TalkerBean)request.getSession().getAttribute("talker");
+		//TODO we also need to save username for IM service?
 		talkerBean.setEmail(email);
 		talkerBean.setIM(primaryIM);
 		

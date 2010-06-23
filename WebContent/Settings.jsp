@@ -53,6 +53,19 @@ if (sUserName == null) {
 			<div id="notifactionbox">
 				<div class="notifactionboxtop"></div>
 				<div class="notifactionboxmid">
+					<%
+						if (request.getParameter("setnotification") != null) {
+					%>
+					<div class="notibluearea">
+						<div class="notiblueareatop"></div>
+						<div class="signfields2">
+							<h4>Changes are saved!</h4>
+						</div>
+						<div class="notiblueareabot"></div>
+					</div>
+					<%
+						}
+					%>
 					<div class="notibluearea">
 						<div class="notiblueareatop"></div>
 						<div class="notiblueareamid">
@@ -122,11 +135,25 @@ if (sUserName == null) {
 	
 	<div id="midnoticontainer">
 		<div id="midnoticontainermain">
+		<a name="accountform"></a>
 		<form id="primaryIM" name="setPrimaryIM" action="/tah-java/SetAccount" method="post">
 			<div id="boxarea_head2" class="blacktext2">Accounts where we notify you</div>
 			<div id="notifactionbox2">
 				<div class="notifactionboxtop"></div>
 				<div class="notifactionboxmid">
+					<%
+						if (request.getParameter("setaccount") != null) {
+					%>
+					<div class="notibluearea">
+						<div class="notiblueareatop"></div>
+						<div class="signfields2">
+							<h4>Changes are saved!</h4>
+						</div>
+						<div class="notiblueareabot"></div>
+					</div>
+					<%
+						}
+					%>
 					<div class="notibluearea">
 						<div class="notiblueareatop"></div>
 						<div class="signfields2">

@@ -25,7 +25,7 @@ public class SetNotification extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		processSetNotification(request);
 
-		response.sendRedirect("Settings.jsp");
+		response.sendRedirect("Settings.jsp?setnotification=ok");
 	}
 
 	public void processSetNotification(HttpServletRequest request) {

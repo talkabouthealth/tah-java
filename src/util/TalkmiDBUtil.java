@@ -561,9 +561,7 @@ public class TalkmiDBUtil {
 		    TalkerBean user = null;
 		    if (rs.next()) {
 		    	user = new TalkerBean();
-		    	user.setEmail(rs.getString("email"));
-		    	user.setUID(rs.getInt("uid"));
-		    	user.setUserName(rs.getString("uname"));
+		    	user.parseSet(rs);
 			}
 		    rs.close();
 		    rs = null;
@@ -608,8 +606,8 @@ public class TalkmiDBUtil {
 		    ps = conn.prepareStatement("UPDATE talkers " +
 		    		"SET uname = ?, password = ?, email = ?, " +
 		    		"invitations = ?, profilepreferences = ?, " +
-		    		"notifyfrequency = ?, notifytime = ?, ctype = ? " +
-		    		"WHERE uid = ?");
+		    		"notifyfrequency = ?, notifytime = ?, ctype = ?, " +
+		    		"PrimaryIM = ? WHERE uid = ?");
 		    ps.setString(1, user.getUserName());
 		    ps.setString(2, user.getPassword());
 		    ps.setString(3, user.getEmail());
@@ -618,7 +616,8 @@ public class TalkmiDBUtil {
 		    ps.setInt(6, user.getNfreq());
 		    ps.setInt(7, user.getNtime());
 		    ps.setString(8, user.getCtypeStr());
-		    ps.setInt(9, user.getUID());
+		    ps.setString(9, user.getIM());
+		    ps.setInt(10, user.getUID());
 		    
 		    ps.executeUpdate();
 		    ps = null;

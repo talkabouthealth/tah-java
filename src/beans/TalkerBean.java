@@ -55,6 +55,7 @@ public class TalkerBean {
 	private String[] ctype;
 	private int nfreq;
 	private int ntime;
+	private int childrenNum;
 	
 	private EnumSet<ProfilePreference> profilePreferences;
 	
@@ -106,6 +107,7 @@ public class TalkerBean {
 		setNtime(set.getInt("notifytime"));
 		setMariStat(set.getString("Marital_Stat"));
 		setCategory(set.getString("category")); 
+		setChildrenNum(set.getInt("childrenNum"));
 		
 		parseProfilePreferences(set.getInt("profilepreferences"));
 		parseCType(set.getString("ctype"));
@@ -261,5 +263,13 @@ public class TalkerBean {
 	
 	public void setCtype(String[] ctype) {
 		this.ctype = ctype;
+	}
+
+	public int getChildrenNum() {
+		return childrenNum;
+	}
+
+	public void setChildrenNum(int childrenNum) {
+		this.childrenNum = childrenNum;
 	}
 }	

@@ -40,6 +40,19 @@
 				<div id="notifactionbox">
 					<div class="notifactionboxtop"></div>
 					<div class="notifactionboxmid">
+						<%
+							if (request.getParameter("result") != null) {
+						%>
+						<div class="notibluearea">
+							<div class="notiblueareatop"></div>
+							<div class="signfields2">
+								<h4>Changes are saved!</h4>
+							</div>
+							<div class="notiblueareabot"></div>
+						</div>
+						<%
+							}
+						%>
 						<div class="notibluearea">
 							<div class="notiblueareatop"></div>
 							<div class="notiblueareamid">							
@@ -59,9 +72,9 @@
 							</div>
 							<div class="notiblueareabot"></div>
 						</div>
-						<div id="savebutton" onclick="document.profilepreferencesform.submit();">
-							<img src="images/save.gif" width="186" height="46" />
-						</div>
+						<a id="savebutton" href="#" onclick="document.profilepreferencesform.submit();">
+							<img src="images/save.gif" width="186" height="46" border="0"/>
+						</a>
 					</div>
 					<div class="notifactionboxbot"></div>
 				</div>
