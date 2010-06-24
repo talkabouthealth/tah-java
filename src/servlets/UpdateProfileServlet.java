@@ -74,15 +74,30 @@ public class UpdateProfileServlet extends HttpServlet {
 			}
 		}
 		else {
-			processSQLUpdate(request);
+			String result = processSQLUpdate(request);
+			response.sendRedirect("EditProfile.jsp?result="+result);
 		}
-		response.sendRedirect("EditProfile.jsp?result=okprofile");
+		
 	}
 
-	public void processSQLUpdate(HttpServletRequest request) {
+	public String processSQLUpdate(HttpServletRequest request) {
+		// getting session and TalkerBean
+		HttpSession session = request.getSession();
+		TalkerBean cb = (TalkerBean) session.getAttribute("talker");
+		String oldUserName = cb.getUserName();
+		String oldEmail = cb.getEmail();
+		
 		//  get parameters sent through post
 		String uname = request.getParameter("username");
 		String email = request.getParameter("email");
+		
+		//check email and username
+		if (!oldUserName.equals(uname) && TalkmiDBUtil.getTalkerByUsername(uname) != null) {
+			return "sameusername";
+		}
+		if (!oldEmail.equals(email) && TalkmiDBUtil.getTalkerByEmail(email) != null) {
+			return "sameemail";
+		}
 
 		String city = request.getParameter("city");
 		String state = request.getParameter("state");
@@ -95,10 +110,7 @@ public class UpdateProfileServlet extends HttpServlet {
 		}
 		catch(NumberFormatException nfe){};
 
-		// getting session and TalkerBean
-		HttpSession session = request.getSession();
-		TalkerBean cb = (TalkerBean) session.getAttribute("talker");
-		String oldUserName = cb.getUserName();
+		
 		Date dateOfBirth = parseDate(request.getParameter("birthdate"));
 		String gender = request.getParameter("gender");
 
@@ -110,8 +122,10 @@ public class UpdateProfileServlet extends HttpServlet {
 		// TODO: check to make sure no duplicate UserName
 
 		// if not duplicate, update info and change TalkerBean info in session
-		String updateQuery = "UPDATE talkers SET uname= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
-		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? city = ? state = ? country = ? category = ? childrenNum = ? WHERE uname= ?";
+		String updateQuery = "UPDATE talkers SET uname= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, " +
+				"city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
+		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? 
+		//city = ? state = ? country = ? category = ? childrenNum = ? WHERE uname= ?";
 		//String updateQuery = "UPDATE talkers SET uname= ?, password= ?, email= ?, dob= ?, gender = ? WHERE uname= ?";
 		Connection conn = null;
 		PreparedStatement ps = null; // Or PreparedStatement if needed
@@ -160,14 +174,14 @@ public class UpdateProfileServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			return;
+			return "okprofile";
 		} catch (SQLException ex) {
 			// handle any errors
 			ex.printStackTrace();
-			return;
+			return "error";
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return;
+			return  "error";
 		} finally {
 			// Always make sure result sets and statements are closed,
 			// and the connection is returned to the pool

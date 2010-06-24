@@ -24,7 +24,7 @@ import util.ValidateData;
 
 /**
  * Servlet implementation class for Servlet: Login
- *
+ * TODO: clean up code and signup validation
  */
  public class SignUpServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
    static final long serialVersionUID = 1L;
@@ -65,40 +65,52 @@ import util.ValidateData;
 	    	throw new ServletException(e.getMessage());
 	    }
 	}
-	public boolean checkUserName() {
-		//String unCheckQuery = "Select uname from talkers where uname = '" + un + "'";
-		String unCheckQuery = "Select uname from talkers where uname = ?";
-		//System.out.println("***Process New Talker: Query: " + unCheckQuery);
-    	
+	
+	//TODO make it easier with DB functions
+	public boolean checkUsernameAndEmail(String userName, String email) {
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		ResultSet rs = null;
 		boolean unMatch = false;
+		boolean emailMatch = false;
 		try {
 			conn = ds.getConnection();
-		    ps = conn.prepareStatement(unCheckQuery);
-		    ps.setString(1, un);
+			
+			//check username
+			errors[0] = un;
+		    ps = conn.prepareStatement("Select uname from talkers where uname = ?");
+		    ps.setString(1, userName);
 		    
 		    rs = ps.executeQuery();
-		    
 		    // if row in result set, then user is validated
 		    if (rs.next()) { 
 		    	//System.out.println("***UN Result set has a row!!!");
 		    	unMatch = true;
+		    	errors[0] = "u";
 		    }
+		    rs.close();
 		    ps.close();
 		    ps = null;
 		    rs = null;
-		    conn.close(); // Return to connection pool
-		    conn = null;  // Make sure we don't close it twice
-	    	if (unMatch == true){
-		    	//System.out.println("*** Username Match - user needs to try new user name!!");
-		    	errors[0] = "u";
-		    	return true;
-		    } else {
-		    	errors[0] = un;
-		    	return false;
+		 
+	    	//check email
+		    errors[1] = email;
+		    ps = conn.prepareStatement("Select email from talkers where email = ?");
+		    ps.setString(1, email);
+		    
+		    rs = ps.executeQuery();
+		    if (rs.next()) { 
+		    	emailMatch = true;
+		    	errors[1] = "em";
 		    }
+		    rs.close();
+		    ps.close();
+		    ps = null;
+		    rs = null;
+	    	conn.close(); // Return to connection pool
+			conn = null;  // Make sure we don't close it twice
+			
+			return unMatch || emailMatch;
 		} catch (SQLException ex) {
 			    // handle any errors
 			    ex.printStackTrace();
@@ -312,7 +324,7 @@ import util.ValidateData;
 		    return;
 		}
 		
-		boolean match = checkUserName();
+		boolean match = checkUsernameAndEmail(un, email);
 		if (match == true){
 			//System.out.println("*** Process New Talker - Match = True");
 			
@@ -324,7 +336,7 @@ import util.ValidateData;
 			} else {
 				//System.out.println("*** Process New Talker - matching username or tnumber: " + errors[0] + errors[1] + email);
 			    // redirecting to SignUp page, will exhibit msg about errors
-				response.sendRedirect("SignUp.jsp?username=" + errors[0] + "&email=" + email + "&month=" + month + "&day=" + day + "&year=" + year + "&gender=" + gender);
+				response.sendRedirect("SignUp.jsp?username=" + errors[0] + "&email=" + errors[1] + "&month=" + month + "&day=" + day + "&year=" + year + "&gender=" + gender);
 			}
 		} else {
 			//System.out.println("*** Process New Talker - Inserting talker info into DB");

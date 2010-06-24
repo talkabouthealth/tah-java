@@ -229,7 +229,7 @@
 							<li><img src="images/JoinwithGoogle.gif" width="150" height="22" />&nbsp;&nbsp;</li>
 						</ul>
 					</div>
-					<h5>
+					<h5 id="error">
 						<%
 							String unerror = request.getParameter("username");
 							String password = request.getParameter("password");
@@ -245,7 +245,7 @@
 							
 							
 							if (unerror != null && unerror.equals("u")) {
-								out.println("<p>That user name is already in taken.</p>  Please enter a different user name.");
+								out.println("<p>That user name is already taken.</p>  Please enter a different user name.");
 								unerror = "";
 							} else if (unerror == null) {
 								unerror = "Username";
@@ -259,7 +259,10 @@
 								fourDigits = tnerror.substring(7,11);
 							}*/
 							
-							if (email != null && email.equals("notvalid")) {
+							if (email != null && email.equals("em")) {
+								out.println("<p>That email is already registered.</p>  Please enter a different email.");
+								email = "";
+							} else if (email != null && email.equals("notvalid")) {
 								out.println("Please enter a valid email address.");
 								email = "";
 							} else if (email == null) {

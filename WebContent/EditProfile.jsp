@@ -160,6 +160,12 @@ function display(){
 							if (result.equals("okprofile")) {
 								out.println("<span class=\"blacktext14\">Changes are saved!</span>");
 							}
+							else if (result.equals("sameusername")) {
+								out.println("<font id=\"error\">This username is already taken. Please enter a different one.</font>");
+							}
+							else if (result.equals("sameemail")) {
+								out.println("<font id=\"error\">This email is already registered. Please enter a different one.</font>");
+							}
 						%>
 					</div>
 					<%
@@ -331,9 +337,9 @@ function display(){
 				</div>
 				<div id="personalright">
 					<div id="personalrightimg">
-					<img src="images/imageuploadpic.gif" />
+						<img src="images/imageuploadpic.gif" />
 					</div>
-					<div class="bluetext12" id="personalrighttext"><a href="#" class="bluetext12">Change Photos</a></div>
+					<div class="bluetext12" id="personalrighttext"><a href="UploadPhoto.jsp" class="bluetext12">Change Photo</a></div>
 				</div>
 			</form>
 			</div>

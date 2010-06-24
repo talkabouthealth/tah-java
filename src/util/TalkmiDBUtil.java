@@ -596,6 +596,56 @@ public class TalkmiDBUtil {
 		}
 	}
 	
+	public static TalkerBean getTalkerByUsername(String userName){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+		    
+		    ps = conn.prepareStatement("SELECT * FROM talkers WHERE uname = ?");
+		    ps.setString(1, userName);
+		    rs = ps.executeQuery();
+		    
+		    TalkerBean user = null;
+		    if (rs.next()) {
+		    	user = new TalkerBean();
+		    	user.parseSet(rs);
+			}
+		    rs.close();
+		    rs = null;
+		    ps.close();
+		    ps = null;
+		    conn.close(); // Return to connection pool
+		    conn = null;  // Make sure we don't close it twice
+		   
+		    return user;
+		} catch (SQLException ex) {
+			    // handle any errors
+			    ex.printStackTrace();
+				return null;
+		} catch (Exception ex) {
+				ex.printStackTrace();
+				return null;
+		} finally {
+		    // Always make sure result sets and statements are closed,
+		    // and the connection is returned to the pool
+		    if (rs != null) {
+		      try { rs.close(); } catch (SQLException e) { ; }
+		      rs = null;
+		    }
+		    if (ps != null) {
+		      try { ps.close(); } catch (SQLException e) { ; }
+		      ps = null;
+		    }
+		    if (conn != null) {
+		      try { conn.close(); } catch (SQLException e) { ; }
+		      conn = null;
+		    }
+		}
+	}
+	
 	public static void updateTalker(TalkerBean user) {
 		Connection conn = null;
 		PreparedStatement ps = null;
