@@ -3,8 +3,10 @@
 %>
 <div class="chromestyle" id="chromemenu">
 	<ul>
+		<!--  
 		<li><a href="#" rel="dropmenu1">You</a></li>
 		<li><a href="#" rel="dropmenu2">Community</a></li>
+		-->
 		<li><a href="#" rel="dropmenu3">Settings</a></li>
 		<li><a href="#" rel="dropmenu4">Help</a></li>
 		<li><a href="Logout" >Logout</a></li>	
