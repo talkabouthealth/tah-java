@@ -130,7 +130,7 @@
 		<div id="arearightinner">
 			<div id="rightcurvetop"></div>
 			<div id="rightmid">
-				<div id="imgarea"><img src="images/img.jpg" width="71" height="71" /></div>
+				<div id="imgarea"><img src="<%= cb.getImagePath() %>" width="71" height="71" /></div>
 				<div class="pinktext" id="imghead">
 					<%= cb.getUserName() %><br />
 			  		<span class="blacktext14">Advocate</span>

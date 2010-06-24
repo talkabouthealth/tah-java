@@ -1,5 +1,6 @@
 package servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import util.TalkmiDBUtil;
 import beans.TalkerBean;
@@ -51,33 +59,88 @@ public class UpdateProfileServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if ("changepassword".equalsIgnoreCase(action)) {
-			//change pass
-			TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
-			String curPassword = request.getParameter("curpassword");
-			String newPassword = request.getParameter("newpassword");
-			String confirmPassword = request.getParameter("confirmpassword");
-			if (talker.getPassword().equals(curPassword)) {
-				if (newPassword != null && newPassword.equals(confirmPassword)) {
-					talker.setPassword(newPassword);
-					TalkmiDBUtil.updateTalker(talker);
-					response.sendRedirect("EditProfile.jsp?result=okpassword#passwordform");
-					return;
-				}
-				else {
-					response.sendRedirect("EditProfile.jsp?result=differentpass#passwordform");
-					return;
-				}
-			}
-			else {
-				response.sendRedirect("EditProfile.jsp?result=badpass#passwordform");
-				return;
-			}
+			changePassword(request, response);
+		}
+		else if ("uploadimage".equalsIgnoreCase(action)) {
+			uploadImage(request, response);
 		}
 		else {
 			String result = processSQLUpdate(request);
 			response.sendRedirect("EditProfile.jsp?result="+result);
 		}
 		
+	}
+
+	private void uploadImage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
+		
+		// Create a factory for disk-based file items
+		FileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		// Parse the request
+		try {
+			@SuppressWarnings("unchecked")
+			List<FileItem> items = upload.parseRequest(request);
+			for (FileItem item : items) {
+			    if (item.isFormField() && item.getFieldName().equals("submitaction")) {
+			    	if ("Remove current image".equals(item.getString())) {
+						talker.setImagePath(null);
+						TalkmiDBUtil.updateTalker(talker);
+					}
+			    } else {
+			    	//TODO: move it to separate directory or db?
+			    	String dirPath = getServletContext().getRealPath("/images/pictures/");
+			    	int dotIndex = item.getName().lastIndexOf('.');
+			    	String extension = null;
+			    	if (dotIndex != -1) {
+			    		extension = item.getName().substring(dotIndex);
+			    	}
+			    	else {
+			    		//default
+			    		extension = ".gif";
+			    	}
+			    	String fileName = talker.getUID()+extension;
+			    	File uploadedFile = new File(dirPath, fileName);
+			        item.write(uploadedFile);
+			        
+			        talker.setImagePath("images/pictures/"+fileName);
+			        TalkmiDBUtil.updateTalker(talker);
+			    }
+			}
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		response.sendRedirect("UploadImage.jsp");
+	}
+
+	private void changePassword(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		//change pass
+		TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
+		String curPassword = request.getParameter("curpassword");
+		String newPassword = request.getParameter("newpassword");
+		String confirmPassword = request.getParameter("confirmpassword");
+		if (talker.getPassword().equals(curPassword)) {
+			if (newPassword != null && newPassword.equals(confirmPassword)) {
+				talker.setPassword(newPassword);
+				TalkmiDBUtil.updateTalker(talker);
+				response.sendRedirect("EditProfile.jsp?result=okpassword#passwordform");
+				return;
+			}
+			else {
+				response.sendRedirect("EditProfile.jsp?result=differentpass#passwordform");
+				return;
+			}
+		}
+		else {
+			response.sendRedirect("EditProfile.jsp?result=badpass#passwordform");
+			return;
+		}
 	}
 
 	public String processSQLUpdate(HttpServletRequest request) {

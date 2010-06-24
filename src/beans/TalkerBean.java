@@ -57,6 +57,8 @@ public class TalkerBean {
 	private int ntime;
 	private int childrenNum;
 	
+	private String imagePath;
+	
 	private EnumSet<ProfilePreference> profilePreferences;
 	
 	public TalkerBean(){}
@@ -108,6 +110,7 @@ public class TalkerBean {
 		setMariStat(set.getString("Marital_Stat"));
 		setCategory(set.getString("category")); 
 		setChildrenNum(set.getInt("childrenNum"));
+		setImagePath(set.getString("imagepath"));
 		
 		parseProfilePreferences(set.getInt("profilepreferences"));
 		parseCType(set.getString("ctype"));
@@ -271,5 +274,17 @@ public class TalkerBean {
 
 	public void setChildrenNum(int childrenNum) {
 		this.childrenNum = childrenNum;
+	}
+
+	public String getImagePath() {
+		if (imagePath == null) {
+			//return default
+			return "images/img1.gif";
+		}
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 }	

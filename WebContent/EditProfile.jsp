@@ -339,7 +339,7 @@ function display(){
 					<div id="personalrightimg">
 						<img src="images/imageuploadpic.gif" />
 					</div>
-					<div class="bluetext12" id="personalrighttext"><a href="UploadPhoto.jsp" class="bluetext12">Change Photo</a></div>
+					<div class="bluetext12" id="personalrighttext"><a href="UploadImage.jsp" class="bluetext12">Change Photo</a></div>
 				</div>
 			</form>
 			</div>
