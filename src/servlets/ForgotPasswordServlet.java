@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.CommonUtil;
 import util.EmailUtil;
 import util.TalkmiDBUtil;
 import util.ValidateData;
@@ -39,7 +40,7 @@ public class ForgotPasswordServlet extends HttpServlet {
 		    String newPassword = new BigInteger(60, random).toString(32);
 		    
 		    //change password for this user
-		    user.setPassword(newPassword);
+		    user.setPassword(CommonUtil.hashPassword(newPassword));
 		    TalkmiDBUtil.updateTalker(user);
 			
 			Map<String, String> vars = new HashMap<String, String>();

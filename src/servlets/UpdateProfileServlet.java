@@ -24,6 +24,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import util.CommonUtil;
 import util.TalkmiDBUtil;
 import beans.TalkerBean;
 
@@ -123,12 +124,15 @@ public class UpdateProfileServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		//change pass
 		TalkerBean talker = (TalkerBean)request.getSession().getAttribute("talker");
+		
 		String curPassword = request.getParameter("curpassword");
+		String hashedPassword = CommonUtil.hashPassword(curPassword);
 		String newPassword = request.getParameter("newpassword");
 		String confirmPassword = request.getParameter("confirmpassword");
-		if (talker.getPassword().equals(curPassword)) {
+		
+		if (talker.getPassword().equals(hashedPassword)) {
 			if (newPassword != null && newPassword.equals(confirmPassword)) {
-				talker.setPassword(newPassword);
+				talker.setPassword(CommonUtil.hashPassword(newPassword));
 				TalkmiDBUtil.updateTalker(talker);
 				response.sendRedirect("EditProfile.jsp?result=okpassword#passwordform");
 				return;

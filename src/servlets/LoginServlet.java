@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.CommonUtil;
 import util.TalkmiDBUtil;
 import util.ValidateData;
 import webapp.InsertLoginRecordThread;
@@ -45,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 
 		cb = new TalkerBean();
 		cb.setUserName(un);
-		cb.setPassword(pw);
+		cb.setPassword(CommonUtil.hashPassword(pw));
 
 		if (TalkmiDBUtil.validateLogin(cb)) {
 			// insert login record into db

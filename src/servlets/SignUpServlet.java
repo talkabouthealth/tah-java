@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import util.CommonUtil;
 import util.EmailUtil;
 import util.TalkmiDBUtil;
 import util.ValidateData;
@@ -266,6 +267,9 @@ import beans.TalkerBean;
 			response.sendRedirect("Error.jsp");
 		    return;
 		}
+		
+		//hash pass to store in db
+		pw = CommonUtil.hashPassword(pw);
 		
 		boolean match = checkUsernameAndEmail(un, email);
 		if (match == true){
