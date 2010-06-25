@@ -765,9 +765,18 @@ public class TalkmiDBUtil {
 		    ps.setInt(3, talkerDisease.getTypeId());
 		    ps.setBoolean(4, talkerDisease.isRecurrent());
 		    //TODO: easier?
-		    ps.setDate(5, new java.sql.Date(talkerDisease.getSymptomDate().getTime()));
-		    ps.setDate(6, new java.sql.Date(talkerDisease.getDiagnoseDate().getTime()));
-		    
+		    if (talkerDisease.getSymptomDate() != null) {
+		    	ps.setDate(5, new java.sql.Date(talkerDisease.getSymptomDate().getTime()));
+		    }
+		    else {
+		    	ps.setDate(5, null);
+		    }
+		    if (talkerDisease.getDiagnoseDate() != null) {
+		    	ps.setDate(6, new java.sql.Date(talkerDisease.getDiagnoseDate().getTime()));
+		    }
+		    else {
+		    	ps.setDate(6, null);
+		    }
 		    ps.executeUpdate();
 		    
 		    ResultSet rs =  ps.getGeneratedKeys();

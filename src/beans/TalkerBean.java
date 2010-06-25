@@ -217,6 +217,9 @@ public class TalkerBean {
 	}
 
 	public String getCity() {
+		if (city == null) {
+			return "";
+		}
 		return city;
 	}
 
@@ -225,6 +228,9 @@ public class TalkerBean {
 	}
 
 	public String getState() {
+		if (state == null) {
+			return "";
+		}
 		return state;
 	}
 
@@ -233,6 +239,9 @@ public class TalkerBean {
 	}
 
 	public String getCountry() {
+		if (country == null) {
+			return "";
+		}
 		return country;
 	}
 

@@ -150,7 +150,7 @@ if (talker == null) {
 									<label>When did the first symptom appear?</label>
 									<div>
 										<input name="symptomdate" type="text" class="textfields" 
-											onclick="this.value=''" 
+											onclick="if (this.value == 'mm/dd/yyyy') this.value='';" 
 											<%											
 										 		if (talkerDisease != null && talkerDisease.getSymptomDate() != null) {
 										 			out.print("value='"+dateFormat.format(talkerDisease.getSymptomDate())+"'");
@@ -166,7 +166,7 @@ if (talker == null) {
 									<label>When were you first diagnosed?</label>
 									<div>
 										<input name="diagnosedate" type="text" class="textfields" 
-											onclick="this.value=''" 
+											onclick="if (this.value == 'mm/dd/yyyy') this.value='';" 
 											<%											
 										 		if (talkerDisease != null && talkerDisease.getDiagnoseDate() != null) {
 										 			out.print("value='"+dateFormat.format(talkerDisease.getDiagnoseDate())+"'");

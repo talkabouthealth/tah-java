@@ -42,6 +42,7 @@ function validateProfileForm() {
 	
   reason += validateUsername(updateprofile.username);
   reason += validateEmail(updateprofile.email);
+  reason += validateEmpty(updateprofile.birthdate);
     
   if (reason != "") {
     alert("Some fields need correction:\n" + reason);
@@ -165,6 +166,9 @@ function display(){
 							}
 							else if (result.equals("sameemail")) {
 								out.println("<font id=\"error\">This email is already registered. Please enter a different one.</font>");
+							}
+							else if (result.equals("baddate")) {
+								out.println("<font id=\"error\">Please input correct Birth Date</font>");
 							}
 						%>
 					</div>

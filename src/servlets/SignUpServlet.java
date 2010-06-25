@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import beans.TalkerBean;
-
 import util.EmailUtil;
+import util.TalkmiDBUtil;
 import util.ValidateData;
+import beans.TalkerBean;
 
 
 /**
@@ -218,63 +217,7 @@ import util.ValidateData;
 		    }
 		}
 	}
-	public TalkerBean initializeTalkerBean(TalkerBean cb){
-		// create sql statement
-		//String sqlValidate = "select uid from talkers where uname='" + cb.getUserName() + "'";
-		String sqlValidate = "select uid from talkers where uname= ?";
-		
-		Connection conn = null;
-		ResultSet rs = null; 
-		PreparedStatement ps = null;
-	    try {
-	    	conn = ds.getConnection();
-		    
-		    ps = conn.prepareStatement(sqlValidate);
-		    ps.setString(1, cb.getUserName());
-		    rs = ps.executeQuery();
-		    
-		    boolean success = false;
-		    // if row in result set, then user is validated
-		    if (rs.next()) { 
-		    	cb.setUID(rs.getInt("uid"));
-		    	success = true;
-			}
-		        
-		    rs.close();
-		    rs = null;
-		    ps.close();
-		    ps = null;
-		    conn.close(); // Return to connection pool
-		    conn = null;  // Make sure we don't close it twice]
-		    if (success == true) {
-		    	return cb;
-		    } else {
-		    	return null;
-		    }
-		} catch (SQLException ex) {
-		    // handle any errors
-		    ex.printStackTrace();
-			return null;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return null;
-		} finally {
-		    // Always make sure result sets and statements are closed,
-		    // and the connection is returned to the pool
-		    if (rs != null) {
-		      try { rs.close(); } catch (SQLException e) { ; }
-		      rs = null;
-		    }
-		    if (ps != null) {
-		      try { ps.close(); } catch (SQLException e) { ; }
-		      ps = null;
-		    }
-		    if (conn != null) {
-		      try { conn.close(); } catch (SQLException e) { ; }
-		      conn = null;
-		    }
-		}
-	}
+	
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -351,26 +294,12 @@ import util.ValidateData;
 			//Successful signup!
 			EmailUtil.sendEmail(EmailUtil.WELCOME_TEMPLATE, email);
 				
-			// create session
-		    TalkerBean cb= new TalkerBean();
-		    cb.setUserName(un);
-		    cb.setPassword(pw);
-		    cb.setIM(IM);
-		    cb.setEmail(email);
-		    cb.setGender(gender.charAt(0));
-		    
-		    try {
-				cb.setDob(SQL_DATE_FORMAT.parse(dob));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 			
 			/*
 			 * TODO: same functionality in login/signup/rememberme - move to separate class (logic)
 			 */
-			
-		    // get uid
-			initializeTalkerBean(cb);
+		    // get talker info
+			TalkerBean cb = TalkmiDBUtil.getTalkerByUsername(un);
 			
 			//System.out.println("*** Process New Talker - Setting Session Variables");
 		    //set session variables

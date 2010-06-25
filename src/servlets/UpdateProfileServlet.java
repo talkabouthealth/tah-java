@@ -36,7 +36,8 @@ public class UpdateProfileServlet extends HttpServlet {
 	static final long serialVersionUID = 1L;
 	DataSource ds;
 	
-	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	private static final SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	public void init() throws ServletException {
 		try {
@@ -167,6 +168,7 @@ public class UpdateProfileServlet extends HttpServlet {
 		String country = request.getParameter("country");
 		String category = request.getParameter("selection");
 		String maritalstatus = request.getParameter("maritalstatus");
+		String gender = request.getParameter("gender");
 		int childrenNum = 0;
 		try {
 			childrenNum = Integer.parseInt(request.getParameter("children"));
@@ -175,15 +177,12 @@ public class UpdateProfileServlet extends HttpServlet {
 
 		
 		Date dateOfBirth = parseDate(request.getParameter("birthdate"));
-		String gender = request.getParameter("gender");
-
-		SimpleDateFormat SQL_DATE_FORMAT = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
+		if (dateOfBirth == null) {
+			//user entered bad birthdate
+			return "baddate";
+		}
 		String dob = SQL_DATE_FORMAT.format(dateOfBirth);
-		//char g = gender.charAt(0);
-
-		// TODO: check to make sure no duplicate UserName
-
+		
 		// if not duplicate, update info and change TalkerBean info in session
 		String updateQuery = "UPDATE talkers SET uname= ?, email= ?, dob= ?, gender = ?, Marital_Stat = ?, " +
 				"city = ?, state = ?, country = ?, category = ?, childrenNum = ? WHERE uname= ?";
@@ -270,7 +269,7 @@ public class UpdateProfileServlet extends HttpServlet {
 	//TODO: move to Util?
 	private Date parseDate(String dateString) {
 		try {
-			Date date = dateFormat.parse(dateString);
+			Date date = DATE_FORMAT.parse(dateString);
 			return date;
 		} catch (ParseException e) {}
 		return null;
