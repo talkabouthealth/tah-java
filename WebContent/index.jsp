@@ -85,6 +85,7 @@
 <div id="bottom_container">
 	<div id="middle_area">
 		<div id="arealeft">
+			<!-- 
 			<div id="curvetophome"></div>
 			<div id="arealefttextarea">
 				<div id="comingsoonhead" class="bluetext30">&nbsp;Coming Soon</div>
@@ -104,8 +105,8 @@
 			  	<div id="arealefttext">Your email will remain safe and private</div>
 			</div>
 			<div id="curvebottom"></div>
+			-->
 			
-			<!-- 
 			<h1>Ask a question <span class="text24">or start a new conversation:</span></h1>
 			<div id="curvetop"></div>
 			<div id="lefttextarea">
@@ -125,7 +126,7 @@
 				</div>
 			</div>
 			<div id="curvebottom"></div>
-			 -->
+			 
 		</div>
 		<div id="arearight">
 			<h1>Current Support Communities</h1>
