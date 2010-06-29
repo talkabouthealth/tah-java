@@ -1,7 +1,13 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -34,5 +40,27 @@ public class CommonUtil {
 			hashText = "0"+hashText;
 		}
 		return hashText;
+	}
+	
+	public static void makeGET(String urlString, String parameters) {
+		try {
+			URL url = new URL(urlString+"?"+parameters);
+			URLConnection yc = url.openConnection();
+			
+			//read reply
+			//TODO: handle errors/incorrect reply
+			BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                    yc.getInputStream()));
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) 
+				System.out.println(inputLine);
+			in.close();
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

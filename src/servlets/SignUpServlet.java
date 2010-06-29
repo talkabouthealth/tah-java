@@ -295,6 +295,11 @@ import beans.TalkerBean;
 				return;
 			}
 			
+			//http://localhost:8080/tah-dashboard/Invitation
+			String dashboardURL = "http://localhost:8080/tah-dashboard/";
+			CommonUtil.makeGET(dashboardURL+"Invitation", 
+					"email="+URLEncoder.encode(email, "UTF-8"));
+			
 			//Successful signup!
 			EmailUtil.sendEmail(EmailUtil.WELCOME_TEMPLATE, email);
 				
