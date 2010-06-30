@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -73,5 +74,16 @@ public class CommonUtil {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	//Send IM invitation through Dashboard application
+	public static void sendIMInvitation(String imUsername, String imService) {
+		String dashboardURL = "http://localhost:8080/tah-dashboard/";
+		try {
+			CommonUtil.makeGET(dashboardURL+"Invitation", 
+					"imusername="+URLEncoder.encode(imUsername, "UTF-8")+"&imservice="+imService);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 }

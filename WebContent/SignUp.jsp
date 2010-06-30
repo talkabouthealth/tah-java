@@ -338,6 +338,8 @@
 										<option value="SkypeIM">SkypeIM</option>
 									</select>
 								</li>
+								<li><input name="imusername" id="imusername"  type="text" class="textfields" 
+								  	onclick="this.value=''" value="IM username" /></li>
 							</ul>
 						</div>
 						<div class="signfields1">

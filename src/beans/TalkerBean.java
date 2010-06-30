@@ -41,6 +41,7 @@ public class TalkerBean {
 	private String userName;
 	private String password;
 	private String IM;
+	private String imUsername;
 	private String email;
 	private char gender;
 	private Date dob;
@@ -98,6 +99,8 @@ public class TalkerBean {
 		setUserName(set.getString("uname"));
 		setPassword(set.getString("password"));
 		setIM(set.getString("PrimaryIM"));
+		//TODO: temporarily use "YahooIM" - ask Murray about usernames
+		setImUsername(set.getString("YahooIM"));
 		setEmail(set.getString("email"));
 		setGender(set.getString("gender").charAt(0));
 		setDob(set.getDate("dob"));
@@ -295,5 +298,13 @@ public class TalkerBean {
 
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+
+	public String getImUsername() {
+		return imUsername;
+	}
+
+	public void setImUsername(String imUsername) {
+		this.imUsername = imUsername;
 	}
 }	

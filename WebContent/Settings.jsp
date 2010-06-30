@@ -173,8 +173,8 @@ if (sUserName == null) {
 								  	}
 								  %>
 								</select></li>
-								  <li><input name="textfield" type="text" class="textfields" 
-								  	id="textfield" onclick="this.value=''" onblur="this.value='murrayjones'" value="murrayjones" /></li>
+								  <li><input name="imusername" type="text" class="textfields" 
+								  	id="imusername" value="<%= cb.getImUsername() %>" /></li>
 							</ul>
 						</div>
 						<div class="notiblueareabot"></div>

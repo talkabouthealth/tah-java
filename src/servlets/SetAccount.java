@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.CommonUtil;
 import util.TalkmiDBUtil;
 import beans.TalkerBean;
 
@@ -24,13 +25,19 @@ public class SetAccount extends HttpServlet {
 	}
 
 	public void processSetAccount(HttpServletRequest request) {
-		String primaryIM = request.getParameter("IMService");
+		String imService = request.getParameter("IMService");
+		String imUsername = request.getParameter("imusername");
 		String email = request.getParameter("email");
-
 		TalkerBean talkerBean = (TalkerBean)request.getSession().getAttribute("talker");
-		//TODO we also need to save username for IM service?
+		
+		//if something was changed - send new invitation
+		if (!talkerBean.getIM().equals(imService) || !talkerBean.getImUsername().equals(imUsername)) {
+			CommonUtil.sendIMInvitation(imUsername, imService);
+		}
+		
 		talkerBean.setEmail(email);
-		talkerBean.setIM(primaryIM);
+		talkerBean.setImUsername(imUsername);
+		talkerBean.setIM(imService);
 		
 		TalkmiDBUtil.updateTalker(talkerBean);
 	}

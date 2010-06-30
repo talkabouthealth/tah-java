@@ -32,7 +32,8 @@ import beans.TalkerBean;
    private String un;
    private String pw;
    private String email;
-   private String IM;
+   private String imService;
+   private String imUsername;
    private String month;
    private String day;
    private String year;
@@ -177,8 +178,9 @@ import beans.TalkerBean;
 		//char g = gender.charAt(0);
 		// insert info into database
 		//String insertQuery = "Insert into talkers (uname, password, email, dob, gender, zip, city, state, passcode) values ('" + un + "', '" + pw + "', '" + email + "', '" + dob + "', '" + gender + "', '" + zip + "', '" + city + "', '"  + state + "', '" + sPassCode +  "')";
-		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM, newsletter, accounttype, accountid) " +
-				"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, " +
+				"PrimaryIM, newsletter, accounttype, accountid, YahooIM) " +
+				"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		try {
@@ -191,10 +193,11 @@ import beans.TalkerBean;
 		    ps.setString(4, dob);
 		    ps.setString(5, gender);
 		    ps.setString(6, sqlDate);
-		    ps.setString(7, IM);
+		    ps.setString(7, imService);
 		    ps.setBoolean(8, newsletter);
 		    ps.setString(9, accountType);
 		    ps.setString(10, accountId);
+		    ps.setString(11, imUsername);
 		    
 		    ps.executeUpdate();
 		    
@@ -239,7 +242,7 @@ import beans.TalkerBean;
 	    un = request.getParameter("username");
 		pw = request.getParameter("password");
 		email = request.getParameter("email");
-		IM = request.getParameter("IMService");
+		imService = request.getParameter("IMService");
 		month = request.getParameter("month");
 		day = request.getParameter("day");
 		year = request.getParameter("year");
@@ -279,6 +282,13 @@ import beans.TalkerBean;
 		    return;
 		}
 		
+		imUsername = request.getParameter("imusername");
+		if (imUsername == null || imUsername.trim().length() == 0 || imUsername.equals("IM username")) {
+			//if user didn't enter it - we parse from email
+			int atIndex = email.indexOf('@');
+			imUsername = email.substring(0, atIndex);
+		}
+		
 		//hash pass to store in db
 		pw = CommonUtil.hashPassword(pw);
 		
@@ -306,10 +316,7 @@ import beans.TalkerBean;
 				return;
 			}
 			
-			//Send IM invitation through Dashboard application
-			String dashboardURL = "http://localhost:8080/tah-dashboard/";
-			CommonUtil.makeGET(dashboardURL+"Invitation", 
-					"email="+URLEncoder.encode(email, "UTF-8"));
+			CommonUtil.sendIMInvitation(imUsername, imService);
 			
 			//Successful signup!
 			EmailUtil.sendEmail(EmailUtil.WELCOME_TEMPLATE, email);

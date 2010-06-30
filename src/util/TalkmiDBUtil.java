@@ -708,7 +708,7 @@ public class TalkmiDBUtil {
 		    		"SET uname = ?, password = ?, email = ?, " +
 		    		"invitations = ?, profilepreferences = ?, " +
 		    		"notifyfrequency = ?, notifytime = ?, ctype = ?, " +
-		    		"PrimaryIM = ?, imagepath = ? " +
+		    		"PrimaryIM = ?, imagepath = ?, YahooIM = ? " +
 		    		"WHERE uid = ?");
 		    ps.setString(1, user.getUserName());
 		    ps.setString(2, user.getPassword());
@@ -720,7 +720,8 @@ public class TalkmiDBUtil {
 		    ps.setString(8, user.getCtypeStr());
 		    ps.setString(9, user.getIM());
 		    ps.setString(10, user.getImagePath());
-		    ps.setInt(11, user.getUID());
+		    ps.setString(11, user.getImUsername());
+		    ps.setInt(12, user.getUID());
 		    
 		    ps.executeUpdate();
 		    ps = null;
