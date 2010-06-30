@@ -7,6 +7,15 @@
 	</style>
 	
 	<script type="text/javascript" charset="utf-8">
+		function openTwitter() {
+			var popupWindow = window.open("oauth?action=getauth&type=twitter", 
+				"TwitterLogin", "width=800,height=400,toolbar=no,location=no,menubar=no");
+		}
+		function openFacebook() {
+			var popupWindow = window.open("oauth?action=getauth&type=facebook", 
+				"FacebookLogin", "width=1000,height=450,toolbar=no,location=no,menubar=no");
+		}
+		
 		/* 
 			TODO: move this to separate .js ? Merge with "validation.js"?
 		*/
@@ -221,14 +230,32 @@
 			<div id="innermiddlearea">
 				<div id="signupleft">
 				<form id="form" name="signup" action="SignUp" method="post">
+					<%
+						String from = request.getParameter("from");
+						if (from != null) {
+							out.println("<h6 class=\"blacktext14\">");
+							out.println("Welcome! You've gotten started by connecting your <i>"+from+"</i> account.");
+							out.println("<br/>Your TalkAboutHealth account needs just a few more details. "+
+									"Please take a moment to provide them below.");
+							out.println("</h6>");
+						}
+						else {
+					%>
 					<h6 class="blacktext14" style="text-align:left;">Save time entering your information</h6>
 					<div class="socialicons2">
 						<ul>
-							<li><img src="images/joinusingfacebook.gif" width="150" height="22" />&nbsp;&nbsp;</li>
-							<li><img src="images/joinusingtwitter.gif" width="150" height="22" />&nbsp;&nbsp;</li>
-							<li><img src="images/JoinwithGoogle.gif" width="150" height="22" />&nbsp;&nbsp;</li>
+							<li><a href="#" onclick="openFacebook()">
+									<img src="images/joinusingfacebook.gif" width="150" height="22" border="0" />
+							</a></li>
+							<li><a href="#" onclick="openTwitter()">
+									<img src="images/joinusingtwitter.gif" width="150" height="22" border="0" />
+							</a></li>
+							<!-- <li><img src="images/JoinwithGoogle.gif" width="150" height="22" />&nbsp;&nbsp;</li> -->
 						</ul>
 					</div>
+					<%
+						}
+					%>
 					<h5 id="error">
 						<%
 							String unerror = request.getParameter("username");

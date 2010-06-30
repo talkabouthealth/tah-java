@@ -10,6 +10,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommonUtil {
 	
@@ -42,25 +44,34 @@ public class CommonUtil {
 		return hashText;
 	}
 	
-	public static void makeGET(String urlString, String parameters) {
+	/**
+	 * Executes HTTP GET request and return reply as list of strings
+	 * @param urlString
+	 * @param parameters
+	 * @return
+	 */
+	public static List<String> makeGET(String urlString, String parameters) {
 		try {
 			URL url = new URL(urlString+"?"+parameters);
-			URLConnection yc = url.openConnection();
+			URLConnection urlConnection = url.openConnection();
 			
 			//read reply
 			//TODO: handle errors/incorrect reply
+			List<String> lines = new ArrayList<String>();
 			BufferedReader in = new BufferedReader(
                     new InputStreamReader(
-                    yc.getInputStream()));
+                    urlConnection.getInputStream()));
 			String inputLine;
-			while ((inputLine = in.readLine()) != null) 
-				System.out.println(inputLine);
+			while ((inputLine = in.readLine()) != null) {
+				lines.add(inputLine);
+			}
 			in.close();
-
+			return lines;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

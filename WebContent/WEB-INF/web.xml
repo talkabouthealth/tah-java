@@ -165,6 +165,15 @@
 		<servlet-name>ProfilePreferences</servlet-name>
 		<url-pattern>/ProfilePreferences</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>OAuthServlet</servlet-name>
+		<servlet-class>servlets.OAuthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OAuthServlet</servlet-name>
+		<url-pattern>/oauth</url-pattern>
+	</servlet-mapping>
 	<!-- 
 		Is tested now - login with Google OpenID
 		<servlet>

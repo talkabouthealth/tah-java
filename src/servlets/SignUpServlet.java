@@ -39,6 +39,9 @@ import beans.TalkerBean;
    private String gender;
    private String dob;
    private boolean newsletter;
+   private String accountType;
+   private String accountId;
+   
    private SimpleDateFormat SQL_DATE_FORMAT;
    //private String zip;
    //private String city;
@@ -174,8 +177,8 @@ import beans.TalkerBean;
 		//char g = gender.charAt(0);
 		// insert info into database
 		//String insertQuery = "Insert into talkers (uname, password, email, dob, gender, zip, city, state, passcode) values ('" + un + "', '" + pw + "', '" + email + "', '" + dob + "', '" + gender + "', '" + zip + "', '" + city + "', '"  + state + "', '" + sPassCode +  "')";
-		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM, newsletter) " +
-				"values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertQuery = "Insert into talkers (uname, password,email, dob, gender, time_stamp, PrimaryIM, newsletter, accounttype, accountid) " +
+				"values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement ps = null;  // Or PreparedStatement if needed
 		try {
@@ -190,6 +193,8 @@ import beans.TalkerBean;
 		    ps.setString(6, sqlDate);
 		    ps.setString(7, IM);
 		    ps.setBoolean(8, newsletter);
+		    ps.setString(9, accountType);
+		    ps.setString(10, accountId);
 		    
 		    ps.executeUpdate();
 		    
@@ -238,6 +243,7 @@ import beans.TalkerBean;
 		month = request.getParameter("month");
 		day = request.getParameter("day");
 		year = request.getParameter("year");
+		
 		//for now gender has default value
 		gender = "M";
 //		gender = request.getParameter("gender");
@@ -250,6 +256,11 @@ import beans.TalkerBean;
 		if (request.getParameter("newsletter") != null) {
 			newsletter = true;
 		}
+		
+		//check if user signed up through Twitter or Facebook
+		//TODO: clear params from session?
+		accountType = (String)request.getSession().getAttribute("accounttype");
+		accountId = (String)request.getSession().getAttribute("accountid");
 		
 		// data validation
 		if (!ValidateData.validateEmail(email)) {
@@ -295,14 +306,13 @@ import beans.TalkerBean;
 				return;
 			}
 			
-			//http://localhost:8080/tah-dashboard/Invitation
+			//Send IM invitation through Dashboard application
 			String dashboardURL = "http://localhost:8080/tah-dashboard/";
 			CommonUtil.makeGET(dashboardURL+"Invitation", 
 					"email="+URLEncoder.encode(email, "UTF-8"));
 			
 			//Successful signup!
 			EmailUtil.sendEmail(EmailUtil.WELCOME_TEMPLATE, email);
-				
 			
 			/*
 			 * TODO: same functionality in login/signup/rememberme - move to separate class (logic)

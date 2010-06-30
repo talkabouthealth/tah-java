@@ -11,7 +11,6 @@
 	} else {
 %>
 <%@ include file="header.jsp" %>
-
 	<style>
 		body {
 			background:url(images/inner_bg.gif) repeat-x top;
@@ -19,7 +18,16 @@
 	</style>
 
 	<!-- scripts -->
-	<script language="javascript">
+	<script type="text/javascript">
+		function openTwitter() {
+			var popupWindow = window.open("oauth?action=getauth&type=twitter", 
+				"TwitterLogin", "width=800,height=400,toolbar=no,location=no,menubar=no");
+		}
+		function openFacebook() {
+			var popupWindow = window.open("oauth?action=getauth&type=facebook", 
+				"FacebookLogin", "width=1000,height=450,toolbar=no,location=no,menubar=no");
+		}
+		
 		function trim(stringToTrim) {
 			return stringToTrim.replace(/^\s+|\s+$/g,"");
 		}
@@ -110,9 +118,13 @@
 					Or Sign in with one-click
 					<div class="socialicons">
 						<ul class="socialicons1">
-							<li><a href="#"><img src="images/signinfacebook.gif" width="150" height="22" border="0" /></a></li>
-							<li><a href="#"><img src="images/signintwitter.gif" width="150" height="22" border="0" /></a></li>
-							<li><a href="#"><img src="images/signingoogle.gif" width="150" height="22" border="0" /></a></li>
+							<li><a href="#" onclick="openFacebook()">
+									<img src="images/signinfacebook.gif" width="150" height="22" border="0" />
+							</a></li>
+							<li><a href="#" onclick="openTwitter()">
+									<img src="images/signintwitter.gif" width="150" height="22" border="0" />
+							</a></li>
+							<!-- <li><a href="#"><img src="images/signingoogle.gif" width="150" height="22" border="0" /></a></li> -->
 						</ul>
 					</div>
 				</div>

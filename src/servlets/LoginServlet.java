@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 				cookie.setMaxAge(REMEMBERME_TIMEOUT);
 				response.addCookie(cookie);
 			}
-
+			
 			response.sendRedirect("TalkerHome.jsp");
 		} else {
 			System.out.println("Login Failed!");

@@ -21,6 +21,24 @@
 
 	<!-- scripts -->
 	<script language="javascript">
+		function openTwitter() {
+			var popupWindow = window.open("oauth?action=getauth&type=twitter", 
+				"TwitterLogin", "width=800,height=400,toolbar=no,location=no,menubar=no");
+			
+			//TODO: center pop-up on the screen and make one function for all pages
+			//for prototype library
+			//var offsets = document.viewport.getScrollOffsets();
+			//var x = Math.ceil((document.viewport.getWidth()/2)-425);
+			//var y = Math.ceil(200);
+			//popupWindow.moveTo(x,y);
+			return false;
+		}
+		
+		function openFacebook() {
+			var popupWindow = window.open("oauth?action=getauth&type=facebook", 
+				"FacebookLogin", "width=1000,height=450,toolbar=no,location=no,menubar=no");
+		}
+		
 		function checkForm()
 		{
 			//Check topic name field
@@ -65,10 +83,14 @@
 		<div id="topright">
 			<span class="blacktext">Sign in with your</span> <br />
   			<div class="icon">
-  				<a href="#"><img src="images/twitter.gif" alt="Twitter" width="27" height="27" border="0" /></a>
+  				<a href="#" onclick="openTwitter()">
+  					<img src="images/twitter.gif" alt="Twitter" width="27" height="27" border="0" />
+  				</a>
   			</div>
   			<div class="icon">
-  				<a href="#"><img src="images/facebook.gif" alt="facebook" width="27" height="27" border="0"/></a>
+  				<a href="#" onclick="openFacebook()">
+  					<img src="images/facebook.gif" alt="facebook" width="27" height="27" border="0"/>
+  				</a>
   			</div> 
 		</div>
 		<div id="topmid">
