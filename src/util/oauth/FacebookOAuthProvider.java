@@ -16,11 +16,17 @@ import beans.TalkerBean;
 
 public class FacebookOAuthProvider implements OAuthServiceProvider {
 	
-	private static final String APP_ID = "126479497379490";
-	private static final String APP_SECRET = "cd4606efec03ea8c5bd9ffb9d49000ff";
-	
+	private static final String APP_ID = "131545373528131";
+	private static final String APP_SECRET = "0620bead67e2ffa4e9e46f60b3376dec";
 	private static final String CALLBACK_URL =
-		"http://kan.dev.com:8080/tah-java/oauth?action=callback&type=facebook";
+		"http://talkabouthealth.com:8080/tah-java/oauth?action=callback&type=facebook";
+	
+//Test settings	
+//	private static final String APP_ID = "126479497379490";
+//	private static final String APP_SECRET = "cd4606efec03ea8c5bd9ffb9d49000ff";
+//	private static final String CALLBACK_URL =
+//		"http://kan.dev.com:8080/tah-java/oauth?action=callback&type=facebook";
+	
 
 	@Override
 	public String getAuthURL(HttpServletRequest request) {

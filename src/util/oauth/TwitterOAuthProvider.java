@@ -24,11 +24,16 @@ import webapp.InsertLoginRecordThread;
  */
 public class TwitterOAuthProvider implements OAuthServiceProvider {
 	
-	private static final String CONSUMER_KEY = "7VymbW3wmOOoQ892BqIsaA";
-	private static final String CONSUMER_SECRET = "s8aexaIBgMxAm4ZqQNayv5SAr6Wd1SKFVETUEPv0cmM";
-	
+	private static final String CONSUMER_KEY = "0xkxCSpMbDPH2ltt3MwZA";
+	private static final String CONSUMER_SECRET = "ybARF7Q7ffdBqbTE5FGlPaeSJejGtNHeoLhYmk2gL4";
 	private static final String CALLBACK_URL =
-		"http://kan.dev.com:8080/tah-java/oauth?action=callback&type=twitter";
+		"http://talkabouthealth.com:8080/tah-java/oauth?action=callback&type=twitter";
+	
+//Test values
+//	private static final String CONSUMER_KEY = "7VymbW3wmOOoQ892BqIsaA";
+//	private static final String CONSUMER_SECRET = "s8aexaIBgMxAm4ZqQNayv5SAr6Wd1SKFVETUEPv0cmM";
+//	private static final String CALLBACK_URL =
+//		"http://kan.dev.com:8080/tah-java/oauth?action=callback&type=twitter";
 	
 	private OAuthConsumer consumer;
 	private OAuthProvider provider;
