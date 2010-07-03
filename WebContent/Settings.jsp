@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="beans.TalkerBean" %>
+<%@ page import="com.tah.beans.TalkerBean" %>
 <%@ page import="java.util.List" %>
 <%@page import="java.util.Arrays"%>
 <% 
@@ -17,6 +17,7 @@ if (sUserName == null) {
 	int freq = cb.getNfreq();
 %>
 <%@ include file="header.jsp" %>
+<%@page import="java.util.ArrayList"%>
 <style>
 	body {
 		background:url(images/inner_bg.gif) repeat-x top;
@@ -109,7 +110,11 @@ if (sUserName == null) {
 							<ul>								
 								<li>
 								<%
-									List<String> cTypeValue = Arrays.asList(cb.getCtype());
+									String[] talkerCTypes = cb.getCtype();
+									List<String> cTypeValue = new ArrayList<String>();
+									if (talkerCTypes != null) {
+										cTypeValue = Arrays.asList(talkerCTypes);
+									}
 									String[] cTypeArr = new String[] {"Informational", 
 										"Advice and opinions", "Meet new people", "Emotional support"};
 									for (String cType : cTypeArr) {

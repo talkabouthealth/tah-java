@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.EnumSet" %>
-<%@ page import="beans.TalkerBean" %>
-<%@ page import="beans.TalkerBean.ProfilePreference" %>
+<%@ page import="com.tah.beans.TalkerBean" %>
+<%@ page import="com.tah.beans.TalkerBean.ProfilePreference" %>
 <%
 	TalkerBean talker = (TalkerBean)session.getAttribute("talker");
 	if (talker == null) { 

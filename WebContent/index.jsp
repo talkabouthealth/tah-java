@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="util.TalkmiDBUtil" %>
+<%@ page import="com.tah.dao.TalkerDAO" %>
 <% 
 	response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
 	response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
@@ -10,7 +10,7 @@
 	if (sUserName != null) { 
 		response.sendRedirect("TalkerHome.jsp");
 	} else {
-		int numberOfMembers = TalkmiDBUtil.getNumberOfMembers();
+		long numberOfMembers = TalkerDAO.getNumberOfTalkers();
 %>
 <%@ include file="header.jsp" %>
 	<style type="text/css">

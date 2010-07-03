@@ -1,4 +1,4 @@
-<%@ page import="beans.TalkerBean" %>
+<%@ page import="com.tah.beans.TalkerBean" %>
 <%
 	TalkerBean talker = (TalkerBean)session.getAttribute("talker");
 	int invitations = talker.getInvitations();

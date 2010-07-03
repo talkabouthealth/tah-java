@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.LinkedHashMap" %>
-<%@ page import="beans.TopicBean" %>
-<%@ page import="beans.TalkerBean" %>
-<%@ page import="util.TalkmiDBUtil" %>
-<%@ page import="webapp.LiveConversationsSingleton" %>
+<%@ page import="com.tah.beans.TopicBean" %>
+<%@ page import="com.tah.beans.TalkerBean" %>
+<%@ page import="com.tah.dao.TopicDAO" %>
+<%@ page import="com.tah.web.webapp.LiveConversationsSingleton" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
 	response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
@@ -18,13 +18,13 @@
 		response.sendRedirect("index.jsp");
 	} else {
 		TalkerBean cb = (TalkerBean)session.getAttribute("talker");
-		int numberOfConversations = TalkmiDBUtil.getNumberOfConversations(cb.getUID());
+		int numberOfConversations = TopicDAO.getNumberOfTopics(cb.getId());
 		
-		Map<Integer, TopicBean> mapTalkmiTopics = new LinkedHashMap<Integer, TopicBean>(40);
+		Map<String, TopicBean> mapTalkmiTopics = new LinkedHashMap<String, TopicBean>(40);
 		
 		LiveConversationsSingleton lcs = LiveConversationsSingleton.getReference();
 		if(lcs.getLiveConversationMap().size() < 20) {
-			mapTalkmiTopics = TalkmiDBUtil.queryTopics();
+			mapTalkmiTopics = TopicDAO.queryTopics();
 		}
 		
 		session.setAttribute("mapTalkmiTopics", mapTalkmiTopics);
@@ -176,7 +176,7 @@
 				        			</p>
 				        		</div>
 								<div class="join">
-									<a href="javascript:open_chat('<%= tbTalkmiTopic.getTopicID()%>')">
+									<a href="javascript:open_chat('<%= tbTalkmiTopic.getId()%>')">
 										<img border="0" src="images/join_conv.gif" width="178" height="27" />
 									</a>
 								</div>

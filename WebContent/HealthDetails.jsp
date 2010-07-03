@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Map.Entry" %>
-<%@ page import="util.TalkmiDBUtil" %>
-<%@ page import="beans.TalkerBean" %>
-<%@ page import="beans.TalkerDiseaseBean" %>
-<%@page import="beans.HealthItemBean" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.tah.dao.*" %>
+<%@ page import="com.tah.beans.*" %>
 <%!
 	//prints tree of items for given parent, checks given items
-	public void printTree(HealthItemBean healthItem, Set<Integer> checkedHealthItems, JspWriter out) throws Exception {
+	public void printTree(HealthItemBean healthItem, Set<String> checkedHealthItems, JspWriter out) throws Exception {
 		for (HealthItemBean item : healthItem.getChildren()) {
 			if (item.getChildren() != null && item.getChildren().size() > 0) {
 				out.println("<li><b>"+item.getName()+"</b></li>");
@@ -34,18 +30,14 @@ if (talker == null) {
 	response.sendRedirect("SignIn.jsp");
 } else {
 	//For now we have only one disease - Breast Cancer
-	final int diseaseId = 1;
+	final String diseaseName = "Breast Cancer";
 	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
 	//Load data for selects
-	Map<Integer, String> stagesMap = TalkmiDBUtil.getValuesByDisease("stage", diseaseId);
-	Map<Integer, String> typesMap = TalkmiDBUtil.getValuesByDisease("type", diseaseId);
+	List<String> stagesList = DiseaseDAO.getValuesByDisease("stages", diseaseName);
+	List<String> typesList = DiseaseDAO.getValuesByDisease("types", diseaseName);
 	
-	TalkerDiseaseBean talkerDisease = TalkmiDBUtil.getTalkerDisease(talker.getUID());
-	int talkerDiseaseId = 0;
-	if (talkerDisease != null) {
-		talkerDiseaseId = talkerDisease.getId();
-	}
+	TalkerDiseaseBean talkerDisease = TalkerDiseaseDAO.getByTalkerId(talker.getId());
 %>
 <%@ include file="header.jsp" %>
 	<style>
@@ -76,7 +68,6 @@ if (talker == null) {
 		</div>
 		<div id="innerbanner"></div>
 		<form id="healthdetailsform" name="healthdetailsform" action="HealthDetails" method="POST" />
-		<input type="hidden" name="talkerdiseaseid" value="<%= talkerDiseaseId %>" />
 		<div id="innermain">
 			<div class="blacktext2" id="innerheading">General Health Details</div>
 			<div id="innermiddlearea">
@@ -104,12 +95,12 @@ if (talker == null) {
 									<div>
 										<select name="diseasestage" class="textarea1">
 											<%
-												for (Entry<Integer, String> entry : stagesMap.entrySet()) {
-											    	out.print("<option value='"+entry.getKey()+"' ");
-											    	if (talkerDisease != null && talkerDisease.getStageId() == entry.getKey()) {
+												for (String stage : stagesList) {
+											    	out.print("<option value='"+stage+"' ");
+											    	if (talkerDisease != null && stage.equals(talkerDisease.getStage())) {
 											    		out.print("selected='selected'");
 											    	}
-											    	out.println(" >"+entry.getValue()+"</option>");
+											    	out.println(" >"+stage+"</option>");
 											    }
 											%>
 										</select>
@@ -120,12 +111,12 @@ if (talker == null) {
 									<div>
 										<select name="diseasetype" class="textarea1">
 									 		<%
-												for (Entry<Integer, String> entry : typesMap.entrySet()) {
-													out.print("<option value='"+entry.getKey()+"' ");
-											    	if (talkerDisease != null && talkerDisease.getTypeId() == entry.getKey()) {
+												for (String type : typesList) {
+													out.print("<option value='"+type+"' ");
+											    	if (talkerDisease != null && type.equals(talkerDisease.getType())) {
 											    		out.print("selected='selected'");
 											    	}
-											    	out.println(" >"+entry.getValue()+"</option>");
+											    	out.println(" >"+type+"</option>");
 											    }
 											%>
 										</select>
@@ -181,7 +172,7 @@ if (talker == null) {
 								<h1 style="margin-top: 15px;" >What were the initial symptoms you experienced?</h1>
 								<ul>
 									<%
-										HealthItemBean symptomItem = TalkmiDBUtil.getHealthItemByName("symptoms", diseaseId);
+										HealthItemBean symptomItem = HealthItemDAO.getHealthItemByName("symptoms", diseaseName);
 										printTree(symptomItem, talkerDisease.getHealthItems(), out);
 									%>
 								</ul>
@@ -217,7 +208,7 @@ if (talker == null) {
 								<h1>Which of the following tests have you had?</h1>
 								<ul>
 									<%
-										HealthItemBean testsItem = TalkmiDBUtil.getHealthItemByName("tests", diseaseId);
+										HealthItemBean testsItem = HealthItemDAO.getHealthItemByName("tests", diseaseName);
 										printTree(testsItem, talkerDisease.getHealthItems(), out);
 									%>
 								</ul>
@@ -230,7 +221,7 @@ if (talker == null) {
 								<h1>What procedures / surgeries have you had?</h1>
 								<ul>
 									<%
-										HealthItemBean proceduresItem = TalkmiDBUtil.getHealthItemByName("procedures", diseaseId);
+										HealthItemBean proceduresItem = HealthItemDAO.getHealthItemByName("procedures", diseaseName);
 										printTree(proceduresItem, talkerDisease.getHealthItems(), out);
 									%>
 								</ul>
@@ -258,7 +249,7 @@ if (talker == null) {
 								<h1>What treatments / medications have you taken?</h1>
 								<ul>
 									<%
-										HealthItemBean treatmentsItem = TalkmiDBUtil.getHealthItemByName("treatments", diseaseId);
+										HealthItemBean treatmentsItem = HealthItemDAO.getHealthItemByName("treatments", diseaseName);
 										printTree(treatmentsItem, talkerDisease.getHealthItems(), out);
 									%>
 								</ul>

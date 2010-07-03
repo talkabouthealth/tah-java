@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="beans.TalkerBean" %>
+<%@ page import="com.tah.beans.TalkerBean" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <% 
@@ -215,14 +215,14 @@ function display(){
 							<select class="personalfields" id="gender" name="gender">
 							  <option value="M"
 							  <%
-							  	if (cb.getGender() == 'M') {
+							  	if (cb.getGender().equals("M")) {
 							  		out.println(" selected='selected' ");
 							  	}
 							  %>
 							  >Male</option>
 							  <option value="F"
 							  <%
-							  	if (cb.getGender() == 'F') {
+							  	if (cb.getGender().equals("F")) {
 							  		out.println(" selected='selected' ");
 							  	}
 							  %>
