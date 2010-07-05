@@ -168,8 +168,9 @@ function postNewTopicResponse() {
 				//left side - author information
 				var areaLeft = createDiv('arealeft2');
 				areaLeft.innerHTML = 
-					'<img src="images/img1.gif" width="71" height="71" /><br />'+
-					'<span class="bluetext11">Murray Jones</span><br/>'+
+					//TODO: handle user data in other way?
+					'<img src="'+imgPath+'" width="71" height="71" /><br />'+
+					'<span class="bluetext11">'+username+'</span><br/>'+
 					'<span class="currenttext">Advocate</span>';
 				newTopic.appendChild(areaLeft);
 				

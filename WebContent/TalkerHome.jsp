@@ -44,7 +44,8 @@
 	<script type="text/JavaScript" language="javascript" src="js/validation.js" charset="utf-8"></script>    
 	<script type="text/JavaScript" language="javascript" src="js/talkerhome.js" charset="utf-8"></script>    
 	<script type="text/javascript">
-		var username = "<%out.print(cb.getUserName());%>";
+		var username = "<%= cb.getUserName() %>";
+		var imgPath = "<%= cb.getImagePath() %>";
 		
 		function checkForm()
 		{
@@ -158,8 +159,9 @@
 					%>
 					<div class="area">
 						<div class="arealeft2">
-							<img src="images/img1.gif" width="71" height="71" /><br />
-				  			<span class="bluetext11">Murray Jones</span> 
+							<img src="<%= tbTalkmiTopic.getTalker().getImagePath() %>" width="71" height="71" />
+							<br />
+				  			<span class="bluetext11"><%= tbTalkmiTopic.getTalker().getUserName() %></span> 
 				  			<span class="blacktext11">Advocate</span>
 				  		</div>
 						<div class="arearight">

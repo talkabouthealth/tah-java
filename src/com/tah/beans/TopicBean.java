@@ -8,6 +8,7 @@ public class TopicBean {
 	private Date creationDate;
 	private Date DisplayTime;
 	private String uid;
+	private TalkerBean talker;
 	
 	public TopicBean(){}
 	
@@ -44,5 +45,13 @@ public class TopicBean {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public TalkerBean getTalker() {
+		return talker;
+	}
+
+	public void setTalker(TalkerBean talker) {
+		this.talker = talker;
 	}
 }

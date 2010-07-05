@@ -12,6 +12,7 @@ import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.DBRef;
+import com.tah.beans.TalkerBean;
 import com.tah.beans.TopicBean;
 import com.tah.util.DBUtil;
 
@@ -47,6 +48,11 @@ public class TopicDAO {
 	    	topic.setTopic((String)topicDBObject.get("topic"));
 	    	topic.setDisplayTime((Date)topicDBObject.get("disp_date"));
 			
+	    	DBObject talkerDBObject = ((DBRef)topicDBObject.get("uid")).fetch();
+	    	TalkerBean talker = new TalkerBean();
+	    	talker.parseFromDB(talkerDBObject);
+	    	topic.setTalker(talker);
+	    	
 	    	topicsMap.put(topic.getId(), topic);
 		}
 		
