@@ -1,10 +1,6 @@
 package com.tah.web.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,16 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.tah.beans.TalkerBean;
 import com.tah.beans.TalkerDiseaseBean;
 import com.tah.dao.TalkerDiseaseDAO;
+import com.tah.util.CommonUtil;
 
 public class HealthDetailsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
-	private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -45,8 +39,8 @@ public class HealthDetailsServlet extends HttpServlet {
 		if (recurrent != null && recurrent.equalsIgnoreCase("y")) {
 			talkerDisease.setRecurrent(true);
 		}
-		talkerDisease.setSymptomDate(parseDate(symptomDateStr));
-		talkerDisease.setDiagnoseDate(parseDate(diagnoseDateStr));
+		talkerDisease.setSymptomDate(CommonUtil.parseDate(symptomDateStr));
+		talkerDisease.setDiagnoseDate(CommonUtil.parseDate(diagnoseDateStr));
 		parseHealthItems(request, talkerDisease);
 		
 		talkerDisease.setUid(talker.getId());
@@ -71,13 +65,5 @@ public class HealthDetailsServlet extends HttpServlet {
 			}
 		}
 		talkerDisease.setHealthItems(healthItems);
-	}
-
-	private Date parseDate(String dateString) {
-		try {
-			Date date = dateFormat.parse(dateString);
-			return date;
-		} catch (ParseException e) {}
-		return null;
 	}
 }

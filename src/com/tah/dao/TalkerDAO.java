@@ -1,7 +1,8 @@
 package com.tah.dao;
 
-import org.bson.types.ObjectId;
+import java.util.Calendar;
 
+import org.bson.types.ObjectId;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
@@ -13,6 +14,28 @@ import com.tah.util.DBUtil;
 public class TalkerDAO {
 	
 	public static final String TALKERS_COLLECTION = "talkers";
+	
+	public static boolean save(TalkerBean talker) {
+		DBCollection talkersColl = DBUtil.getCollection("talkers");
+
+		DBObject talkerDBObject = BasicDBObjectBuilder.start()
+				.add("uname", talker.getUserName())
+				.add("pass", talker.getPassword())
+				.add("email", talker.getEmail())
+				.add("dob", talker.getDob())
+				.add("gender", talker.getGender())
+				.add("timestamp",  Calendar.getInstance().getTime())
+				.add("im", talker.getIM())
+				.add("im_uname", talker.getImUsername())
+				.add("newsletter", talker.isNewsletter())
+				.add("act_type", talker.getAccountType())
+				.add("act_id", talker.getAccountId())
+				.add("invites", 100)
+				.get();
+
+		talkersColl.save(talkerDBObject);
+		return true;
+	}
 	
 	public static void updateTalker(TalkerBean talker) {
 		DBCollection talkersColl = DBUtil.getCollection(TALKERS_COLLECTION);
@@ -61,23 +84,21 @@ public class TalkerDAO {
 		return talkersColl.count();
 	}
 	
-	//TODO: move to logic?
-	public static boolean validateLogin(TalkerBean talker) {
+	public static TalkerBean getTalkerByLoginInfo(String userName, String password) {
 		DBCollection talkersColl = DBUtil.getCollection(TALKERS_COLLECTION);
 		
 		DBObject query = new BasicDBObject();
-		query.put("uname", talker.getUserName());
-		query.put("pass", talker.getPassword());
+		query.put("uname", userName);
+		query.put("pass", password);
 		
 		DBObject talkerDBObject = talkersColl.findOne(query);
+		
+		TalkerBean talker = null;
 		if (talkerDBObject != null) {
-			//TODO: not good - we need to validate or load, not both!
+			talker = new TalkerBean();
 			talker.parseFromDB(talkerDBObject);
-			return true;
 		}
-		else {
-			return false;
-		}
+		return talker;
 	}
 	
 	public static TalkerBean getTalkerByAccount(String accountType, String accountId) {

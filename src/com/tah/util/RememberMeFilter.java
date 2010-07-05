@@ -54,7 +54,8 @@ public class RememberMeFilter implements Filter {
 		talker.setPassword(valueArr[1]);
 		
 		//sign in
-		if (TalkerDAO.validateLogin(talker)) {
+		talker = TalkerDAO.getTalkerByLoginInfo(valueArr[0], valueArr[1]);
+		if (talker != null) {
 			// insert login record into db
 			Thread tInsertLoginRecord = new Thread(
 					new InsertLoginRecordThread(talker.getId()), "InsertLoginRecordThread");

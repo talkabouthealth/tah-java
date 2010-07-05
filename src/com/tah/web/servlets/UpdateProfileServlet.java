@@ -2,9 +2,6 @@ package com.tah.web.servlets;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +17,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-
 import com.tah.beans.TalkerBean;
 import com.tah.dao.TalkerDAO;
 import com.tah.util.CommonUtil;
@@ -32,8 +28,6 @@ import com.tah.util.CommonUtil;
 public class UpdateProfileServlet extends HttpServlet {
 	
 	static final long serialVersionUID = 1L;
-	
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -163,7 +157,7 @@ public class UpdateProfileServlet extends HttpServlet {
 		catch(NumberFormatException nfe){};
 
 		
-		Date dateOfBirth = parseDate(request.getParameter("birthdate"));
+		Date dateOfBirth = CommonUtil.parseDate(request.getParameter("birthdate"));
 		if (dateOfBirth == null) {
 			//user entered bad birthdate
 			return "baddate";
@@ -185,12 +179,4 @@ public class UpdateProfileServlet extends HttpServlet {
 		return "okprofile";
 	}
 	
-	//TODO: move to Util?
-	private Date parseDate(String dateString) {
-		try {
-			Date date = DATE_FORMAT.parse(dateString);
-			return date;
-		} catch (ParseException e) {}
-		return null;
-	}
 }

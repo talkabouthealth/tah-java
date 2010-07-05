@@ -61,6 +61,10 @@ public class TalkerBean {
 	private int childrenNum;
 	private String imagePath;
 	
+	private boolean newsletter;
+	private String accountType;
+	private String accountId;
+	
 	private EnumSet<ProfilePreference> profilePreferences;
 	
 	public TalkerBean(){}
@@ -313,5 +317,29 @@ public class TalkerBean {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public boolean isNewsletter() {
+		return newsletter;
+	}
+
+	public void setNewsletter(boolean newsletter) {
+		this.newsletter = newsletter;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 }	

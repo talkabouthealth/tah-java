@@ -84,8 +84,7 @@ public class TopicDAO {
 //		TopicDAO.save(topic);
 	}
 	
-	//TODO: clear it?
-	
+
 	/* 
 	 	Unused DB code - if we'll need it we convert it later.
 	 	

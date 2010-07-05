@@ -44,11 +44,8 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 
-		talker = new TalkerBean();
-		talker.setUserName(un);
-		talker.setPassword(CommonUtil.hashPassword(pw));
-
-		if (TalkerDAO.validateLogin(talker)) {
+		talker = TalkerDAO.getTalkerByLoginInfo(un, CommonUtil.hashPassword(pw));
+		if (talker != null) {
 			// insert login record into db
 			Thread tInsertLoginRecord = new Thread(new InsertLoginRecordThread(
 					talker.getId()), "InsertLoginRecordThread");

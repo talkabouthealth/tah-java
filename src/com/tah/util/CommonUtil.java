@@ -11,10 +11,16 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CommonUtil {
+	
+	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	private static final MessageDigest MD5_MESSAGE_DIGEST;
 	static {
@@ -57,7 +63,6 @@ public class CommonUtil {
 			URLConnection urlConnection = url.openConnection();
 			
 			//read reply
-			//TODO: handle errors/incorrect reply
 			List<String> lines = new ArrayList<String>();
 			BufferedReader in = new BufferedReader(
                     new InputStreamReader(
@@ -85,5 +90,14 @@ public class CommonUtil {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Date parseDate(String dateString) {
+		try {
+			Date date = DATE_FORMAT.parse(dateString);
+			return date;
+		} catch (ParseException e) {}
+		
+		return null;
 	}
 }

@@ -11,20 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 import com.tah.beans.TalkerBean;
 import com.tah.dao.TalkerDAO;
 import com.tah.util.CommonUtil;
-import com.tah.util.DBUtil;
 import com.tah.util.EmailUtil;
 import com.tah.util.ValidateData;
 
 /**
  * Servlet implementation class for Servlet: Login
- * TODO: clean up code and signup validation
  */
 public class SignUpServlet extends HttpServlet implements Servlet {
 	static final long serialVersionUID = 1L;
@@ -68,7 +62,6 @@ public class SignUpServlet extends HttpServlet implements Servlet {
 		}
 
 		//check if user signed up through Twitter or Facebook
-		//TODO: clear params from session?
 		accountType = (String) request.getSession().getAttribute("accounttype");
 		accountId = (String) request.getSession().getAttribute("accountid");
 
@@ -91,6 +84,10 @@ public class SignUpServlet extends HttpServlet implements Servlet {
 			response.sendRedirect("Error.jsp");
 			return;
 		}
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+		dob = cal.getTime();
 
 		imUsername = request.getParameter("imusername");
 		if (imUsername.trim().length() == 0 || imUsername.equals("IM username")) {
@@ -169,24 +166,20 @@ public class SignUpServlet extends HttpServlet implements Servlet {
 	}
 
 	public boolean insertTalkerInfo() {
-		DBCollection talkersColl = DBUtil.getCollection("talkers");
+		TalkerBean talker = new TalkerBean();
+		
+		talker.setUserName(un);
+		talker.setPassword(pw);
+		talker.setEmail(email);
+		talker.setDob(dob);
+		talker.setGender(gender);
+		talker.setIM(imService);
+		talker.setImUsername(imUsername);
+		talker.setNewsletter(newsletter);
+		talker.setAccountType(accountType);
+		talker.setAccountId(accountId);
+		talker.setInvitations(100);
 
-		//TODO: move it to parameters parsing
-		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(year), Integer.parseInt(month), Integer
-				.parseInt(day));
-		dob = cal.getTime();
-		Date now = Calendar.getInstance().getTime();
-
-		//TODO: move this to DAO
-		DBObject talker = BasicDBObjectBuilder.start().add("uname", un).add(
-				"pass", pw).add("email", email).add("dob", dob).add("gender",
-				gender).add("timestamp", now).add("im", imService).add(
-				"im_uname", imUsername).add("newsletter", newsletter).add(
-				"act_type", accountType).add("act_id", accountId).add(
-				"invites", 100).get();
-
-		talkersColl.save(talker);
-		return true;
+		return TalkerDAO.save(talker);
 	}
 }
